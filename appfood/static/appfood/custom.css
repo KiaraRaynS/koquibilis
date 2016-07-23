@@ -1,0 +1,56 @@
+.pagesidebar {
+  margin: 0;
+  position: fixed;
+  float: left;
+  padding: 0;
+  width: 80px;
+  min-height: 100vh;
+  background-color: #133a26;
+  border-style: solid;
+}
+
+.pagecontent {
+  float: right;
+}
+
+.body {
+  font-family: monospace;
+}
+
+.userphoto {
+  height: 156px;
+  width: 156px;
+  right: 0px;
+  padding: 2px;
+  border: 1px solid black;
+}
+
+.registerbox {
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+  padding: 2px;
+  border: 2px solid grey;
+  border-radius: 10px;
+  background-color: #e1eaea;
+}
+
+.rboxcontent {
+  position: relative;
+  left: 30%;
+  text-align: center;
+}
+
+.loginbutton {
+  position: relative;
+  text-align: center;
+
+}
+
+.dropdown {
+  position: relative;
+}
+
+#nonloadrecipes {
+  display: none;
+}

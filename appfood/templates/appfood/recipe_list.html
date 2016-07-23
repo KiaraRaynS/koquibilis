@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+  <h2>Recipes</h2>
+  <!-- Browse food by category -->
+<div class="btn-group" role="group" aria-label="...">
+  <button type='button' name='button1' id='button1' class='btn btn-default'>All Recipes</button>
+  <button type="button" name='button2' id='button2' class="btn btn-default">Clear</button>
+</div>
+<br>
+<!-- Allergens -->
+<p>Sort by Allergens</p>
+<div class="btn-group" role="group" aria-label="...">
+  <button type="button" name='glutenfree' id='glutenfree' class="btn btn-default">Gluten</button>
+  <button type='button' name='dairyefree' id='dairyfree' class='btn btn-default'>Diary</button>
+  <button type='button' name='eggfree' id='eggfree' class='btn btn-default'>Egg</button>
+  <button type='button' name='peanutfree' id='peanutfree' class='btn btn-default'>Peanut</button>
+  <button type='button' name='seafoodfree' id='seafoodfree' class='btn btn-default'>Seafood</button>
+  <button type='button' name='soyfree' id='soyfree' class='btn btn-default'>Soy</button>
+</div>
+<hr>
+
+<!-- All Recipes -->
+<div id='allrecipelistcontent'>
+  {% for item in allrecipes %}
+
+    <div class="panel panel-default">
+      <img src="{{item.imageUrlsBySize.90}}">
+      <strong>{{item.recipeName}}</strong>
+      <a href="{% url 'specificrecipeview' item.id %}">View Recipe</a>
+    </div>
+  {% endfor %}
+</div>
+
+<div id='nonloadrecipes'>
+<!-- Allergen Recipes -->
+<!-- Gluten -->
+<div id='recipeallergengluten'>
+  {% for item in gluttenfree %}
+    <div class="panel panel-default">
+      <img src="{{item.imageUrlsBySize.90}}">
+      <strong>{{item.recipeName}}</strong>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Lactose -->
+<div id='recipeallergendairy'>
+  {% for item in dairyfree %}
+  <div class='panel panel-default'>
+    <img src="{{item.imageUrlsBySize.90}}">
+    <strong>{{item.recipeName}}</strong>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Egg -->
+<div id='recipeallergenegg'>
+  {% for item in eggfree %}
+  <div class='panel panel-default'>
+    <img src="{{item.imageUrlsBySize.90}}">
+    <strong>{{item.recipeName}}</strong>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Peanut -->
+<div id='recipeallergenpeanut'>
+  {% for item in peanutfree %}
+  <div class='panel panel-default'>
+    <img src="{{item.imageUrlsBySize.90}}">
+    <strong>{{item.recipeName}}</strong>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Seafood -->
+<div id='recipeallergenseafood'>
+  {% for item in seafoodfree %}
+  <div class='panel panel-default'>
+    <img src="{{item.imageUrlsBySize.90}}">
+    <strong>{{item.recipeName}}</strong>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Soy -->
+<div id='recipeallergensoy'>
+  {% for item in soyfree %}
+  <div class='panel panel-default'>
+    <img src="{{item.imageUrlsBySize.90}}">
+    <strong>{{item.recipeName}}</strong>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script type='text/javascript'>
+
+    // button one
+    var button = document.getElementById('button1');
+    button.addEventListener('click', function(event){
+      console.log('click');
+      //$("#recipelistcontent").html('');
+      $("#allrecipelistcontent").show();
+      $("#recipeallergengluten").hide();
+      $("#recipeallergendairy").hide();
+      $("#recipeallergenegg").hide();
+      $("#recipeallergenpeanut").hide();
+      $("#recipeallergenseafood").hide();
+      $("#recipeallergensoy").hide();
+      })
+
+  // button two
+    var button = document.getElementById('button2');
+    button.addEventListener('click', function(event){
+      //$("#recipelistcontent").html("");
+      $("#allrecipelistcontent").hide();
+      $("#recipeallergengluten").hide();
+      $("#recipeallergenegg").hide();
+      $("#recipeallergendairy").hide();
+      $("#recipeallergenpeanut").hide();
+      $("#recipeallergenseafood").hide();
+      $("#recipeallergensoy").hide();
+      // $("#recipelistcontent").html("More Recipes");
+      })
+
+  // Glutten Free
+  var button = document.getElementById('glutenfree');
+  button.addEventListener('click', function(event){
+      $("#recipeallergengluten").show();
+      $('#allrecipelistcontent').hide();
+      $("#recipeallergendairy").hide();
+      $("#recipeallergenegg").hide();
+      $("#recipeallergenpeanut").hide();
+      $("#recipeallergenseafood").hide();
+      $("#recipeallergensoy").hide();
+      })
+
+  // Dairy Free
+  var button = document.getElementById('dairyfree');
+  button.addEventListener('click', function(event){
+      $('#recipeallergendairy').show();
+      $("#allrecipelistcontent").hide();
+      $("#recipeallergengluten").hide();
+      $("#recipeallergenegg").hide();
+      $("#recipeallergenpeanut").hide();
+      $("#recipeallergenseafood").hide();
+      $("#recipeallergensoy").hide();
+      })
+
+  // Egg Free
+  var button = document.getElementById('eggfree');
+  button.addEventListener('click', function(event){
+      $("#allrecipelistcontent").hide();
+      $("#recipeallergendairy").hide();
+      $("#recipeallergengluten").hide();
+      $("#recipeallergenegg").show();
+      $("#recipeallergenpeanut").hide();
+      $("#recipeallergenseafood").hide();
+      $("#recipeallergensoy").hide();
+      })
+
+  // Peanut Free
+    var button = document.getElementById('peanutfree');
+    button.addEventListener('click', function(event){
+      $("#allrecipelistcontent").hide();
+      $("#recipeallergengluten").hide();
+      $("#recipeallergendairy").hide();
+      $("#recipeallergenegg").hide();
+      $("#recipeallergenpeanut").show();
+      $("#recipeallergenseafood").hide();
+      $("#recipeallergensoy").hide();
+      })
+
+  // Seafood Free
+    var button = document.getElementById('seafoodfree');
+    button.addEventListener('click', function(event){
+      $("#allrecipelistcontent").hide();
+      $("#recipeallergendairy").hide();
+      $("#recipeallergengluten").hide();
+      $("#recipeallergenegg").hide();
+      $("#recipeallergenpeanut").hide();
+      $("#recipeallergenseafood").show();
+      $("#recipeallergensoy").hide();
+      })
+
+  // Soy Free
+    var button = document.getElementById('soyfree');
+    button.addEventListener('click', function(event){
+      $("#allrecipelistcontent").hide();
+      $("#recipeallergendairy").hide();
+      $("#recipeallergengluten").hide();
+      $("#recipeallergenegg").hide();
+      $("#recipeallergenpeanut").hide();
+      $("#recipeallergenseafood").hide();
+      $("#recipeallergensoy").show();
+      })
+
+</script>
+{% endblock %}

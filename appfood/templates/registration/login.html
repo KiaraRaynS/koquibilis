@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name='google-signin-client_id' content="695519555133-7g37mh97sifgn425t9aghdbq0eaebbqo.apps.googleusercontent.com">
+<div class='registerbox'>
+  <form type='' method='post'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <p><input class='btn btn-default' type='submit' value='Login'></p>
+    <div text-style='align:center'><input type='hidden' name='next' value='{{ next }}'></div>
+    <div class='loginbutton'><p><strong>-Or-</strong></p></div>
+    <a class='btn btn-info btn-lg' href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+  </form>
+</div>
+
+  <script type="text/javascript">
+    function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+}
+
+    function onSignIn(googleUser) {
+      var id_token = googleUser.getAuthResponse().id_token;
+}
+  </script>
+{% endblock %}

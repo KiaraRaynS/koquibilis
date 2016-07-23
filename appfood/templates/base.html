@@ -1,0 +1,60 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel='stylesheet' href="{% static 'appfood/custom.css' %}">
+  <link rel='stylesheet' href="{% static 'appfood/css/bootstrap.css' %}">
+  <title>Koquibilis</title>
+</head>
+<body>
+ <!-- Nav Bar -->
+ <nav class="navbar navbar-default">
+   <div class="container-fluid">
+   <!-- Brand and toggle get grouped for better mobile display -->
+     <div class="navbar-header">
+       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+         <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+       </button>
+         <a class="navbar-brand" href="{% url 'indexview' %}">Koquibilis</a>
+         </div>
+
+       <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+           <ul class="nav navbar-nav">
+             <li><a href="{% url 'recipeview' %}">Recipes</a></li>
+             <!-- If user IS logged in -->
+             {% if request.user.is_authenticated %}
+             <li><a href="{% url 'profileview' %}">Profile Page</a></li>
+             <li><a class='label labe-default' href="{% url 'logout' %}?next=/">Logout</a></li>
+             <!-- If user IS NOT logged in -->
+             {% else %}
+             <li><a href="{% url 'login' %}">Login</a></li>
+             <li><a href="{% url 'registerview' %}">Register</a></li>
+             {% endif %}
+                 </ul>
+                 </li>
+           </ul>
+               <form class="navbar-form navbar-left" role="search"> <div class="form-group">
+                   <input type="text" class="form-control" placeholder="Search for recipe">
+                 </div>
+                 <button type="submit" class="btn btn-default">Submit</button>
+               </form>
+                 </div><!-- /.navbar-collapse -->
+             </div><!-- /.container-fluid -->
+      </nav>
+
+  <!-- Body Content -->
+<div class='pagesidebar'></div>
+  {% block noncontainerbodycontent %}
+  {% endblock %}
+  <div class='container'>
+    {% block containerbodycontent %}
+    {% endblock %}
+  </div>
+</body>
+</html>
+

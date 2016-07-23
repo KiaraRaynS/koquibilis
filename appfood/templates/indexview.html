@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block noncontainerbodycontent %}
+{% endblock %}
+
+{% block containerbodycontent %}
+
+<!-- If user is logged in -->
+{% if request.user.is_authenticated %}
+
+<div class='pagecontent'>
+
+  <p>Welcome {{ userpage.userhandle }}</p>
+  <hr>
+  <h3>What would you like to do?</h3>
+
+  <div class="btn-group btn-group-justified" role="group" aria-label="...">
+    <div class="btn-group" role="group">
+      <!-- See ingredients -->
+      <button type="button" name='view_ingredients' id='view_ingredients' class='btn btn-default' value="View current ingredients">View Current Food</button>
+    </div>
+      <!-- See possible recipes -->
+    <div class="btn-group" role="group">
+      <button type="button" name='view_recipes' id='view_recipes' class="btn btn-default">View Possible Recipes</button>
+    </div>
+      <!-- See all saved recipes -->
+    <div class="btn-group" role="group">
+      <button type="button" name='view_saved_racipes' id='view_saved_recipes' class="btn btn-default">View Saved Recipes</button>
+  </div>
+</div>
+{% else %}
+  <!-- If user is NOT logged in -->
+  <h2>Welcome</h2>
+  <hr>
+  <div class='registerbox'>
+    <p>Non logged in users are allowed to browse recipes.
+    Please log in or if you wish to access the rest of the application's features.</p>
+  </div>
+{% endif %}
+
+
+<div id="buttonviewcontent">
+</div>
+
+
+<!-- JAVASCRIPT -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+    // Display Ingredients
+    var button = document.getElementById("view_ingredients")
+    button.addEventListener('click', function(event){
+      console.log("click");
+      $("#buttonviewcontent").html("");
+      $("#buttonviewcontent").html("Ingredients listed")
+      });
+    });
+
+  // Display available recipes
+  var recipebutton = document.getElementById('view_recipes')
+  recipebutton.addEventListener('click', function(event){
+      $("#buttonviewcontent").html("");
+      $("#buttonviewcontent").html("Possible recipes here");
+      })
+
+  // All saved recipes
+  var savedrecipebutton = document.getElementById("view_saved_recipes")
+  savedrecipebutton.addEventListener('click', function(event){
+      $("#buttonviewcontent").html("");
+      $("#buttonviewcontent").html("Saved recipes here");
+      })
+</script>
+
+{% endblock %}
