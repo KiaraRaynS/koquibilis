@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
 {% block containerbodycontent %}
+<div class='registerbox'>
   <form type='' method='post'>
     {% csrf_token %}
     {{form.as_p}}
     <p><input type='submit' value='Register' class='btn btn-default'></p>
    </form>
+</div>
 {% endblock %}
