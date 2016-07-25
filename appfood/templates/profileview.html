@@ -2,6 +2,7 @@
 
 {% block containerbodycontent %}
 {% if request.user.is_authenticated %}
+<div class='pagecontent'>
   <h4>{{user.username}}</h4>
 
   <form type='' method='post' enctype='multipart/form-data'>
@@ -19,12 +20,14 @@
     {% csrf_token %}
     <p><input class='btn btn-default' type='submit' value='Update Profile'></p>
   </form>
+
 {% else %}
   <h1>You are not logged in.</h1>
   <h3>Please either login or create an account to view this page.</h3>
   <a class='btn btn-default' href="{% url 'login' %}">Login</a>
   <a class='btn btn-default' href="{% url 'registerview' %}">Register</a>
 {% endif %}
+</div>
 {% endblock %}
 
 

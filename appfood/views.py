@@ -8,7 +8,7 @@ from rest_framework import authentication
 from oauth2_provider.views.generic import ProtectedResourceView
 from django.http import HttpResponse
 # Models
-from appfood.models import Recipe, UserPage, Allergen, Ingredient
+from appfood.models import Recipe, UserPage
 # Scraping
 from bs4 import BeautifulSoup
 import requests

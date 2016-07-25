@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block containerbodycontent %}
+<div class='pagecontent'>
   <h2>Recipes</h2>
   <!-- Browse food by category -->
 <div class="btn-group" role="group" aria-label="...">
@@ -92,6 +93,7 @@
     <strong>{{item.recipeName}}</strong>
   </div>
   {% endfor %}
+</div>
 </div>
 </div>
 

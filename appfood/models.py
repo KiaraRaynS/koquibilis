@@ -4,14 +4,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-class Ingredient(models.Model):
-    name = models.TextField(max_length=100)
-
-
-class Allergen(models.Model):
-    name = models.TextField(max_length=100)
-
-
 class UserPage(models.Model):
     user = models.OneToOneField('auth.user')
     userhandle = models.CharField(max_length=20)
@@ -29,8 +21,14 @@ class Recipe(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
     instruction = models.TextField()
-    ingredients = models.ManyToManyField(Ingredient)
-    allergens = models.ManyToManyField(Allergen)
+    ingredients = models.TextField()
+
+
+class SavedRecipe(models.Model):
+    title = models.CharField(max_length=100)
+    ingredients = models.TextField()
+    note = models.TextField()
+    created_by = models.ForeignKey(UserPage)
 
 
 @receiver(post_save, sender='auth.user')

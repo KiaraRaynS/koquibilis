@@ -10,7 +10,7 @@
 }
 
 .pagecontent {
-  float: right;
+  right: 100px;
 }
 
 .body {
