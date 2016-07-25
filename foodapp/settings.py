@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.9/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
-
+from S3 import CallingFormat
 import os
 import dj_database_url
 
@@ -93,9 +93,9 @@ DATABASES = {
     }
 }
 
-db_from_env = dj_database_url.config()
+# db_from_env = dj_database_url.config()
 # DATABASES['default'].update(db_from_env)
-DATABASES['default'] = dj_database_url.config()
+# DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
@@ -162,9 +162,17 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = '/'
 CORS_ORIGIN_ALLOW_ALL = True
 
+# Google Social Auth data
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY']
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY']
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 GOOGLE_OAUTH_USE_UNIQUE_USER_ID = True
 GOOGLE_OAUTH_EXTRA_SCOPE = ['email', 'https://www.googleapis.com/auth/userinfo.email']
 GOOGLE_OAUTH_AUTH_EXTRA_ARGUMENTS = {'access_type': 'offline'}
+
+# Amazon Storage Access
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto.S3BotoStorage"
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN

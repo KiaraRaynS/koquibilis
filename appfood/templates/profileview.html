@@ -13,10 +13,9 @@
     <p>{{form.description}}</p>
     <p><strong>Profile Photo</strong></p>
     <div class='userphoto'><img height='150px' width='150px' id='preview' src="/static/default.png"></div>
-    <input type='file' id='file_input'>
     Please select a file
+    <p>{{form.photo}}</p>
     <i>Recommended resolution: 100px</i>
-    <p><input type='hidden' id='icon-url' name='icon-url' value='/static/default.png'></p>
     {% csrf_token %}
     <p><input class='btn btn-default' type='submit' value='Update Profile'></p>
   </form>
@@ -26,63 +25,6 @@
   <a class='btn btn-default' href="{% url 'login' %}">Login</a>
   <a class='btn btn-default' href="{% url 'registerview' %}">Register</a>
 {% endif %}
-
-<!-- JAVA SCRIPT -->
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-<script type="text/javascript">
-(function(){
- document.getElementById('file_input').onchange = function(){
- var files = document.getElementById('file_input').files;
- // Needs error fixing
- var file = files[0];
- if(!file){
-   return alert("No files selected");
-   }
-   getSignedRequest(file);
- };
- })();
-
-function getSignedRequest(file){
-  var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/sign_s3?file_name="+file.name+"&file_type="+file.type);
-    xhr.onreadystatechange = function(){
-      if(xhr.readyState === 4){
-        if(xhr.status === 200){
-          var response = JSON.parse(xhr.responseText);
-          uploadFile(file, response.data, response.url);
-            }
-        else{
-          alert("Could not get signed URL.");
-              }
-              }
-          };
-        xhr.send();
-}
-
-function uploadFile(file, s3Data, url){
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", s3Data.url);
-
-    var postData = new FormData();
-    for(key in s3Data.fields){
-          postData.append(key, s3Data.fields[key]);
-              }
-          postData.append('file', file);
-
-          xhr.onreadystatechange = function() {
-            if(xhr.readyState === 4){
-              if(xhr.status === 200 || xhr.status === 204){
-                document.getElementById("preview").src = url;
-                document.getElementById("icon-url").value = url;
-                                      }
-              else{
-                alert("Could not upload file.");
-                          }
-                 }
-              };
-            xhr.send(postData);
-}
-</script>
 {% endblock %}
 
 
