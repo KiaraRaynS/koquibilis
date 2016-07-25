@@ -5,3 +5,4 @@ db.sqlite3
 *.pyc
 keys.py
 .env
+sys
