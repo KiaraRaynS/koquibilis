@@ -10,7 +10,7 @@
     <p><input class='btn btn-default' type='submit' value='Login'></p>
     <div text-style='align:center'><input type='hidden' name='next' value='{{ next }}'></div>
     <div class='loginbutton'><p><strong>-Or-</strong></p></div>
-    <a class='btn btn-info btn-lg' href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+    <a class='btn btn-info btn-lg' href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
   </form>
 </div>
 

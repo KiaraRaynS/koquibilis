@@ -92,9 +92,11 @@ DATABASES = {
     }
 }
 
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-DATABASES['default'] = dj_database_url.config()
+if os.getenv("DATABASE_URL"):
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
+    DATABASES['default'] = dj_database_url.config()
+print(DATABASES)
 
 
 # Password validation
