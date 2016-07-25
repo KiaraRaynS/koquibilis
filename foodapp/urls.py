@@ -10,6 +10,8 @@ from django.contrib.auth.views import login, logout
 from appfood.views import ProfileView
 # Recipe related views
 from appfood.views import RecipeView, SpecificRecipeView
+# User Recipe Interaction related views
+from appfood.views import SaveRecipeView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,4 +28,6 @@ urlpatterns = [
     # Recipe related Views
     url(r'^recipes/$', RecipeView.as_view(), name='recipeview'),
     url(r'^recipes/specificrecipe/(?P<recipe_id>[A-Za-z0-9_\-]+)/$', SpecificRecipeView.as_view(), name='specificrecipeview'),
+    # User Recipe Interactions
+    url(r'^recipes/saverecipe/(?P<recipe_id>[A-Za-z0-9_\-]+)/$', SaveRecipeView.as_view(), name='saverecipeview'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
