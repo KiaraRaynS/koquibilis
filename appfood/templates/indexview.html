@@ -36,7 +36,7 @@
   <div class='panel panel-default'>
     <p>{{recipe.title}}
     <a href="{% url 'deletebookmarkview' recipe.id %}" class='label label-danger'>Delete Bookmark</a></p>
-    <p><strong>Ingredients: </strong><i>{% for item in recipe.ingredients %}{{item}}{% endfor %}</i></p>
+    <p><strong>Notes: </strong><i>{{recipe.note}}</i></p>
   </div>
     {% endfor %}
 </div>
