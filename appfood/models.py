@@ -28,7 +28,6 @@ class SavedRecipe(models.Model):
     title = models.CharField(max_length=100)
     ingredients = models.TextField()
     note = models.TextField()
-    created_by = models.ForeignKey(UserPage)
 
 
 @receiver(post_save, sender='auth.user')
