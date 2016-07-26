@@ -26,8 +26,10 @@ class Recipe(models.Model):
 
 class SavedRecipe(models.Model):
     title = models.CharField(max_length=100)
+    recipe_key = models.CharField(max_length=200)
     ingredients = models.TextField()
     note = models.TextField()
+    user = models.ForeignKey('auth.user')
 
 
 @receiver(post_save, sender='auth.user')

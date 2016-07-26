@@ -150,6 +150,9 @@ class SaveRecipeView(CreateView):
     template_name = 'saverecipeview.html'
     model = SavedRecipe
     fields = ['note']
+    success_url = '/'
+    authentication_classes = (authentication.TokenAuthentication, SessionAuthentication)
+    permission_classes = (IsAuthenticated,)
 
     def get_context_data(self, **kwargs):
         api_auth = os.environ['API_AUTH']
@@ -162,6 +165,20 @@ class SaveRecipeView(CreateView):
                 'recipe': recipe_results
                 }
         return context
+
+    def form_valid(self, form):
+        api_auth = os.environ['API_AUTH']
+        base_url = 'http://api.yummly.com/v1/api/recipe/'
+        recipe_id = self.kwargs['recipe_id']
+        recipe_url = base_url + recipe_id + "?" + api_auth
+        recipe_results = requests.get(recipe_url).json()
+        recipe_title = recipe_results['name']
+        recipe_ingredients = recipe_results['ingredientLines']
+        form.instance.title = recipe_title
+        form.instance.recipe_key = recipe_id
+        form.instance.ingredients = recipe_ingredients
+        form.instance.saved_by = self.request.user
+        return super(SaveRecipeView, self).form_valid(form)
 
 
 # For scraping recipes [Possibly discarded]
