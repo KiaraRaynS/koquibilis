@@ -2,7 +2,7 @@
 
 {% block containerbodycontent %}
 <div class='panel panel-default'>
-  <h2>{{ recipedata.name}} <span class='label label-warning'>Rating: {{recipedata.rating}}</span> {% if user.is_authenticated %}<a href="{% url 'saverecipeview' recipedata.id %}" class='btn btn-default '>Save Recipe</a>{% endif %}</h2>
+  <h2>{{ recipedata.name}} <span class='label label-warning'>Rating: {{recipedata.rating}}</span> {% if user.is_authenticated %}<a href="{% url 'saverecipeview' recipedata.id %}" class='btn btn-default '>Bookmark Recipe</a>{% endif %}</h2>
   <p>{{recipedata.id}}</p>
   <img src="{{ recipedata.images.hostedSmallUrl }}">
   <p>{{recipedata.images}}</p>

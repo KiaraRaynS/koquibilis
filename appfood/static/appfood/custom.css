@@ -37,7 +37,8 @@
 
 .rboxcontent {
   position: relative;
-  left: 30%;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
 }
 

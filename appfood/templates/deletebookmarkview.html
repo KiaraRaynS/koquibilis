@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+  <div class='panel panel-default'>
+    <h3>{{ savedrecipe.title }}</h3>
+    <p><strong>Notes: </strong><i>{{savedrecipe.note}}</i></p>
+    <hr>
+    <form type='' method='post'>
+      {% csrf_token %}
+      <p><input class='btn btn-danger' type='submit' value='Confirm Deletion'></p>
+    </form>
+  </div>
+{% endblock %}

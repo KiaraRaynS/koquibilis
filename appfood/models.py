@@ -17,6 +17,10 @@ class UserPage(models.Model):
         return "http://vignette3.wikia.nocookie.net/shokugekinosoma/images/6/60/No_Image_Available.png/revision/latest?cb=20150708082716"
 
 
+class FoodItem(models.Model):
+    name = models.TextField(max_length=100)
+
+
 class Recipe(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)

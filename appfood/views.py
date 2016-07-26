@@ -13,7 +13,7 @@ from appfood.models import Recipe, UserPage, SavedRecipe
 from bs4 import BeautifulSoup
 import requests
 # Views
-from django.views.generic import TemplateView, CreateView, ListView, UpdateView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView
 # User forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -42,8 +42,10 @@ class IndexView(TemplateView):
         user = self.request.user
         if user.is_authenticated():
             userpage = UserPage.objects.get(user=user)
+            bookmarks = SavedRecipe.objects.filter(user=user.id)
             context = {
-                    'userpage': userpage
+                    'userpage': userpage,
+                    'bookmarks': bookmarks,
                     }
             return context
 
@@ -177,6 +179,15 @@ class SaveRecipeView(CreateView):
         form.instance.ingredients = recipe_ingredients
         form.instance.user_id = self.request.user.id
         return super(SaveRecipeView, self).form_valid(form)
+
+
+class DeleteBookmarkView(DeleteView):
+    template_name = 'deletebookmarkview.html'
+    success_url = '/'
+
+    def get_object(self, queryset=None):
+        object_key = self.kwargs['recipe_id']
+        return SavedRecipe.objects.get(id=object_key)
 
 
 # For scraping recipes [Possibly discarded]

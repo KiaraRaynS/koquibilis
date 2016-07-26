@@ -25,8 +25,20 @@
     </div>
       <!-- See all saved recipes -->
     <div class="btn-group" role="group">
-      <button type="button" name='view_saved_racipes' id='view_saved_recipes' class="btn btn-default">View Saved Recipes</button>
+      <button type="button" name='view_saved_racipes' id='view_saved_recipes' class="btn btn-default">View Bookmarked Recipes</button>
   </div>
+</div>
+
+<hr>
+
+<div id='bookmarkedrecipes'>
+  {% for recipe in bookmarks %}
+  <div class='panel panel-default'>
+    <p>{{recipe.title}}
+    <a href="{% url 'deletebookmarkview' recipe.id %}" class='label label-danger'>Delete Bookmark</a></p>
+    <p><strong>Ingredients: </strong><i>{% for item in recipe.ingredients %}{{item}}{% endfor %}</i></p>
+  </div>
+    {% endfor %}
 </div>
 {% else %}
   <!-- If user is NOT logged in -->
@@ -52,23 +64,22 @@ $(document).ready(function(){
     var button = document.getElementById("view_ingredients")
     button.addEventListener('click', function(event){
       console.log("click");
-      $("#buttonviewcontent").html("");
-      $("#buttonviewcontent").html("Ingredients listed")
+      $("#buttonviewcontent").html("Ingredients listed");
+      $("#bookmarkedrecipes").hide();
       });
     });
 
   // Display available recipes
   var recipebutton = document.getElementById('view_recipes')
   recipebutton.addEventListener('click', function(event){
-      $("#buttonviewcontent").html("");
       $("#buttonviewcontent").html("Possible recipes here");
+      $("#bookmarkedrecipes").hide();
       })
 
   // All saved recipes
   var savedrecipebutton = document.getElementById("view_saved_recipes")
   savedrecipebutton.addEventListener('click', function(event){
-      $("#buttonviewcontent").html("");
-      $("#buttonviewcontent").html("Saved recipes here");
+      $("#bookmarkedrecipes").show();
       })
 </script>
 
