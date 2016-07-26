@@ -161,9 +161,7 @@ class SaveRecipeView(CreateView):
         recipe_id = self.kwargs['recipe_id']
         recipe_url = base_url + recipe_id + "?" + api_auth
         recipe_results = requests.get(recipe_url).json()
-        context = {
-                'recipe': recipe_results
-                }
+        context['recipe'] = recipe_results
         return context
 
     def form_valid(self, form):

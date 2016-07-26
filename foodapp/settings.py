@@ -96,7 +96,6 @@ if os.getenv("DATABASE_URL"):
     db_from_env = dj_database_url.config()
     DATABASES['default'].update(db_from_env)
     DATABASES['default'] = dj_database_url.config()
-print(DATABASES)
 
 
 # Password validation
@@ -165,7 +164,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Google Social Auth data
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY']
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY']
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET']
 ACCESS_TOKEN_METHOD = 'GET'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 GOOGLE_OAUTH_USE_UNIQUE_USER_ID = True
