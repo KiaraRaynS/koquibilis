@@ -1,6 +1,6 @@
 .pagesidebar {
   margin: 0;
-  position: fixed;
+  position: relative;
   float: left;
   padding: 0;
   width: 80px;
@@ -10,7 +10,7 @@
 }
 
 .pagecontent {
-  float: right;
+  right: 100px;
 }
 
 .body {
@@ -37,7 +37,8 @@
 
 .rboxcontent {
   position: relative;
-  left: 30%;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
 }
 
@@ -49,4 +50,12 @@
 
 .dropdown {
   position: relative;
+}
+
+#nonloadrecipes {
+  display: none;
+}
+
+.notesform {
+  padding: 20px;
 }
