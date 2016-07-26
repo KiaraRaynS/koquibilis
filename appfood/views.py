@@ -175,7 +175,7 @@ class SaveRecipeView(CreateView):
         form.instance.title = recipe_title
         form.instance.recipe_key = recipe_id
         form.instance.ingredients = recipe_ingredients
-        form.instance.saved_by = self.request.user
+        form.instance.user_id = self.request.user.id
         return super(SaveRecipeView, self).form_valid(form)
 
 

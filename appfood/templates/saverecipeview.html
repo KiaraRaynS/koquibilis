@@ -7,8 +7,9 @@
     <hr>
     <form type='' method='post'>
       {% csrf_token %}
-      {{ form }}
-      <input class='btn btn-default' type='submit' value='Save Recipe'>
+      <p><strong>Extra notes</strong><i> optional</i>:</p>
+      <p class='notesform'>{{ form.note }}</p>
+      <p><input class='btn btn-default' type='submit' value='Save Recipe'></p>
     </form>
   </div>
 </div>

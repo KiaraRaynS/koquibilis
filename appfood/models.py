@@ -28,7 +28,7 @@ class SavedRecipe(models.Model):
     title = models.CharField(max_length=100)
     recipe_key = models.CharField(max_length=200)
     ingredients = models.TextField()
-    note = models.TextField()
+    note = models.TextField(null=True, blank=True)
     user = models.ForeignKey('auth.user')
 
 

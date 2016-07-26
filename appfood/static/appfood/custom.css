@@ -54,3 +54,7 @@
 #nonloadrecipes {
   display: none;
 }
+
+.notesform {
+  padding: 20px;
+}
