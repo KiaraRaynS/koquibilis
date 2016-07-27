@@ -19,6 +19,7 @@ class UserPage(models.Model):
 
 class FoodItem(models.Model):
     name = models.TextField(max_length=100)
+    user = models.ForeignKey('auth.user')
 
 
 class Recipe(models.Model):

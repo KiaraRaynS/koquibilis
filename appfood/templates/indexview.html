@@ -35,7 +35,7 @@
   {% for recipe in bookmarks %}
   <div class='panel panel-default'>
     <div class='panel-heading'>
-      <img src="{{recipe.small_image}}"> <strong>{{recipe.title}}</strong>
+      <span class='smallrecipeimage'><img height='90px' width='90px' src="{{recipe.small_image}}"></span> <strong>{{recipe.title}}</strong>
       <a href="{% url 'deletebookmarkview' recipe.id %}" class='label label-danger'>Delete Bookmark</a>
     </div>
     <div class='panel-body'>
