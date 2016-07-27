@@ -3,7 +3,8 @@
 {% block containerbodycontent %}
 <div class='panel panel-default'>
   <h2>{{ recipedata.name}} <span class='label label-warning'>Rating: {{recipedata.rating}}</span> {% if user.is_authenticated %}<a href="{% url 'saverecipeview' recipedata.id %}" class='btn btn-default '>Bookmark Recipe</a>{% endif %}</h2>
-  <p><img src="{{image_url}}"></p>
+  <div class=recipeimage'><img src="{{image_url}}"></div>
+  <p></p>
   <span class='label label-info'>Piquant: {{recipedata.flavors.Piquant}}</span>
   <span class='label label-info'>Sour: {{recipedata.flavors.Sour}}</span>
   <span class='label label-info'>Salty: {{recipedata.flavors.Salty}}</span>

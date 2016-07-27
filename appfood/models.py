@@ -33,6 +33,8 @@ class SavedRecipe(models.Model):
     recipe_key = models.CharField(max_length=200)
     ingredients = models.TextField()
     note = models.TextField(null=True, blank=True)
+    small_image = models.TextField(max_length=200)
+    big_image = models.TextField(max_length=200)
     user = models.ForeignKey('auth.user')
 
 

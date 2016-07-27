@@ -179,6 +179,13 @@ class SaveRecipeView(CreateView):
         recipe_results = requests.get(recipe_url).json()
         recipe_title = recipe_results['name']
         recipe_ingredients = recipe_results['ingredientLines']
+        # Image urls
+        recipe_images = recipe_results['images']
+        recipe_images_dict = recipe_images[0]
+        urlsbysize = recipe_images_dict['imageUrlsBySize']
+        image_large = urlsbysize['360']
+        image_small = urlsbysize['90']
+        # Form saves
         form.instance.title = recipe_title
         form.instance.recipe_key = recipe_id
         form.instance.ingredients = recipe_ingredients

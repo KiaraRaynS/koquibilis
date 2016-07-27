@@ -59,3 +59,10 @@
 .notesform {
   padding: 20px;
 }
+
+#recipeimage {
+  height: 360px;
+  width: 360;
+  padding: 2px;
+  border: 5px solid #595959;
+}
