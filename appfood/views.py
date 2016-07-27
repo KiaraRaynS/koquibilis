@@ -140,8 +140,13 @@ class SpecificRecipeView(TemplateView):
         recipe_id = self.kwargs['recipe_id']
         recipe_url = base_url + recipe_id + "?" + api_auth
         recipe_results = requests.get(recipe_url).json()
+        recipe_images = recipe_results['images']
+        recipe_images_dict = recipe_images[0]
+        urlsbysize = recipe_images_dict['imageUrlsBySize']
+        image_link = urlsbysize['360']
         context = {
                 'recipedata': recipe_results,
+                'image_url': image_link,
                 }
         return context
 
