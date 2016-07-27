@@ -36,11 +36,13 @@
     <a class='btn btn-success' href="{% url 'addfoodview' %}">Add items to inventory</a></h3></p>
   <hr>
   {% for item in useritems %}
+    {% if item.quantity > 0 %}
     <div class='panel panel-default'>
-      <h4>{{item.name}}
+      <h4>{{item.name}} x {{item.quantity}}
       <span class='btn btn-info btn-sm'><a href="{% url 'editfoodview' item.id %}">Edit Item</a></span></h4>
-      <i>{{item.date_added}}</i>
+      <i>Last Edit: {{item.date_added}}</i>
     </div>
+    {% endif %}
   {% endfor %}
 </div>
 

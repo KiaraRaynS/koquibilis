@@ -228,6 +228,7 @@ class EditFoodView(UpdateView):
     model = FoodItem
     template_name = 'editfoodview.html'
     fields = ['quantity']
+    success_url = '/'
 
     def get_object(self, queryset=None):
         food_item = self.kwargs['food_id']

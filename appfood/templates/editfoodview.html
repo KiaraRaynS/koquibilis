@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 
 {% block containerbodycontent %}
-  <form type='' method='post'>
-    {{ form.quantity }}
-
-  <input type='submit' value='Confirm Edit' class='btn btn-default'>
-  </form>
+<!-- User Logged In -->
+  {% if user.is_authenticated %}
+    <div class='panel pane-default'>
+      <form type='' method='post'>
+        {% csrf_token %}
+        <strong>Quantity: </strong>{{ form.quantity }}
+      <p><input type='submit' value='Confirm Edit' class='btn btn-default'></p>
+      </form>
+    </div>
+ {% else %}
+ <div class='registerbox'>
+   <h2>Access Denied</h2>
+  <strong>Please log in to access this page.</strong>
+  </div>
+ {% endif %}
 {% endblock %}
