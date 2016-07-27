@@ -19,7 +19,9 @@ class UserPage(models.Model):
 
 class FoodItem(models.Model):
     name = models.CharField(max_length=100)
+    quantity = models.IntegerField(max_length=15)
     user = models.ForeignKey('auth.user')
+    date_added = models.DateTimeField(auto_now_add=True)
 
 
 class Recipe(models.Model):

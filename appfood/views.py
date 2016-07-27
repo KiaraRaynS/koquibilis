@@ -43,9 +43,11 @@ class IndexView(TemplateView):
         if user.is_authenticated():
             userpage = UserPage.objects.get(user=user)
             bookmarks = SavedRecipe.objects.filter(user=user.id)
+            userinventory = FoodItem.objects.filter(user=user.id)
             context = {
                     'userpage': userpage,
                     'bookmarks': bookmarks,
+                    'useritems': userinventory,
                     }
             return context
 
@@ -215,10 +217,21 @@ class DeleteBookmarkView(DeleteView):
 class AddFoodView(CreateView):
     model = FoodItem
     fields = ['name']
+    success_url = '/'
 
     def form_valid(self, form):
-        form.instance.user = self.request.user.id
+        form.instance.user = self.request.user
         return super(AddFoodView, self).form_valid(form)
+
+
+class EditFoodView(UpdateView):
+    model = FoodItem
+    template_name = 'editfoodview.html'
+    fields = ['quantity']
+
+    def get_object(self, queryset=None):
+        food_item = self.kwargs['food_id']
+        return FoodItem.objects.get(id=food_item)
 
 
 # For scraping recipes [Possibly discarded]

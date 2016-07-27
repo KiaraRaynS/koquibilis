@@ -10,8 +10,6 @@
 
 <div class='pagecontent'>
 
-  <p>Welcome {{ userpage.userhandle }}</p>
-  <hr>
   <h3>What would you like to do?</h3>
 
   <div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -34,7 +32,21 @@
 <!-- Users current inventory -->
 
 <div id='currentfood'>
-  <a class='btn btn-success' href="{% url 'addfoodview' %}">Add items to inventory</a>
+  <p><h3><strong>Current Inventory  </strong>
+    <a class='btn btn-success' href="{% url 'addfoodview' %}">Add items to inventory</a></h3></p>
+  <hr>
+  {% for item in useritems %}
+    <div class='panel panel-default'>
+      <h4>{{item.name}}
+      <span class='btn btn-info btn-sm'><a href="{% url 'editfoodview' item.id %}">Edit Item</a></span></h4>
+      <i>{{item.date_added}}</i>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Possible recipes to cook -->
+<div id='possiblerecipes'>
+  <p>Recipes will go here</p>
 </div>
 
 <!-- Users Saved Recipes -->
@@ -77,15 +89,16 @@ $(document).ready(function(){
       console.log("click");
       $("#currentfood").show();
       $("#bookmarkedrecipes").hide();
+      $("#possiblerecipes").hide();
       });
     });
 
   // Display available recipes
   var recipebutton = document.getElementById('view_recipes')
   recipebutton.addEventListener('click', function(event){
-      $("#buttonviewcontent").html("Possible recipes here");
       $("#currentfood").hide()
       $("#bookmarkedrecipes").hide();
+      $("#possiblerecipes").show();
       })
 
   // All saved recipes
@@ -93,6 +106,7 @@ $(document).ready(function(){
   savedrecipebutton.addEventListener('click', function(event){
       $("#bookmarkedrecipes").show();
       $("#currentfood").hide();
+      $("#possiblerecipes").hide();
       })
 </script>
 

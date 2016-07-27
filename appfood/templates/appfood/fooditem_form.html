@@ -3,10 +3,11 @@
 {% block containerbodycontent %}
   {% if user.is_authenticated %}
   <div class='panel panel-default'>
+    <h4>Add Items to inventory</h4>
+    <hr>
     <form type='' method='post'>
       {% csrf_token %}
-      <p><strong>Item name </strong></p>
-      {{ form.name }}
+      <p><strong>Item name : </strong>{{ form.name }}</p>
       <p><input type='submit' value='Add item'></p>
   </div>
   {% else %}
