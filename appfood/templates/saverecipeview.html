@@ -3,7 +3,7 @@
 {% block containerbodycontent %}
 <div class='pagecontent'>
   <div class='panel panel-default'>
-    <h2><img src="{{recipeimage}}">{{recipe.name}}</h2>
+    <h2><span><img class='smallrecipeimage' src="{{recipeimage}}"></span>{{recipe.name}}</h2>
     <hr>
     <form type='' method='post'>
       {% csrf_token %}
