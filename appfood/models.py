@@ -19,7 +19,7 @@ class UserPage(models.Model):
 
 class FoodItem(models.Model):
     name = models.CharField(max_length=100)
-    quantity = models.PositiveIntegerField()
+    quantity = models.PositiveIntegerField(default=1)
     user = models.ForeignKey('auth.user')
     date_added = models.DateTimeField(auto_now_add=True)
 

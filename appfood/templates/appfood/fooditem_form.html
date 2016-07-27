@@ -8,7 +8,9 @@
     <form type='' method='post'>
       {% csrf_token %}
       <p><strong>Item name : </strong>{{ form.name }}</p>
-      <p><input type='submit' value='Add item'></p>
+      <p><strong>Quantity : </strong>{{form.quantity}}</p>
+      <i>Must be value greater than 0</i>
+      <p><input type='submit' class='btn btn-default' value='Add item'></p>
   </div>
   {% else %}
   <h2>Sorry, you do not have permission to perform this action. </h2>

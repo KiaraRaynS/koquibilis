@@ -216,7 +216,7 @@ class DeleteBookmarkView(DeleteView):
 
 class AddFoodView(CreateView):
     model = FoodItem
-    fields = ['name']
+    fields = ['name', 'quantity']
     success_url = '/'
 
     def form_valid(self, form):
