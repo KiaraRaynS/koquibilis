@@ -169,6 +169,12 @@ class SaveRecipeView(CreateView):
         recipe_url = base_url + recipe_id + "?" + api_auth
         recipe_results = requests.get(recipe_url).json()
         context['recipe'] = recipe_results
+        # To get recipe image
+        recipe_images = recipe_results['images']
+        recipe_img_dict = recipe_images[0]
+        urlsbysize = recipe_img_dict['imageUrlsBySize']
+        recipeimage = urlsbysize['90']
+        context['recipeimage'] = recipeimage
         return context
 
     def form_valid(self, form):
@@ -190,6 +196,8 @@ class SaveRecipeView(CreateView):
         form.instance.recipe_key = recipe_id
         form.instance.ingredients = recipe_ingredients
         form.instance.user_id = self.request.user.id
+        form.instance.big_image = image_large
+        form.instance.small_image = image_small
         return super(SaveRecipeView, self).form_valid(form)
 
 
