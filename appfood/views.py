@@ -8,7 +8,7 @@ from rest_framework import authentication
 from oauth2_provider.views.generic import ProtectedResourceView
 from django.http import HttpResponse
 # Models
-from appfood.models import Recipe, UserPage, SavedRecipe
+from appfood.models import Recipe, UserPage, SavedRecipe, FoodItem
 # Scraping
 from bs4 import BeautifulSoup
 import requests
@@ -208,6 +208,17 @@ class DeleteBookmarkView(DeleteView):
     def get_object(self, queryset=None):
         object_key = self.kwargs['recipe_id']
         return SavedRecipe.objects.get(id=object_key)
+
+# Inventory handling
+
+
+class AddFoodView(CreateView):
+    model = FoodItem
+    fields = ['name']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user.id
+        return super(AddFoodView, self).form_valid(form)
 
 
 # For scraping recipes [Possibly discarded]

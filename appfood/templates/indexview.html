@@ -31,11 +31,18 @@
 
 <hr>
 
+<!-- Users current inventory -->
+
+<div id='currentfood'>
+  <a class='btn btn-success' href="{% url 'addfoodview' %}">Add items to inventory</a>
+</div>
+
+<!-- Users Saved Recipes -->
 <div id='bookmarkedrecipes'>
   {% for recipe in bookmarks %}
   <div class='panel panel-default'>
     <div class='panel-heading'>
-      <span class='smallrecipeimage'><img height='90px' width='90px' src="{{recipe.small_image}}"></span> <strong>{{recipe.title}}</strong>
+      <span><img class='smallrecipeimage' height='90px' width='90px' src="{{recipe.small_image}}"></span> <strong>{{recipe.title}}</strong>
       <a href="{% url 'deletebookmarkview' recipe.id %}" class='label label-danger'>Delete Bookmark</a>
     </div>
     <div class='panel-body'>
@@ -68,7 +75,7 @@ $(document).ready(function(){
     var button = document.getElementById("view_ingredients")
     button.addEventListener('click', function(event){
       console.log("click");
-      $("#buttonviewcontent").html("Ingredients listed");
+      $("#currentfood").show();
       $("#bookmarkedrecipes").hide();
       });
     });
@@ -77,6 +84,7 @@ $(document).ready(function(){
   var recipebutton = document.getElementById('view_recipes')
   recipebutton.addEventListener('click', function(event){
       $("#buttonviewcontent").html("Possible recipes here");
+      $("#currentfood").hide()
       $("#bookmarkedrecipes").hide();
       })
 
@@ -84,6 +92,7 @@ $(document).ready(function(){
   var savedrecipebutton = document.getElementById("view_saved_recipes")
   savedrecipebutton.addEventListener('click', function(event){
       $("#bookmarkedrecipes").show();
+      $("#currentfood").hide();
       })
 </script>
 
