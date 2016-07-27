@@ -8,63 +8,57 @@
 <!-- If user is logged in -->
 {% if request.user.is_authenticated %}
 
-<div class='pagecontent'>
+  <div>
 
-  <h3>What would you like to do?</h3>
+  <h3>What would you like to view?</h3>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#inventory" aria-controls="home" role="tab" data-toggle="tab">Inventory</a></li>
+    <li role="presentation"><a href="#possiblerecipes" aria-controls="profile" role="tab" data-toggle="tab">Possible Recipes</a></li>
+    <li role="presentation"><a href="#savedrecipes" aria-controls="messages" role="tab" data-toggle="tab">Saved Recipes</a></li>
+  </ul>
 
-  <div class="btn-group btn-group-justified" role="group" aria-label="...">
-    <div class="btn-group" role="group">
-      <!-- See ingredients -->
-      <button type="button" name='view_ingredients' id='view_ingredients' class='btn btn-default' value="View current ingredients">View Current Food</button>
+  <!-- Nav panels -->
+  <!-- Inventory -->
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="inventory">
+        <p><a class='btn btn-success' href="{% url 'addfoodview' %}">Add items to inventory</a></h3></p>
+      <hr>
+      {% for item in useritems %}
+        {% if item.quantity > 0 %}
+        <div class='panel panel-default'>
+          <h4>{{item.name}} x {{item.quantity}}
+          <span class='btn btn-info btn-sm'><a href="{% url 'editfoodview' item.id %}">Edit Item</a></span></h4>
+          <i>Last Edit: {{item.date_added}}</i>
+        </div>
+        {% endif %}
+      {% endfor %}
     </div>
-      <!-- See possible recipes -->
-    <div class="btn-group" role="group">
-      <button type="button" name='view_recipes' id='view_recipes' class="btn btn-default">View Possible Recipes</button>
+
+  <!-- Possible Recipes -->
+    <div role='tabpanel' class='tab-pane' id='possiblerecipes'>
+      <p>Possible Recipes here</p>
     </div>
-      <!-- See all saved recipes -->
-    <div class="btn-group" role="group">
-      <button type="button" name='view_saved_racipes' id='view_saved_recipes' class="btn btn-default">View Bookmarked Recipes</button>
-  </div>
+
+  <!-- Saved Recipes -->
+    <div role='tabpanel' class='tab-pane' id='savedrecipes'>
+      {% for recipe in bookmarks %}
+      <div class='panel panel-default'>
+        <div class='panel-heading'>
+          <span><img class='smallrecipeimage' height='90px' width='90px' src="{{recipe.small_image}}"></span> <strong>{{recipe.title}}</strong>
+          <a href="{% url 'deletebookmarkview' recipe.id %}" class='label label-danger'>Delete Bookmark</a>
+        </div>
+        <div class='panel-body'>
+          Notes: <i>{{recipe.note}}</i>
+        </div>
+      </div>
+        {% endfor %}
+    </div>
+
+</div>
 </div>
 
-<hr>
 
-<!-- Users current inventory -->
-
-<div id='currentfood'>
-  <p><h3><strong>Current Inventory  </strong>
-    <a class='btn btn-success' href="{% url 'addfoodview' %}">Add items to inventory</a></h3></p>
-  <hr>
-  {% for item in useritems %}
-    {% if item.quantity > 0 %}
-    <div class='panel panel-default'>
-      <h4>{{item.name}} x {{item.quantity}}
-      <span class='btn btn-info btn-sm'><a href="{% url 'editfoodview' item.id %}">Edit Item</a></span></h4>
-      <i>Last Edit: {{item.date_added}}</i>
-    </div>
-    {% endif %}
-  {% endfor %}
-</div>
-
-<!-- Possible recipes to cook -->
-<div id='possiblerecipes'>
-  <p>Recipes will go here</p>
-</div>
-
-<!-- Users Saved Recipes -->
-<div id='bookmarkedrecipes'>
-  {% for recipe in bookmarks %}
-  <div class='panel panel-default'>
-    <div class='panel-heading'>
-      <span><img class='smallrecipeimage' height='90px' width='90px' src="{{recipe.small_image}}"></span> <strong>{{recipe.title}}</strong>
-      <a href="{% url 'deletebookmarkview' recipe.id %}" class='label label-danger'>Delete Bookmark</a>
-    </div>
-    <div class='panel-body'>
-      Notes: <i>{{recipe.note}}</i>
-    </div>
-  </div>
-    {% endfor %}
-</div>
 {% else %}
   <!-- If user is NOT logged in -->
   <h2>Welcome</h2>
@@ -75,41 +69,8 @@
   </div>
 {% endif %}
 
-
-<div id="buttonviewcontent">
-</div>
-
-
 <!-- JAVASCRIPT -->
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-
-    // Display Ingredients
-    var button = document.getElementById("view_ingredients")
-    button.addEventListener('click', function(event){
-      console.log("click");
-      $("#currentfood").show();
-      $("#bookmarkedrecipes").hide();
-      $("#possiblerecipes").hide();
-      });
-    });
-
-  // Display available recipes
-  var recipebutton = document.getElementById('view_recipes')
-  recipebutton.addEventListener('click', function(event){
-      $("#currentfood").hide()
-      $("#bookmarkedrecipes").hide();
-      $("#possiblerecipes").show();
-      })
-
-  // All saved recipes
-  var savedrecipebutton = document.getElementById("view_saved_recipes")
-  savedrecipebutton.addEventListener('click', function(event){
-      $("#bookmarkedrecipes").show();
-      $("#currentfood").hide();
-      $("#possiblerecipes").hide();
-      })
 </script>
-
 {% endblock %}

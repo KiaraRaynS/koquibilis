@@ -1,204 +1,94 @@
 {% extends 'base.html' %}
 
 {% block containerbodycontent %}
-<div class='pagecontent'>
-  <h2>Recipes</h2>
-  <!-- Browse food by category -->
-<div class="btn-group" role="group" aria-label="...">
-  <button type='button' name='button1' id='button1' class='btn btn-default'>All Recipes</button>
-  <button type="button" name='button2' id='button2' class="btn btn-default">Clear</button>
-</div>
-<br>
-<!-- Allergens -->
-<p>Sort by Allergens</p>
-<div class="btn-group" role="group" aria-label="...">
-  <button type="button" name='glutenfree' id='glutenfree' class="btn btn-default">Gluten</button>
-  <button type='button' name='dairyefree' id='dairyfree' class='btn btn-default'>Diary</button>
-  <button type='button' name='eggfree' id='eggfree' class='btn btn-default'>Egg</button>
-  <button type='button' name='peanutfree' id='peanutfree' class='btn btn-default'>Peanut</button>
-  <button type='button' name='seafoodfree' id='seafoodfree' class='btn btn-default'>Seafood</button>
-  <button type='button' name='soyfree' id='soyfree' class='btn btn-default'>Soy</button>
-</div>
-<hr>
 
-<!-- All Recipes -->
-<div id='allrecipelistcontent'>
-  {% for item in allrecipes %}
+<div>
 
-    <div class="panel panel-default">
-      <img src="{{item.imageUrlsBySize.90}}">
-      <strong>{{item.recipeName}}</strong>
-      <a href="{% url 'specificrecipeview' item.id %}">View Recipe</a>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#allrecipes" aria-controls="home" role="tab" data-toggle="tab">All Recipes</a></li>
+    <li role="presentation"><a href="#gluttenfree" aria-controls="profile" role="tab" data-toggle="tab">Glutten Free</a></li>
+    <li role="presentation"><a href="#dairyfree" aria-controls="messages" role="tab" data-toggle="tab">Dairy Free</a></li>
+    <li role="presentation"><a href="#peanutfree" aria-controls="settings" role="tab" data-toggle="tab">Peanut Free</a></li>
+    <li role="presentation"><a href="#eggfree" aria-controls="eggfree" role='tab' data-toggle='tab'>Egg Free</a></li>
+    <li role="presentation"><a href="#soyfree" aria-controls="soyfree" role='tab' data-toggle='tab'>Soy Free</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="allrecipes">
+      <div id='allrecipelistcontent'>
+        {% for item in allrecipes %}
+
+          <div class="panel panel-default">
+            <img src="{{item.imageUrlsBySize.90}}">
+            <strong>{{item.recipeName}}</strong>
+            <a href="{% url 'specificrecipeview' item.id %}">View Recipe</a>
+          </div>
+        {% endfor %}
+      </div>
     </div>
-  {% endfor %}
-</div>
+    <!-- Sort by Allergens -->
 
-<div id='nonloadrecipes'>
-<!-- Allergen Recipes -->
-<!-- Gluten -->
-<div id='recipeallergengluten'>
-  {% for item in gluttenfree %}
-    <div class="panel panel-default">
-      <img src="{{item.imageUrlsBySize.90}}">
-      <strong>{{item.recipeName}}</strong>
+    <!-- Glutten -->
+    <div role="tabpanel" class="tab-pane" id="gluttenfree">
+      {% for item in gluttenfree %}
+        <div class="panel panel-default">
+          <img src="{{item.imageUrlsBySize.90}}">
+          <strong>{{item.recipeName}}</strong>
+          <a href="{% url 'specificrecipeview' item.id %}">View Recipe</a>
+        </div>
+      {% endfor %}
     </div>
-  {% endfor %}
-</div>
 
-<!-- Lactose -->
-<div id='recipeallergendairy'>
-  {% for item in dairyfree %}
-  <div class='panel panel-default'>
-    <img src="{{item.imageUrlsBySize.90}}">
-    <strong>{{item.recipeName}}</strong>
-  </div>
-  {% endfor %}
-</div>
+    <!-- Dairy -->
+    <div role="tabpanel" class="tab-pane" id="dairyfree">
+      {% for item in dairyfree %}
+      <div class='panel panel-default'>
+        <img src="{{item.imageUrlsBySize.90}}">
+        <strong>{{item.recipeName}}</strong>
+        <a href="{% url 'specificrecipeview' item.id %}">View Recipe</a>
+      </div>
+      {% endfor %}
+    </div>
 
-<!-- Egg -->
-<div id='recipeallergenegg'>
-  {% for item in eggfree %}
-  <div class='panel panel-default'>
-    <img src="{{item.imageUrlsBySize.90}}">
-    <strong>{{item.recipeName}}</strong>
-  </div>
-  {% endfor %}
-</div>
+    <!-- Peanut -->
+    <div role="tabpanel" class="tab-pane" id="peanutfree">
+      {% for item in peanutfree %}
+      <div class='panel panel-default'>
+        <img src="{{item.imageUrlsBySize.90}}">
+        <strong>{{item.recipeName}}</strong>
+        <a href="{% url 'specificrecipeview' item.id %}">View Recipe</a>
+      </div>
+      {% endfor %}
+    </div>
 
-<!-- Peanut -->
-<div id='recipeallergenpeanut'>
-  {% for item in peanutfree %}
-  <div class='panel panel-default'>
-    <img src="{{item.imageUrlsBySize.90}}">
-    <strong>{{item.recipeName}}</strong>
-  </div>
-  {% endfor %}
-</div>
+    <!-- Egg -->
+    <div role='tabpanel' class='tab-pane' id='eggfree'>
+      {% for item in eggfree %}
+      <div class='panel panel-default'>
+        <img src="{{item.imageUrlsBySize.90}}">
+        <strong>{{item.recipeName}}</strong>
+        <a href="{% url 'specificrecipeview' item.id %}">View Recipe</a>
+      </div>
+      {% endfor %}
+    </div>
 
-<!-- Seafood -->
-<div id='recipeallergenseafood'>
-  {% for item in seafoodfree %}
-  <div class='panel panel-default'>
-    <img src="{{item.imageUrlsBySize.90}}">
-    <strong>{{item.recipeName}}</strong>
-  </div>
-  {% endfor %}
-</div>
+    <!-- Soy -->
+    <div role='tabpanel' class='tab-pane' id='soyfree'>
+      {% for item in soyfree %}
+      <div class='panel panel-default'>
+        <img src="{{item.imageUrlsBySize.90}}">
+        <strong>{{item.recipeName}}</strong>
+        <a href="{% url 'specificrecipeview' item.id %}">View Recipe</a>
+      </div>
+      {% endfor %}
+    </div>
 
-<!-- Soy -->
-<div id='recipeallergensoy'>
-  {% for item in soyfree %}
-  <div class='panel panel-default'>
-    <img src="{{item.imageUrlsBySize.90}}">
-    <strong>{{item.recipeName}}</strong>
   </div>
-  {% endfor %}
-</div>
-</div>
 </div>
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script type='text/javascript'>
-
-    // button one
-    var button = document.getElementById('button1');
-    button.addEventListener('click', function(event){
-      console.log('click');
-      //$("#recipelistcontent").html('');
-      $("#allrecipelistcontent").show();
-      $("#recipeallergengluten").hide();
-      $("#recipeallergendairy").hide();
-      $("#recipeallergenegg").hide();
-      $("#recipeallergenpeanut").hide();
-      $("#recipeallergenseafood").hide();
-      $("#recipeallergensoy").hide();
-      })
-
-  // button two
-    var button = document.getElementById('button2');
-    button.addEventListener('click', function(event){
-      //$("#recipelistcontent").html("");
-      $("#allrecipelistcontent").hide();
-      $("#recipeallergengluten").hide();
-      $("#recipeallergenegg").hide();
-      $("#recipeallergendairy").hide();
-      $("#recipeallergenpeanut").hide();
-      $("#recipeallergenseafood").hide();
-      $("#recipeallergensoy").hide();
-      // $("#recipelistcontent").html("More Recipes");
-      })
-
-  // Glutten Free
-  var button = document.getElementById('glutenfree');
-  button.addEventListener('click', function(event){
-      $("#recipeallergengluten").show();
-      $('#allrecipelistcontent').hide();
-      $("#recipeallergendairy").hide();
-      $("#recipeallergenegg").hide();
-      $("#recipeallergenpeanut").hide();
-      $("#recipeallergenseafood").hide();
-      $("#recipeallergensoy").hide();
-      })
-
-  // Dairy Free
-  var button = document.getElementById('dairyfree');
-  button.addEventListener('click', function(event){
-      $('#recipeallergendairy').show();
-      $("#allrecipelistcontent").hide();
-      $("#recipeallergengluten").hide();
-      $("#recipeallergenegg").hide();
-      $("#recipeallergenpeanut").hide();
-      $("#recipeallergenseafood").hide();
-      $("#recipeallergensoy").hide();
-      })
-
-  // Egg Free
-  var button = document.getElementById('eggfree');
-  button.addEventListener('click', function(event){
-      $("#allrecipelistcontent").hide();
-      $("#recipeallergendairy").hide();
-      $("#recipeallergengluten").hide();
-      $("#recipeallergenegg").show();
-      $("#recipeallergenpeanut").hide();
-      $("#recipeallergenseafood").hide();
-      $("#recipeallergensoy").hide();
-      })
-
-  // Peanut Free
-    var button = document.getElementById('peanutfree');
-    button.addEventListener('click', function(event){
-      $("#allrecipelistcontent").hide();
-      $("#recipeallergengluten").hide();
-      $("#recipeallergendairy").hide();
-      $("#recipeallergenegg").hide();
-      $("#recipeallergenpeanut").show();
-      $("#recipeallergenseafood").hide();
-      $("#recipeallergensoy").hide();
-      })
-
-  // Seafood Free
-    var button = document.getElementById('seafoodfree');
-    button.addEventListener('click', function(event){
-      $("#allrecipelistcontent").hide();
-      $("#recipeallergendairy").hide();
-      $("#recipeallergengluten").hide();
-      $("#recipeallergenegg").hide();
-      $("#recipeallergenpeanut").hide();
-      $("#recipeallergenseafood").show();
-      $("#recipeallergensoy").hide();
-      })
-
-  // Soy Free
-    var button = document.getElementById('soyfree');
-    button.addEventListener('click', function(event){
-      $("#allrecipelistcontent").hide();
-      $("#recipeallergendairy").hide();
-      $("#recipeallergengluten").hide();
-      $("#recipeallergenegg").hide();
-      $("#recipeallergenpeanut").hide();
-      $("#recipeallergenseafood").hide();
-      $("#recipeallergensoy").show();
-      })
-
 </script>
 {% endblock %}
