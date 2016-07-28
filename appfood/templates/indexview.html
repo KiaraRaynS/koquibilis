@@ -52,6 +52,8 @@
           <i>{{recipe.bookmark_date}}</i>
           <br>
           <strong>Notes:</strong> <i>{{recipe.note}}</i>
+          <p><strong>Ingredients: </strong></p>
+          {{recipe.ingredients}}
           <br>
           <a class='btn btn-success' href="{% url 'specificrecipeview' recipe.recipe_key %}">View Recipe</a>
         </div>

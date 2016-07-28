@@ -49,12 +49,19 @@ class IndexView(TemplateView):
             for item in userinventory:
                 if item.quantity > 0:
                     userinventory_list.append(item.name)
+            # Bookmarked food list
             possible_recipes = []
             for recipe in bookmarks:
+                recipe_ingredients = recipe.ingredients.replace('[', '')
+                recipe_ingredients = recipe_ingredients.replace(']', '')
+                recipe_ingredients = recipe_ingredients.replace(' ', '')
+                recipe_ingredients = recipe_ingredients.replace("'", '')
+                recipe_ingredients_list = recipe_ingredients.split(',')
                 # print(recipe.ingredients)
-                if all(recipe.ingredients) in userinventory_list:
+                print(set(recipe_ingredients_list))
+                if set(recipe_ingredients_list) <= set(userinventory_list):
                     possible_recipes.append(recipe)
-            # print(possible_recipes)
+            print(possible_recipes)
             context = {
                     'userpage': userpage,
                     'bookmarks': bookmarks,
@@ -211,9 +218,7 @@ class SaveRecipeView(CreateView):
         recipematches = reciperesults['matches']
         for item in recipematches:
             if item['id'] == recipe_id:
-                print(item['recipeName'])
                 recipeingredients = item['ingredients']
-
         # Image urls
         recipe_images = recipe_results['images']
         recipe_images_dict = recipe_images[0]
