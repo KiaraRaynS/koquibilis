@@ -203,6 +203,10 @@ class SaveRecipeView(CreateView):
         return super(SaveRecipeView, self).form_valid(form)
 
 
+class SearchRecipesView(TemplateView):
+    template_name = 'searchrecipesview.html'
+
+
 class DeleteBookmarkView(DeleteView):
     template_name = 'deletebookmarkview.html'
     success_url = '/'

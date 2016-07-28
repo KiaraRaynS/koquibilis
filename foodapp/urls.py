@@ -11,7 +11,7 @@ from appfood.views import ProfileView
 # Recipe related views
 from appfood.views import RecipeView, SpecificRecipeView
 # User Recipe Interaction related views
-from appfood.views import SaveRecipeView, DeleteBookmarkView, AddFoodView, EditFoodView
+from appfood.views import SaveRecipeView, DeleteBookmarkView, AddFoodView, EditFoodView, SearchRecipesView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -31,6 +31,7 @@ urlpatterns = [
     # User Recipe Interactions
     url(r'^recipes/saverecipe/(?P<recipe_id>[A-Za-z0-9_\-]+)/$', SaveRecipeView.as_view(), name='saverecipeview'),
     url(r'^recipes/deleterecipe/(?P<recipe_id>[0-9_\-]+)/$', DeleteBookmarkView.as_view(), name='deletebookmarkview'),
+    url(r'^recipes/searchrecipe/$', SearchRecipesView.as_view(), name='searchrecipesview'),
     url(r'addfood/$', AddFoodView.as_view(), name='addfoodview'),
     url(r'editfood/(?P<food_id>\d+)/$', EditFoodView.as_view(), name='editfoodview'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
