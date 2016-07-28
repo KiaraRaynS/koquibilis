@@ -43,14 +43,16 @@ class IndexView(TemplateView):
         if user.is_authenticated():
             userpage = UserPage.objects.get(user=user)
             bookmarks = SavedRecipe.objects.filter(user=user.id).order_by('-bookmark_date')
-            userinventory = FoodItem.objects.filter(user=user.id)
+            userinventory = FoodItem.objects.filter(user=user.id).order_by('-date_added')
             # Get user food list
             userinventory_list = []
             for item in userinventory:
                 if item.quantity > 0:
                     userinventory_list.append(item.name)
+            print(userinventory_list)
             possible_recipes = []
             for recipe in bookmarks:
+                print(recipe.ingredients)
                 if all(recipe.ingredients) in userinventory_list:
                     possible_recipes.append(recipe)
             print(possible_recipes)
