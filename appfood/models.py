@@ -14,7 +14,8 @@ class UserPage(models.Model):
     def photo_url(self):
         if self.photo:
             return self.photo.url
-        return "http://vignette3.wikia.nocookie.net/shokugekinosoma/images/6/60/No_Image_Available.png/revision/latest?cb=20150708082716"
+        else:
+            return "http://vignette3.wikia.nocookie.net/shokugekinosoma/images/6/60/No_Image_Available.png/revision/latest?cb=20150708082716"
 
 
 class FoodItem(models.Model):
