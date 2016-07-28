@@ -49,13 +49,12 @@ class IndexView(TemplateView):
             for item in userinventory:
                 if item.quantity > 0:
                     userinventory_list.append(item.name)
-            print(userinventory_list)
             possible_recipes = []
             for recipe in bookmarks:
-                print(recipe.ingredients)
+                # print(recipe.ingredients)
                 if all(recipe.ingredients) in userinventory_list:
                     possible_recipes.append(recipe)
-            print(possible_recipes)
+            # print(possible_recipes)
             context = {
                     'userpage': userpage,
                     'bookmarks': bookmarks,
@@ -189,6 +188,7 @@ class SaveRecipeView(CreateView):
         recipe_img_dict = recipe_images[0]
         urlsbysize = recipe_img_dict['imageUrlsBySize']
         recipeimage = urlsbysize['90']
+        # Return context
         context['recipeimage'] = recipeimage
         return context
 
@@ -199,7 +199,21 @@ class SaveRecipeView(CreateView):
         recipe_url = base_url + recipe_id + "?" + api_auth
         recipe_results = requests.get(recipe_url).json()
         recipe_title = recipe_results['name']
-        recipe_ingredients = recipe_results['ingredientLines']
+        # recipe_ingredients = recipe_results['ingredientLines']
+        # Recipe Ingredients
+        recipetitle_list = recipe_title.split(' ')
+        recipei_baseurl = 'http://api.yummly.com/v1/api/recipes?' + api_auth + "&q="
+        getingredientsurl = recipei_baseurl
+        for item in recipetitle_list:
+            if item != " ":
+                getingredientsurl += item + '+'
+        reciperesults = requests.get(getingredientsurl).json()
+        recipematches = reciperesults['matches']
+        for item in recipematches:
+            if item['id'] == recipe_id:
+                print(item['recipeName'])
+                recipeingredients = item['ingredients']
+
         # Image urls
         recipe_images = recipe_results['images']
         recipe_images_dict = recipe_images[0]
@@ -209,7 +223,7 @@ class SaveRecipeView(CreateView):
         # Form saves
         form.instance.title = recipe_title
         form.instance.recipe_key = recipe_id
-        form.instance.ingredients = recipe_ingredients
+        form.instance.ingredients = recipeingredients
         form.instance.user_id = self.request.user.id
         form.instance.big_image = image_large
         form.instance.small_image = image_small
