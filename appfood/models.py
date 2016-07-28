@@ -31,6 +31,7 @@ class Recipe(models.Model):
     description = models.TextField(null=True, blank=True)
     instruction = models.TextField()
     ingredients = models.TextField()
+    detailed_ingredients = models.TextField()
 
 
 class SavedRecipe(models.Model):

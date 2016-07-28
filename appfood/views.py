@@ -61,7 +61,6 @@ class IndexView(TemplateView):
                 print(set(recipe_ingredients_list))
                 if set(recipe_ingredients_list) <= set(userinventory_list):
                     possible_recipes.append(recipe)
-            print(possible_recipes)
             context = {
                     'userpage': userpage,
                     'bookmarks': bookmarks,
@@ -206,7 +205,7 @@ class SaveRecipeView(CreateView):
         recipe_url = base_url + recipe_id + "?" + api_auth
         recipe_results = requests.get(recipe_url).json()
         recipe_title = recipe_results['name']
-        # recipe_ingredients = recipe_results['ingredientLines']
+        detailed_ingredients = recipe_results['ingredientLines']
         # Recipe Ingredients
         recipetitle_list = recipe_title.split(' ')
         recipei_baseurl = 'http://api.yummly.com/v1/api/recipes?' + api_auth + "&q="
@@ -232,6 +231,7 @@ class SaveRecipeView(CreateView):
         form.instance.user_id = self.request.user.id
         form.instance.big_image = image_large
         form.instance.small_image = image_small
+        form.instance.detailed_ingredients = detailed_ingredients
         return super(SaveRecipeView, self).form_valid(form)
 
 
@@ -293,18 +293,12 @@ class EditFoodView(UpdateView):
         return FoodItem.objects.get(id=food_item)
 
 
-# For scraping recipes [Possibly discarded]
-def get_recipe_data(request):
-    content = requests.get('http://www.food.com/recipe/pancakes-25690').text
-    contentsoup = BeautifulSoup(content, 'html.parser')
-    recipepage = contentsoup.find(class_='fd-page-feed')
-    for tag in recipepage.findAll('a', href=True):
-        recipename = str(recipepage.find(class_='fd-recipe-title').text)
-        ingredientsli = recipepage.find_all(class_='ingredient-data')
-        instructions = str(contentsoup.find(class_='expanded'))
-    context = {
-            'recipename': recipename,
-            'ingredientslist': ingredientsli,
-            'instructions': instructions,
-            }
-    return render(request, 'indexview.html', context)
+class CookFoodView(UpdateView):
+    model = FoodItem
+    template_name = 'cookfoodview.html'
+    fields = ['quantity']
+    success_url = '/'
+
+    def get_object(self, queryset=None):
+        recipe = self.kwargs['recipe_id']
+        return SavedRecipe.objects.get(id=recipe)

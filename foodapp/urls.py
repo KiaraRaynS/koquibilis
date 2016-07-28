@@ -2,7 +2,6 @@ from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from appfood.views import get_recipe_data
 from appfood.views import IndexView
 # User related views
 from appfood.views import RegisterView, RegisterTypeView
@@ -11,7 +10,7 @@ from appfood.views import ProfileView
 # Recipe related views
 from appfood.views import RecipeView, SpecificRecipeView
 # User Recipe Interaction related views
-from appfood.views import SaveRecipeView, DeleteBookmarkView, AddFoodView, EditFoodView, SearchRecipesView
+from appfood.views import SaveRecipeView, DeleteBookmarkView, AddFoodView, EditFoodView, SearchRecipesView, CookFoodView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -32,6 +31,7 @@ urlpatterns = [
     url(r'^recipes/saverecipe/(?P<recipe_id>[A-Za-z0-9_\-]+)/$', SaveRecipeView.as_view(), name='saverecipeview'),
     url(r'^recipes/deleterecipe/(?P<recipe_id>[0-9_\-]+)/$', DeleteBookmarkView.as_view(), name='deletebookmarkview'),
     url(r'^recipes/searchrecipe/$', SearchRecipesView.as_view(), name='searchrecipesview'),
-    url(r'addfood/$', AddFoodView.as_view(), name='addfoodview'),
-    url(r'editfood/(?P<food_id>\d+)/$', EditFoodView.as_view(), name='editfoodview'),
+    url(r'^addfood/$', AddFoodView.as_view(), name='addfoodview'),
+    url(r'^editfood/(?P<food_id>\d+)/$', EditFoodView.as_view(), name='editfoodview'),
+    url(r'^cookfood/(?P<recipe_id>\d+)/$', CookFoodView.as_view(), name='cookfoodview'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
