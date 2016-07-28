@@ -214,13 +214,18 @@ class SearchRecipesView(TemplateView):
         api_url = 'http://api.yummly.com/v1/api/recipes?'
         api_key = os.environ['API_AUTH']
         base_url = api_url + api_key + "&q="
+        # Get search url
         if self.request.method == "GET":
             search_query = self.request.GET.get('search_box', None)
             search_list = search_query.split(' ')
         new_url = base_url
         for item in search_list:
-            new_url = new_url + item + '_'
-        print(new_url)
+            if item != ' ':
+                new_url += item + '+'
+        # Make api call for search
+        search_requests = requests.get(new_url).json()
+        search_results = search_requests['matches']
+        context['results'] = search_results
         return context
 
 

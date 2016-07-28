@@ -2,10 +2,26 @@
 
 {% block containerbodycontent %}
 <!-- Search Form Here -->
-<form type='get' action='.' style='margin:0'>
-  <input id='search_box' type='text' name='search_box' placeholder="Search Recipe Name">
-  <button class='btn btn-default' id='search_submit' type='submit'>Search</button>
-</form>
-    <hr>
+  <form type='get' action='.' style='margin:0'>
+    <input id='search_box' type='text' name='search_box' placeholder="Search Recipe Name">
+    <button class='btn btn-default' id='search_submit' type='submit'>Search</button>
+  </form>
+      <hr>
+  <h2>Results</h2>
+  <hr>
+  {% for result in results %}
+    <div class='panel panel-default'>
+      <div class='panel-heading'>
+        <img  class='smallrecipeimage' src="{{result.imageUrlsBySize.90}}">
+        <strong>{{result.recipeName}}</strong> <a class='btn btn-success' href="{% url 'specificrecipeview' result.id %}">View Recipe</a>
+      </div>
+      <div class='panel-body'>
+        <strong>Ingredients: </strong>
+          {% for ingredient in result.ingredients %}
+            {{ingredient}},
+          {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
 
 {% endblock %}
