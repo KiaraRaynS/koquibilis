@@ -42,7 +42,7 @@ class IndexView(TemplateView):
         user = self.request.user
         if user.is_authenticated():
             userpage = UserPage.objects.get(user=user)
-            bookmarks = SavedRecipe.objects.filter(user=user.id)
+            bookmarks = SavedRecipe.objects.filter(user=user.id).order_by('-bookmark_date')
             userinventory = FoodItem.objects.filter(user=user.id)
             context = {
                     'userpage': userpage,

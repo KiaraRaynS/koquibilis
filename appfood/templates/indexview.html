@@ -49,7 +49,11 @@
           <a href="{% url 'deletebookmarkview' recipe.id %}" class='label label-danger'>Delete Bookmark</a>
         </div>
         <div class='panel-body'>
-          Notes: <i>{{recipe.note}}</i>
+          <i>{{recipe.bookmark_date}}</i>
+          <br>
+          <strong>Notes:</strong> <i>{{recipe.note}}</i>
+          <br>
+          <a class='btn btn-success' href="{% url 'specificrecipeview' recipe.recipe_key %}">View Recipe</a>
         </div>
       </div>
         {% endfor %}
