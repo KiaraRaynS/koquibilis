@@ -205,6 +205,18 @@ class SaveRecipeView(CreateView):
 
 class SearchRecipesView(TemplateView):
     template_name = 'searchrecipesview.html'
+    base_url = 'http://api.yummly.com/v1/api/recipes?'
+    api_key = os.environ['API_AUTH']
+    f_url = base_url + api_key + "&"
+
+    def get_context_data(self, **kwargs):
+        base_url = 'http://api.yummly.com/v1/api/recipes?'
+        api_key = os.environ['API_AUTH']
+        f_url = base_url + api_key + "&"
+        if self.request.method == "GET":
+            search_query = self.request.GET.get('search_box', None)
+            search_list = search_query.split(' ')
+            print(search_list)
 
 
 class DeleteBookmarkView(DeleteView):
