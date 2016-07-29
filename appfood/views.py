@@ -55,8 +55,6 @@ class IndexView(TemplateView):
                 recipe_ingredients = recipe_ingredients.replace(' ', '')
                 recipe_ingredients = recipe_ingredients.replace("'", '')
                 recipe_ingredients_list = recipe_ingredients.split(',')
-                # print(recipe.ingredients)
-                print(set(recipe_ingredients_list))
                 if set(recipe_ingredients_list) <= set(userinventory_list):
                     possible_recipes.append(recipe)
             context = {

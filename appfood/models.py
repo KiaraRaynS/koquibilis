@@ -26,6 +26,11 @@ class FoodItem(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
 
+class ShoppingList(models.Model):
+    user = models.ForeignKey('auth.user')
+    ingredients = models.TextField()
+
+
 class Recipe(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
