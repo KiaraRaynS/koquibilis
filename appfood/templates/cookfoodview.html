@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+  <h3>Cook {{recipe.title}}</h3>
+  <hr>
+  <div class='panel panel-default'>
+    {% for ingredient in update_list %}
+      <p>{{ingredient.name}}</p>
+    {% endfor %}
+  </div>
+{% endblock %}

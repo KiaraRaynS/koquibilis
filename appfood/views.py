@@ -9,8 +9,6 @@ from oauth2_provider.views.generic import ProtectedResourceView
 from django.http import HttpResponse
 # Models
 from appfood.models import Recipe, UserPage, SavedRecipe, FoodItem
-# Scraping
-from bs4 import BeautifulSoup
 import requests
 # Views
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView
@@ -300,5 +298,15 @@ class CookFoodView(UpdateView):
     success_url = '/'
 
     def get_object(self, queryset=None):
+        user = self.request.user
         recipe = self.kwargs['recipe_id']
-        return SavedRecipe.objects.get(id=recipe)
+        recipe_obj = SavedRecipe.objects.get(id=recipe)
+        return recipe_obj
+    """
+        ingredients = FoodItem.objects.filter(user=user)
+        update_list = []
+        for item in ingredients:
+            if item.name in recipe_obj.ingredients:
+                update_list.append(item)
+        return update_list
+    """
