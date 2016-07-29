@@ -28,6 +28,9 @@
         {% if item.quantity > 0 %}
         <div class='panel panel-default'>
           <h4>{{item.name}} x {{item.quantity}}
+          {% if item.measurementunit != None %}
+          <i>{{item.measurementunit}}</i>
+          {% endif %}
           <span class='btn btn-info btn-sm'><a href="{% url 'editfoodview' item.id %}">Edit Item</a></span></h4>
           <i>Last Edit: {{item.date_added}}</i>
         </div>

@@ -1,22 +1,30 @@
 {% extends 'base.html' %}
 
 {% block containerbodycontent %}
-  <h3>Cook {{recipe.title}}</h3>
+  <h2><img class='smallrecipeimage' src="{{recipe.small_image}}"> Cook {{recipe.title}}</h2>
   <div class='panel panel-default'>
     <div class='panel-heading'>
       <strong>Recipe Ingredients by Instructions</strong>
-      <p>{{recipe.detailed_ingredients}}</p>
+      <ul>
+        {% for item in detailedingredients %}
+        <li>{{item}}</li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
   <hr>
+  <p><i>Alter ingredients to the remaining quantity</i></p>
   <form type='' method='post'>
   {% for ingredient in ingredientsbeingused %}
     <div class='panel panel-default'>
         {% csrf_token %}
         <strong>{{ingredient.name}}: </strong>{{form.quantity}}
+        {% if ingredient.measurementunit != None %}
+        <i>{{ingredient.measurementunit}}</i>
+        {% endif %}
     </div>
   {% endfor %}
   </form>
   <hr>
-  <input type='submit' class='btn btn-default' value='confirm cook'>
+  <input type='submit' class='btn btn-success' value='Confirm Inventory Update'>
 {% endblock %}

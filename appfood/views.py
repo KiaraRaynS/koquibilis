@@ -272,7 +272,7 @@ class DeleteBookmarkView(DeleteView):
 
 class AddFoodView(CreateView):
     model = FoodItem
-    fields = ['name', 'quantity']
+    fields = ['name', 'measurementunit', 'quantity']
     success_url = '/'
 
     def form_valid(self, form):
@@ -298,7 +298,6 @@ class CookFoodView(UpdateView):
     success_url = '/'
 
     def get_object(self, queryset=None):
-        user = self.request.user
         recipe = self.kwargs['recipe_id']
         recipe_obj = SavedRecipe.objects.get(id=recipe)
         return recipe_obj
@@ -309,12 +308,21 @@ class CookFoodView(UpdateView):
         recipe = self.kwargs['recipe_id']
         recipe_to_cook = SavedRecipe.objects.get(id=recipe)
         useringredients = FoodItem.objects.filter(user=user)
+        # Get Ingredients to edit
         ingredients_in_recipe = []
         for item in useringredients:
             if item.name in recipe_to_cook.ingredients:
                 ingredients_in_recipe.append(item)
+        # Make clean list of recipe detailed ingredients
+        detailedingredients_text = recipe_to_cook.detailed_ingredients
+        cleaned_text = detailedingredients_text.replace('[', '')
+        cleaned_text = cleaned_text.replace(']', '')
+        cleaned_text = cleaned_text.replace("'", '')
+        recipe_detailed_ingredients = cleaned_text.split(',')
+        # Return context
         context['ingredientsbeingused'] = ingredients_in_recipe
         context['recipe'] = recipe_to_cook
+        context['detailedingredients'] = recipe_detailed_ingredients
         return context
     """
         ingredients = FoodItem.objects.filter(user=user)
