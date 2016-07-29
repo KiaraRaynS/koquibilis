@@ -1,4 +1,5 @@
 from django.shortcuts import render, render_to_response
+from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
 from django.core.urlresolvers import reverse_lazy
 from rest_framework.authentication import SessionAuthentication
@@ -291,10 +292,20 @@ class EditFoodView(UpdateView):
 
 class CookFoodView(View):
 
-    def post(self):
+    def post(self, request, *args, **kwargs):
+        context = {}
         data = self.request.POST
-        # somethign
-        return #something
+        for value in data.items():
+            if value[0] != "csrfmiddlewaretoken":
+                recipeitem_id = value[0]
+                update_item = FoodItem.objects.get(id=recipeitem_id)
+                recipe_quantity = int(value[1])
+                if recipe_quantity < 0:
+                    recipe_quantity = 0
+                update_item.quantity = recipe_quantity
+                update_item.save()
+                return HttpResponseRedirect('/')
+        return render(request, "cookfoodview.html", context)
 
     def get(self, request, recipe_id):
         context = {}

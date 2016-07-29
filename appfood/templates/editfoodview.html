@@ -6,7 +6,7 @@
     <div class='panel pane-default'>
       <form type='' method='post'>
         {% csrf_token %}
-        <strong>Quantity: </strong>{{ form.quantity }} {{fooditem.measurementunit}}
+        <strong>Quantity: </strong>{{ form.quantity }} {% if fooditem.measurementunit != None %}{{fooditem.measurementunit}}{% endif %}
         <p><i>Set value to 0 to remove item.</i></p>
       <p><input type='submit' value='Confirm Edit' class='btn btn-default'></p>
       </form>

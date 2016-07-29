@@ -13,14 +13,17 @@
     </div>
   </div>
   <hr>
-  <p><i>Alter ingredients to the remaining quantity</i></p>
+  <p>Alter ingredients to the remaining quantity</p>
+  <p><i>Setting quantity to 0 will remove item.</i></p>
+  <p><i>Anything set to a negative number will be removed.</i></p>
+
   <form type='' method='post'>
   {% csrf_token %}
   {% for ingredient in ingredientsbeingused %}
 
     <div class='panel panel-default'>
       <strong>{{ingredient.name}}: </strong>{{form.quantity}}
-      <input type="number" placeholder="Current: {{ingredient.quantity}}{% if ingredient.measurementunit != None %}x {{ingredient.measurementunit}}{% endif %}" name="{{ingredient.id}}_quantity">
+      <input type="number" placeholder="Current: {{ingredient.quantity}}{% if ingredient.measurementunit != None %}x {{ingredient.measurementunit}}{% endif %}" name="{{ingredient.id}}">
       {% if ingredient.measurementunit != None %}
         <i>{{ingredient.measurementunit}}</i>
       {% endif %}
