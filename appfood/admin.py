@@ -1,5 +1,5 @@
 from django.contrib import admin
-from appfood.models import Recipe, UserPage, SavedRecipe
+from appfood.models import Recipe, UserPage, SavedRecipe, ShoppingList
 
 # Register your models here.
 

@@ -28,7 +28,7 @@ class FoodItem(models.Model):
 
 class ShoppingList(models.Model):
     user = models.ForeignKey('auth.user')
-    ingredients = models.TextField()
+    ingredients = models.TextField(null=True, blank=True)
 
 
 class Recipe(models.Model):

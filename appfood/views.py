@@ -11,7 +11,7 @@ from django.http import HttpResponse
 from appfood.models import Recipe, UserPage, SavedRecipe, FoodItem
 import requests
 # Views
-from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView, View
 # User forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -289,7 +289,38 @@ class EditFoodView(UpdateView):
         return FoodItem.objects.get(id=food_item)
 
 
-class CookFoodView(UpdateView):
+class CookFoodView(View):
+
+    def post(self):
+        data = self.request.POST
+        # somethign
+        return #something
+
+    def get(self, request, recipe_id):
+        context = {}
+        user = self.request.user
+        recipe = self.kwargs['recipe_id']
+        recipe_to_cook = SavedRecipe.objects.get(id=recipe)
+        useringredients = FoodItem.objects.filter(user=user)
+        # Get Ingredients to edit
+        ingredients_in_recipe = []
+        for item in useringredients:
+            if item.name in recipe_to_cook.ingredients:
+                ingredients_in_recipe.append(item)
+        # Make clean list of recipe detailed ingredients
+        detailedingredients_text = recipe_to_cook.detailed_ingredients
+        cleaned_text = detailedingredients_text.replace('[', '')
+        cleaned_text = cleaned_text.replace(']', '')
+        cleaned_text = cleaned_text.replace("'", '')
+        recipe_detailed_ingredients = cleaned_text.split(',')
+        # Return context
+        context['ingredientsbeingused'] = ingredients_in_recipe
+        context['recipe'] = recipe_to_cook
+        context['detailedingredients'] = recipe_detailed_ingredients
+        return render(request, "cookfoodview.html", context)
+
+
+class CookFoodViewx(UpdateView):
     model = FoodItem
     template_name = 'cookfoodview.html'
     fields = ['quantity']

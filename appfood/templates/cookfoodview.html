@@ -15,16 +15,18 @@
   <hr>
   <p><i>Alter ingredients to the remaining quantity</i></p>
   <form type='' method='post'>
+  {% csrf_token %}
   {% for ingredient in ingredientsbeingused %}
+
     <div class='panel panel-default'>
-        {% csrf_token %}
-        <strong>{{ingredient.name}}: </strong>{{form.quantity}}
-        {% if ingredient.measurementunit != None %}
+      <strong>{{ingredient.name}}: </strong>{{form.quantity}}
+      <input type="number" placeholder="Current: {{ingredient.quantity}}{% if ingredient.measurementunit != None %}x {{ingredient.measurementunit}}{% endif %}" name="{{ingredient.id}}_quantity">
+      {% if ingredient.measurementunit != None %}
         <i>{{ingredient.measurementunit}}</i>
-        {% endif %}
+      {% endif %}
     </div>
   {% endfor %}
+  <input type='submit' class='btn btn-success' value='Confirm Inventory Update'>
   </form>
   <hr>
-  <input type='submit' class='btn btn-success' value='Confirm Inventory Update'>
 {% endblock %}
