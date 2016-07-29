@@ -304,7 +304,7 @@ class CookFoodView(View):
                     recipe_quantity = 0
                 update_item.quantity = recipe_quantity
                 update_item.save()
-                return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/')
         return render(request, "cookfoodview.html", context)
 
     def get(self, request, recipe_id):
@@ -312,7 +312,7 @@ class CookFoodView(View):
         user = self.request.user
         recipe = self.kwargs['recipe_id']
         recipe_to_cook = SavedRecipe.objects.get(id=recipe)
-        useringredients = FoodItem.objects.filter(user=user)
+        useringredients = FoodItem.objects.filter(user=user, quantity__gt=0)
         # Get Ingredients to edit
         ingredients_in_recipe = []
         for item in useringredients:
