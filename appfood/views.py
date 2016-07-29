@@ -9,7 +9,7 @@ from rest_framework import authentication
 from oauth2_provider.views.generic import ProtectedResourceView
 from django.http import HttpResponse
 # Models
-from appfood.models import Recipe, UserPage, SavedRecipe, FoodItem
+from appfood.models import Recipe, UserPage, SavedRecipe, FoodItem, ShoppingList
 import requests
 # Views
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView, View
@@ -364,11 +364,13 @@ class CookFoodViewx(UpdateView):
         context['recipe'] = recipe_to_cook
         context['detailedingredients'] = recipe_detailed_ingredients
         return context
-    """
-        ingredients = FoodItem.objects.filter(user=user)
-        update_list = []
-        for item in ingredients:
-            if item.name in recipe_obj.ingredients:
-                update_list.append(item)
-        return update_list
-    """
+
+
+class UpdateShoppingListView(UpdateView):
+    model = ShoppingList
+    fields = ['ingredients']
+    template_name = 'updateshoppinglist.html'
+
+    def get_object(self, queryset=None):
+        recipe_id = self.kwargs['recipe_id']
+        return SavedRecipe.objects.get(id=recipe_id)
