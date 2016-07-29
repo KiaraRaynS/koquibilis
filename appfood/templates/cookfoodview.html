@@ -2,10 +2,21 @@
 
 {% block containerbodycontent %}
   <h3>Cook {{recipe.title}}</h3>
-  <hr>
   <div class='panel panel-default'>
-    {% for ingredient in update_list %}
-      <p>{{ingredient.name}}</p>
-    {% endfor %}
+    <div class='panel-heading'>
+      <strong>Recipe Ingredients by Instructions</strong>
+      <p>{{recipe.detailed_ingredients}}</p>
+    </div>
   </div>
+  <hr>
+  <form type='' method='post'>
+  {% for ingredient in ingredientsbeingused %}
+    <div class='panel panel-default'>
+        {% csrf_token %}
+        <strong>{{ingredient.name}}: </strong>{{form.quantity}}
+    </div>
+  {% endfor %}
+  </form>
+  <hr>
+  <input type='submit' class='btn btn-default' value='confirm cook'>
 {% endblock %}

@@ -43,6 +43,7 @@ class SavedRecipe(models.Model):
     big_image = models.TextField(max_length=200)
     user = models.ForeignKey('auth.user')
     bookmark_date = models.DateTimeField(auto_now_add=True)
+    detailed_ingredients = models.TextField()
 
 
 @receiver(post_save, sender='auth.user')

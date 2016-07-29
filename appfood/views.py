@@ -302,6 +302,20 @@ class CookFoodView(UpdateView):
         recipe = self.kwargs['recipe_id']
         recipe_obj = SavedRecipe.objects.get(id=recipe)
         return recipe_obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        recipe = self.kwargs['recipe_id']
+        recipe_to_cook = SavedRecipe.objects.get(id=recipe)
+        useringredients = FoodItem.objects.filter(user=user)
+        ingredients_in_recipe = []
+        for item in useringredients:
+            if item.name in recipe_to_cook.ingredients:
+                ingredients_in_recipe.append(item)
+        context['ingredientsbeingused'] = ingredients_in_recipe
+        context['recipe'] = recipe_to_cook
+        return context
     """
         ingredients = FoodItem.objects.filter(user=user)
         update_list = []
