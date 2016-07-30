@@ -96,8 +96,10 @@ class ProfileView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
+        holdphoto = os.environ['DEFAULT_ICON_DIR']
         if user.is_authenticated():
             context['userdata'] = UserPage.objects.get(user=user)
+            context['holderphoto'] = holdphoto
         return context
 
 

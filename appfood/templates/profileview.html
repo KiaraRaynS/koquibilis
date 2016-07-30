@@ -13,7 +13,11 @@
     <i>Max length: 300</i>
     <p>{{form.description}}</p>
     <p><strong>Profile Photo</strong></p>
+    {% if user.userpage.photo %}
     <div class='userphoto'><img height='150px' width='150px' id='preview' src="{{user.userpage.photo.url}}"></div>
+    {% else %}
+    <div class='userphoto'><img height='150px' width='150px' src="{{holderphoto}}"></div>
+    {% endif %}
     Please select a file
     <p>{{form.photo}}</p>
     <i>Recommended resolution: 100px</i>
