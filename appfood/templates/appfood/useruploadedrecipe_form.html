@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+  <!-- If user is logged in -->
+  {% if user.is_authenticated %}
+  <div class='panel panel-default'>
+    <div class='panel-heading'>
+      <h3>Upload New Recipe</h3>
+      <hr>
+      <i>* optional</i>
+      <p><i>Can leave blank if uploading photo with details.</i></p>
+    </div>
+    <div class='panel-body'>
+      <form type='' method='post'>
+        {% csrf_token %}
+        <p><strong>Recipe Title</strong></p>
+        <p>{{form.title}}</p>
+        <p><strong>Basic Ingredients</strong></p>
+        <i>Example: apples, oranges, flour</i>
+        <p>{{form.basic_ingredients}}</p>
+        <p><strong>Detailed Ingredients*</strong></p>
+        <i>Example: 2 cups flour, 3 tbsp sugar</i>
+        <p>{{form.detailed_ingredients}}</p>
+        <p><strong>Instructions*</strong></p>
+        <p>{{form.instructions}}</p>
+        <p><strong>Uploader Notes*</strong></p>
+        <p>{{form.uploader_notes}}</p>
+        <hr>
+        <input type='submit' value='Upload Recipe' class='btn btn-default'>
+      </form>
+    <div>
+  </div>
+  <!-- If user is NOT logged in -->
+  {% else %}
+  <div class='registerbox'>
+    <p>This page is only available to logged in users. Please register or login to view this page.</p>
+  </div>
+  {% endif %}
+{% endblock%}

@@ -9,7 +9,7 @@ from rest_framework import authentication
 from oauth2_provider.views.generic import ProtectedResourceView
 from django.http import HttpResponse
 # Models
-from appfood.models import Recipe, UserPage, SavedRecipe, FoodItem, ShoppingList
+from appfood.models import Recipe, UserPage, SavedRecipe, FoodItem, ShoppingList, UserUploadedRecipe
 import requests
 # Views
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView, View
@@ -436,3 +436,15 @@ class AddItemsToShoppingListView(UpdateView):
         print(form.instance.ingredients)
         return super(AddItemsToShoppingListView, self).form_valid(form)
         # is not updating it seems
+
+
+# Create Recipe Views
+class UploadRecipeView(CreateView):
+    model = UserUploadedRecipe
+    success_url = '/'
+    fields = ['title', 'basic_ingredients', 'detailed_ingredients', 'uploader_notes', 'instructions']
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.user = user
+        return super(UploadRecipeView, self).form_valid(form)

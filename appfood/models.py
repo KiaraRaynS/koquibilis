@@ -58,6 +58,8 @@ class UserUploadedRecipe(models.Model):
     detailed_ingredients = models.TextField(null=True, blank=True)
     uploader_notes = models.TextField(null=True, blank=True)
     instructions = models.TextField(null=True, blank=True)
+    # upload_date = models.DateTimeField(auto_now_add=True)
+    # recipe_photo = models.ImageField
 
 
 @receiver(post_save, sender='auth.user')
