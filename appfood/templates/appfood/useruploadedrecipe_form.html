@@ -7,12 +7,16 @@
     <div class='panel-heading'>
       <h3>Upload New Recipe</h3>
       <hr>
-      <i>* optional</i>
+      <!-- <i>* optional</i>
       <p><i>Can leave blank if uploading photo with details.</i></p>
+      -->
+      <i>Detailed Ingredients, Instructions, and Notes may be left blank</i>
     </div>
     <div class='panel-body'>
       <form type='' method='post'>
         {% csrf_token %}
+        {{form.as_p}}
+        <!--
         <p><strong>Recipe Title</strong></p>
         <p>{{form.title}}</p>
         <p><strong>Basic Ingredients</strong></p>
@@ -25,6 +29,7 @@
         <p>{{form.instructions}}</p>
         <p><strong>Uploader Notes*</strong></p>
         <p>{{form.uploader_notes}}</p>
+        -->
         <hr>
         <input type='submit' value='Upload Recipe' class='btn btn-default'>
       </form>

@@ -44,6 +44,7 @@ class IndexView(TemplateView):
             bookmarks = SavedRecipe.objects.filter(user=user.id).order_by('-bookmark_date')
             userinventory = FoodItem.objects.filter(user=user.id).order_by('-date_added')
             shoppinglist = ShoppingList.objects.get(user=user)
+            uploaded_recipes = UserUploadedRecipe.objects.filter(user=user)
             # Get user food list
             userinventory_list = []
             for item in userinventory:
@@ -65,6 +66,7 @@ class IndexView(TemplateView):
                     'useritems': userinventory,
                     'possible_recipes': possible_recipes,
                     'shoppinglist': shoppinglist,
+                    'uploaded_recipes': uploaded_recipes,
                     }
             return context
 
@@ -438,7 +440,7 @@ class AddItemsToShoppingListView(UpdateView):
         # is not updating it seems
 
 
-# Create Recipe Views
+# User Created Recipe Views
 class UploadRecipeView(CreateView):
     model = UserUploadedRecipe
     success_url = '/'
@@ -447,4 +449,27 @@ class UploadRecipeView(CreateView):
     def form_valid(self, form):
         user = self.request.user
         form.instance.user = user
+        if form.instance.title == '':
+            form.add_error('form.instance.title', "Cannot be blank")
+            return self.form_invalid(form)
         return super(UploadRecipeView, self).form_valid(form)
+
+
+class EditUploadedRecipeView(UpdateView):
+    model = UserUploadedRecipe
+    success_url = '/'
+    template_name = 'edituploadedrecipeview.html'
+    fields = ['title', 'basic_ingredients', 'detailed_ingredients', 'uploader_notes', 'instructions']
+
+    def get_object(self, queryset=None):
+        recipe_id = self.kwargs['recipe_id']
+        return UserUploadedRecipe.objects.get(id=recipe_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user
+        recipe_id = self.kwargs['recipe_id']
+        recipe_data = UserUploadedRecipe.objects.get(id=recipe_id)
+        context['recipe_data'] = recipe_data
+        context['currentuser'] = current_user
+        return context

@@ -86,14 +86,20 @@
       <a href="{% url 'uploadrecipeview' %}" class='btn btn-default'>Upload a Recipe</a>
       <a href="" class='btn btn-default'>Link a Recipe</a>
       <hr>
+      <h3>Your Uploads</h3>
+      {% for item in uploaded_recipes %}
         <div class='panel panel-default'>
           <div class='panel-heading'>
-            <p>Recipe Name</p>
+            <strong>{{item.title}}</strong>
+            <a href="{% url 'edituseruploadedrecipe' item.id %}" class='btn btn-default'>Edit Recipe</a>
+            <a href="" class='btn btn-danger'>Delete Recipe</a>
           </div>
           <div class='panel-body'>
-            <p>Stuff</p>
+            Notes: <i>{{item.uploader_notes}}</i>
+            <p><i>Date added will go here</i></p>
           </div>
         </div>
+        {% endfor %}
     </div>
 
 </div>

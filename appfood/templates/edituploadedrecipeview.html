@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+  {% if recipe_data.user == currentuser %}
+  <div class='panel panel-default'>
+    <div class='panel-heading'>
+      <h2>Edit {{recipe_data.title}}</h2>
+    </div>
+    <div class='panel-body'>
+      <form type='' method='post'>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type='submit' value="Confirm Update" class='btn btn-default'>
+      </form>
+    </div>
+  </div>
+  {% else %}
+    <div class='registerbox'>
+      <p>You do not have permission to view this page.</p>
+    </div>
+  {% endif %}
+{% endblock %}
