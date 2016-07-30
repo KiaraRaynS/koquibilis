@@ -16,6 +16,7 @@
     <li role="presentation" class="active"><a href="#inventory" aria-controls="home" role="tab" data-toggle="tab">Inventory</a></li>
     <li role="presentation"><a href="#possiblerecipes" aria-controls="profile" role="tab" data-toggle="tab">Possible Recipes</a></li>
     <li role="presentation"><a href="#savedrecipes" aria-controls="messages" role="tab" data-toggle="tab">Saved Recipes</a></li>
+    <li role="presentation"><a href="#shoppinglist" aria-controls="shoppinglist" role="tab" data-toggle="tab">Shopping List</a></li>
   </ul>
 
   <!-- Nav panels -->
@@ -67,6 +68,16 @@
         </div>
       </div>
         {% endfor %}
+    </div>
+
+    <!-- Shopping List -->
+    <div role='tabpanel' class='tab-pane' id='shoppinglist'>
+      <a href="{% url 'updateshoppinglistview' %}" class='btn btn-success'>Edit Shopping List</a>
+      <a href="" class='btn btn-default'>Clear List</a>
+        <p><strong>Current list:</strong></p>
+        <div class='panel panel-default'>
+            {{shoppinglist.ingredients}}
+        </div>
     </div>
 
 </div>

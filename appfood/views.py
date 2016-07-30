@@ -43,6 +43,7 @@ class IndexView(TemplateView):
             userpage = UserPage.objects.get(user=user)
             bookmarks = SavedRecipe.objects.filter(user=user.id).order_by('-bookmark_date')
             userinventory = FoodItem.objects.filter(user=user.id).order_by('-date_added')
+            shoppinglist = ShoppingList.objects.get(user=user)
             # Get user food list
             userinventory_list = []
             for item in userinventory:
@@ -63,6 +64,7 @@ class IndexView(TemplateView):
                     'bookmarks': bookmarks,
                     'useritems': userinventory,
                     'possible_recipes': possible_recipes,
+                    'shoppinglist': shoppinglist,
                     }
             return context
 
@@ -370,6 +372,7 @@ class UpdateShoppingListView(UpdateView):
     model = ShoppingList
     fields = ['ingredients']
     template_name = 'updateshoppinglistview.html'
+    success_url = '/'
 
     def get_object(self, queryset=None):
         user = self.request.user
@@ -378,8 +381,9 @@ class UpdateShoppingListView(UpdateView):
 
 class AddItemsToShoppingListView(UpdateView):
     model = ShoppingList
-    fields = ['ingredients']
+    fields = []
     template_name = 'additemstoshoppinglistview.html'
+    success_url = '/'
 
     def get_object(self, queryset=None):
         recipe = self.kwargs['recipe_id']
@@ -388,6 +392,39 @@ class AddItemsToShoppingListView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        shopping_list = ShoppingList.objects.filter(user=user)
+        shopping_list = ShoppingList.objects.get(user=user)
+        recipe_id = self.kwargs['recipe_id']
+        recipe = SavedRecipe.objects.get(id=recipe_id)
+        # Get list ingredients
+        recipeingredients_str = recipe.detailed_ingredients
+        ingredients = recipeingredients_str.replace("'", '')
+        ingredients = ingredients.replace('[', '')
+        ingredients = ingredients.replace(']', '')
+        ingredients_list = ingredients.split(',')
+        # Get
         context['shoppinglist'] = shopping_list
+        context['ingredients'] = ingredients_list
+        context['recipe'] = recipe
         return context
+
+    def form_valid(self, form):
+        user = self.request.user
+        shopping_list = ShoppingList.objects.get(user=user)
+        current_list = shopping_list.ingredients
+        # Get Ingredients List
+        recipe_id = self.kwargs['recipe_id']
+        recipe = SavedRecipe.objects.get(id=recipe_id)
+        recipeingredients_str = recipe.detailed_ingredients
+        ingredients = recipeingredients_str.replace("'", '')
+        ingredients = ingredients.replace('[', '')
+        ingredients = ingredients.replace(']', '')
+        ingredients_list = ingredients.split(',')
+        new_list = current_list + ', '
+        for item in ingredients_list:
+            new_list = new_list + item + ','
+        print(form.instance.user)
+        print(form.instance.id)
+        form.instance.ingredients = new_list
+        print(form.instance.ingredients)
+        return super(AddItemsToShoppingListView, self).form_valid(form)
+        # is not updating it seems

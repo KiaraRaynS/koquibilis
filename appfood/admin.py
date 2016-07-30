@@ -17,3 +17,8 @@ admin.site.register(Recipe, RecipeAdmin)
 class SavedRecipeAdmin(admin.ModelAdmin):
     list_display = ['title']
 admin.site.register(SavedRecipe, SavedRecipeAdmin)
+
+
+class ShoppingListAdmin(admin.ModelAdmin):
+    list_display = ['user']
+admin.site.register(ShoppingList, ShoppingListAdmin)
