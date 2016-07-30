@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+  <h2>Delete {{recipe.title}}</h2>
+  <div class='panel panel-default'>
+    <div class='panel-heading'>
+      <p>Picture will go here at some point</p>
+      <p><strong>Ingredients</strong></p>
+      <p>{{recipe.basic_ingredients}}</p>
+      <p><strong>Notes</strong></p>
+      <p>{{recipe.uploader_notes}}</p>
+      <i>Added date goes here</i>
+    </div>
+  </div>
+  <hr>
+  <form type='' method='post'>
+    {% csrf_token %}
+    <input type='submit' value='Comfirm Deletion' class='btn btn-danger'>
+  </form>
+
+{% endblock %}

@@ -483,3 +483,11 @@ class DeleteUploadedRecipeView(DeleteView):
     def get_object(self, queryset=None):
         recipe_id = self.kwargs['recipe_id']
         return UserUploadedRecipe.objects.get(id=recipe_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        recipe_id = self.kwargs['recipe_id']
+        user = self.request.user
+        context['recipe'] = UserUploadedRecipe.objects.get(id=recipe_id)
+        context['currentuser'] = user
+        return context
