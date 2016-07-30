@@ -17,6 +17,7 @@
     <li role="presentation"><a href="#possiblerecipes" aria-controls="profile" role="tab" data-toggle="tab">Possible Recipes</a></li>
     <li role="presentation"><a href="#savedrecipes" aria-controls="messages" role="tab" data-toggle="tab">Saved Recipes</a></li>
     <li role="presentation"><a href="#shoppinglist" aria-controls="shoppinglist" role="tab" data-toggle="tab">Shopping List</a></li>
+    <li role="presentation"><a href="#useruploadedrecipes" aria-controls="useruploadedrecipes" role="tab" data-toggle="tab">User Uploaded Recipes</a></li>
   </ul>
 
   <!-- Nav panels -->
@@ -77,6 +78,21 @@
         <p><strong>Current list:</strong></p>
         <div class='panel panel-default'>
             {{shoppinglist.ingredients}}
+        </div>
+    </div>
+
+    <!-- User Uploaded Recipes -->
+    <div role='tabpanel' class='tab-pane' id='useruploadedrecipes'>
+      <a href="" class='btn btn-default'>Upload a Recipe</a>
+      <a href="" class='btn btn-default'>Link a Recipe</a>
+      <hr>
+        <div class='panel panel-default'>
+          <div class='panel-heading'>
+            <p>Recipe Name</p>
+          </div>
+          <div class='panel-body'>
+            <p>Stuff</p>
+          </div>
         </div>
     </div>
 

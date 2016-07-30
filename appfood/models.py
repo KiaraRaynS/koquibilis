@@ -51,6 +51,15 @@ class SavedRecipe(models.Model):
     detailed_ingredients = models.TextField()
 
 
+class UserUploadedRecipe(models.Model):
+    user = models.ForeignKey('auth.user')
+    title = models.CharField(max_length=100)
+    basic_ingredients = models.TextField()
+    detailed_ingredients = models.TextField(null=True, blank=True)
+    uploader_notes = models.TextField(null=True, blank=True)
+    instructions = models.TextField(null=True, blank=True)
+
+
 @receiver(post_save, sender='auth.user')
 def create_userpage(**kwargs):
     created = kwargs.get('created')

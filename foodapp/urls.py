@@ -11,6 +11,7 @@ from appfood.views import ProfileView
 from appfood.views import RecipeView, SpecificRecipeView
 # User Recipe Interaction related views
 from appfood.views import SaveRecipeView, DeleteBookmarkView, AddFoodView, EditFoodView, SearchRecipesView, CookFoodView, UpdateShoppingListView, AddItemsToShoppingListView
+from appfood.views import ViewUserProfileView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,6 +25,8 @@ urlpatterns = [
     url(r'^accounts/login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
     url(r'^accounts/profile/$', ProfileView.as_view(), name='profileview'),
+    # User profile and recipe information
+    url(r'^userprofiles/(?P<username>[A-Za-z0-9_\-]+)', ViewUserProfileView.as_view(), name='viewuserprofileview'),
     # Recipe related Views
     url(r'^recipes/$', RecipeView.as_view(), name='recipeview'),
     url(r'^recipes/specificrecipe/(?P<recipe_id>[A-Za-z0-9_\-]+)/$', SpecificRecipeView.as_view(), name='specificrecipeview'),

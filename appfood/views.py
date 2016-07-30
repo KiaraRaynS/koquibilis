@@ -103,6 +103,11 @@ class ProfileView(UpdateView):
         return context
 
 
+class ViewUserProfileView(TemplateView):
+    template_name = 'userprofileview.html'
+
+
+# Recipe related views
 class RecipeView(ListView):
     model = Recipe
 
@@ -370,6 +375,7 @@ class CookFoodViewx(UpdateView):
         return context
 
 
+# Shopping List Views
 class UpdateShoppingListView(UpdateView):
     model = ShoppingList
     fields = ['ingredients']
