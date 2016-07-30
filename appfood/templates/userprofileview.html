@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+<h2>
+  {% if userpage.userhandle != null %}
+    {{userpage.userhandle}}
+  {% else %}
+    {{user.username}}
+  {% endif %}
+</h2>
+  <hr>
+  <div class='panel panel-default'>
+    <div class='panel-heading'>
+      <p>
+      {% if userpage.photo.url != null %}
+      <img src="{{userpage.photo.url}}">
+      {% endif %}
+    </div>
+    <div class='panel-body'>
+      <h4>Bookmarked Recipes</h4>
+      <hr>
+      {% for bookmark in bookmarked_recipes %}
+      {{ bookmark.name }}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

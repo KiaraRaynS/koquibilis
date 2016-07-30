@@ -108,6 +108,20 @@ class ProfileView(UpdateView):
 class ViewUserProfileView(TemplateView):
     template_name = 'userprofileview.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        username = self.kwargs['username']
+        user = User.objects.get(username=username)
+        userpage = UserPage.objects.get(user=user)
+        print(userpage.userhandle)
+        uploads = UserUploadedRecipe.objects.filter(user=user)
+        bookmarked_recipes = SavedRecipe.objects.filter(user=user)
+        context['user'] = user
+        context['userpage'] = userpage
+        context['uploads'] = uploads
+        context['bookmarked_recipes'] = bookmarked_recipes
+        return context
+
 
 # Recipe related views
 class RecipeView(ListView):
