@@ -473,3 +473,13 @@ class EditUploadedRecipeView(UpdateView):
         context['recipe_data'] = recipe_data
         context['currentuser'] = current_user
         return context
+
+
+class DeleteUploadedRecipeView(DeleteView):
+    model = UserUploadedRecipe
+    success_url = '/'
+    template = 'deleteuploadedrecipeview'
+
+    def get_object(self, queryset=None):
+        recipe_id = self.kwargs['recipe_id']
+        return UserUploadedRecipe.objects.get(id=recipe_id)
