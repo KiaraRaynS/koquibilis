@@ -60,6 +60,14 @@ def create_userpage(**kwargs):
 
 
 @receiver(post_save, sender='auth.user')
+def create_shoppinglist(**kwargs):
+    created = kwargs.get('created')
+    instance = kwargs.get('instance')
+    if created:
+        ShoppingList.objects.create(user=instance)
+
+
+@receiver(post_save, sender='auth.user')
 def create_usertoken(**kwargs):
     created = kwargs.get('created')
     instance = kwargs.get('instance')

@@ -369,7 +369,7 @@ class CookFoodViewx(UpdateView):
 class UpdateShoppingListView(UpdateView):
     model = ShoppingList
     fields = ['ingredients']
-    template_name = 'updateshoppinglist.html'
+    template_name = 'updateshoppinglistview.html'
 
     def get_object(self, queryset=None):
         user = self.request.user
@@ -379,8 +379,15 @@ class UpdateShoppingListView(UpdateView):
 class AddItemsToShoppingListView(UpdateView):
     model = ShoppingList
     fields = ['ingredients']
-    template_name = 'additemstoshoppinglist.html'
+    template_name = 'additemstoshoppinglistview.html'
 
     def get_object(self, queryset=None):
         recipe = self.kwargs['recipe_id']
         return SavedRecipe.objects.get(id=recipe)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        shopping_list = ShoppingList.objects.filter(user=user)
+        context['shoppinglist'] = shopping_list
+        return context
