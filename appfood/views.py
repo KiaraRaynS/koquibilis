@@ -372,5 +372,15 @@ class UpdateShoppingListView(UpdateView):
     template_name = 'updateshoppinglist.html'
 
     def get_object(self, queryset=None):
-        recipe_id = self.kwargs['recipe_id']
-        return SavedRecipe.objects.get(id=recipe_id)
+        user = self.request.user
+        return ShoppingList.objects.get(user=user)
+
+
+class AddItemsToShoppingListView(UpdateView):
+    model = ShoppingList
+    fields = ['ingredients']
+    template_name = 'additemstoshoppinglist.html'
+
+    def get_object(self, queryset=None):
+        recipe = self.kwargs['recipe_id']
+        return SavedRecipe.objects.get(id=recipe)
