@@ -539,3 +539,19 @@ class BookmarkUploadedRecipeView(CreateView):
         form.instance.recipe = recipe
         form.instance.title = recipe.title
         return super(BookmarkUploadedRecipeView, self).form_valid(form)
+
+
+class DeleteBookmarkedUploadView(DeleteView):
+    model = UploadedRecipeBookmark
+    success_url = '/'
+
+    def get_object(self, queryset=None):
+        recipe_id = self.kwargs['recipe_id']
+        return UploadedRecipeBookmark.objects.get(id=recipe_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        recipe_id = self.kwargs['recipe_id']
+        recipe = UploadedRecipeBookmark.objects.get(id=recipe_id)
+        context['recipe'] = recipe
+        return context

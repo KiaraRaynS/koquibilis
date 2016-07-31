@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+  <div class='panel panel-default'>
+    <div class='panel-heading'>
+      <h2>Remove Bookark for {{recipe.title}}</h2>
+      {% if recipe.notes != '' %}
+      <i>Notes: {{recipe.bookmark_notes}}</i>
+      {% endif %}
+    </div>
+    <div class='panel-body'>
+      <form type='' method='post'>
+        {% csrf_token %}
+        <input type='submit' value='Comfirm Remove' class='btn btn-default'>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -110,6 +110,7 @@
         <div class='panel-heading'>
           <h3>{{bookmark.title}}
           <a href="{% url 'viewuploadededrecipeview' bookmark.recipe.id %}" class='btn btn-default'>View Recipe</a>
+          <a href="{% url 'deletebookmarkeduploadview' bookmark.id %}" class='btn btn-danger'>Remove Bookmark</a>
           </h3>
         </div>
         <div class='panel-body'>

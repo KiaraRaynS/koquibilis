@@ -12,7 +12,7 @@ from appfood.views import RecipeView, SpecificRecipeView
 # User Recipe Interaction related views
 from appfood.views import SaveRecipeView, DeleteBookmarkView, AddFoodView, EditFoodView, SearchRecipesView, CookFoodView, UpdateShoppingListView, AddItemsToShoppingListView
 from appfood.views import ViewUserProfileView, UploadRecipeView, EditUploadedRecipeView, DeleteUploadedRecipeView, ViewUploadedRecipeView
-from appfood.views import BookmarkUploadedRecipeView
+from appfood.views import BookmarkUploadedRecipeView, DeleteBookmarkedUploadView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^deleteuploadrecipe/(?P<recipe_id>\d+)/$', DeleteUploadedRecipeView.as_view(), name='deletuploadedrecipeview'),
     url(r'^viewuploadedrecipe/(?P<recipe_id>\d+)/$', ViewUploadedRecipeView.as_view(), name='viewuploadededrecipeview'),
     url(r'^bookmarkuploadedrecipe/(?P<recipe_id>\d+)/$', BookmarkUploadedRecipeView.as_view(), name='bookmarkuploadedrecipeview'),
+    url(r'^deletebookmarkedupload/(?P<recipe_id>\d+)/$', DeleteBookmarkedUploadView.as_view(), name='deletebookmarkeduploadview'),
     # Recipe related Views
     url(r'^recipes/$', RecipeView.as_view(), name='recipeview'),
     url(r'^recipes/specificrecipe/(?P<recipe_id>[A-Za-z0-9_\-]+)/$', SpecificRecipeView.as_view(), name='specificrecipeview'),
