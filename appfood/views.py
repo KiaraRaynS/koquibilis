@@ -491,7 +491,6 @@ class EditUploadedRecipeView(UpdateView):
 class DeleteUploadedRecipeView(DeleteView):
     model = UserUploadedRecipe
     success_url = '/'
-    template = 'deleteuploadedrecipeview'
 
     def get_object(self, queryset=None):
         recipe_id = self.kwargs['recipe_id']
@@ -507,8 +506,11 @@ class DeleteUploadedRecipeView(DeleteView):
 
 
 class ViewUploadedRecipeView(TemplateView):
-    template = 'viewuploadedrecipeview'
+    template_name = 'viewuploadedrecipeview.html'
 
-    def get_object(self, queryset=None):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         recipe_id = self.kwargs['recipe_id']
-        return SavedRecipe.objects.get(id=recipe_id)
+        recipe = UserUploadedRecipe.objects.get(id=recipe_id)
+        context['recipe'] = recipe
+        return context

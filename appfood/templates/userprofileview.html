@@ -31,8 +31,8 @@
       {% for recipe in uploads %}
       <p><strong>{{recipe.title}}</strong>
       <i>{{recipe.upload_date}}</i></p>
+      <p><a class='btn btn-default' href="{% url 'viewuploadededrecipeview' recipe.id %}">View Recipe</a></p>
       <!-- Needs a view -->
-      <a href="" class='btn btn-default'>View Recipe</a>
       {% endfor %}
     </div>
   </div>

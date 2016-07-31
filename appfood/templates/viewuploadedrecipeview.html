@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+  <div class='panel panel-default'>
+    <div class='panel-heading'>
+      <h2>{{recipe.title}}</h2>
+      <i>Uploaded {{recipe.upload_date}}</i>
+    </div>
+    <div class='panel-body'>
+      <p><strong>Ingredients</strong></p>
+        {% if recipe.detailed_ingredients == '' %}
+          <p>{{recipe.basic_ingredients}}</p>
+        {% else %}
+          <p>{{recipe.detailed_ingredients}}</p>
+        {% endif %}
+      {% if recipe.instructions != '' %}
+        <p><strong>Instructions</strong></p>
+          <p>{{recipe.instructions}}</p>
+      {% endif %}
+      <p><strong>Notes</strong></p>
+        {% if recipe.uploader_notes != '' %}
+          <p>{{recipe.uploader_notes}}</p>
+        {% else %}
+          <p>Uploaded included no notes</p>
+        {% endif %}
+    </div>
+  </div>
+{% endblock %}
