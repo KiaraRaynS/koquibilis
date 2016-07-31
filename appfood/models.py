@@ -62,6 +62,14 @@ class UserUploadedRecipe(models.Model):
     # recipe_photo = models.ImageField
 
 
+class UploadedRecipeBookmark(models.Model):
+    uploader = models.ForeignKey('auth.user')
+    title = models.CharField(max_length=100)
+    bookmark_notes = models.CharField(max_length=150)
+    recipe = models.ForeignKey(UserUploadedRecipe)
+    bookmark_date = models.DateTimeField(auto_now_add=True)
+
+
 @receiver(post_save, sender='auth.user')
 def create_userpage(**kwargs):
     created = kwargs.get('created')

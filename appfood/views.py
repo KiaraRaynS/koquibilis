@@ -9,7 +9,7 @@ from rest_framework import authentication
 from oauth2_provider.views.generic import ProtectedResourceView
 from django.http import HttpResponse
 # Models
-from appfood.models import Recipe, UserPage, SavedRecipe, FoodItem, ShoppingList, UserUploadedRecipe
+from appfood.models import Recipe, UserPage, SavedRecipe, FoodItem, ShoppingList, UserUploadedRecipe, UploadedRecipeBookmark
 import requests
 # Views
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView, View
@@ -514,3 +514,7 @@ class ViewUploadedRecipeView(TemplateView):
         recipe = UserUploadedRecipe.objects.get(id=recipe_id)
         context['recipe'] = recipe
         return context
+
+
+class BookmarkUploadedRecipeView(CreateView):
+    model = UploadedRecipeBookmark
