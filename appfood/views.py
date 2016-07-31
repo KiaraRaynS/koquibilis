@@ -45,7 +45,7 @@ class IndexView(TemplateView):
             userinventory = FoodItem.objects.filter(user=user.id).order_by('-date_added')
             shoppinglist = ShoppingList.objects.get(user=user)
             uploaded_recipes = UserUploadedRecipe.objects.filter(user=user)
-            bookmarked_uploads = UploadedRecipeBookmark.objects.filter(user=user)
+            bookmarked_uploads = UploadedRecipeBookmark.objects.filter(user=user).order_by('-bookmark_date')
             # Get user food list
             userinventory_list = []
             for item in userinventory:
