@@ -2,11 +2,12 @@
 
 {% block containerbodycontent %}
 <h2>
-  {% if userpage.userhandle != null %}
-    {{userpage.userhandle}}
-  {% else %}
+  {% if userpage.userhandle == '' %}
     {{user.username}}
+  {% else %}
+    {{userpage.userhandle}}
   {% endif %}
+
 </h2>
   <hr>
   <div class='panel panel-default'>
@@ -20,7 +21,18 @@
       <h4>Bookmarked Recipes</h4>
       <hr>
       {% for bookmark in bookmarked_recipes %}
-      {{ bookmark.name }}
+      <p><strong>{{ bookmark.title }}</strong>
+      <i>{{bookmark.bookmark_date}}</i></p>
+      <p><a class='btn btn-default' href="{% url 'specificrecipeview' bookmark.recipe_key %}">View Recipe</a></p>
+      {% endfor %}
+
+      <h4>Uploaded Recipes</h4>
+      <hr>
+      {% for recipe in uploads %}
+      <p><strong>{{recipe.title}}</strong>
+      <i>{{recipe.upload_date}}</i></p>
+      <!-- Needs a view -->
+      <a href="" class='btn btn-default'>View Recipe</a>
       {% endfor %}
     </div>
   </div>

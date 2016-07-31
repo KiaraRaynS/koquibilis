@@ -113,7 +113,6 @@ class ViewUserProfileView(TemplateView):
         username = self.kwargs['username']
         user = User.objects.get(username=username)
         userpage = UserPage.objects.get(user=user)
-        print(userpage.userhandle)
         uploads = UserUploadedRecipe.objects.filter(user=user)
         bookmarked_recipes = SavedRecipe.objects.filter(user=user)
         context['user'] = user
@@ -505,3 +504,11 @@ class DeleteUploadedRecipeView(DeleteView):
         context['recipe'] = UserUploadedRecipe.objects.get(id=recipe_id)
         context['currentuser'] = user
         return context
+
+
+class ViewUploadedRecipeView(TemplateView):
+    template = 'viewuploadedrecipeview'
+
+    def get_object(self, queryset=None):
+        recipe_id = self.kwargs['recipe_id']
+        return SavedRecipe.objects.get(id=recipe_id)
