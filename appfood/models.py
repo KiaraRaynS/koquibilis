@@ -63,7 +63,7 @@ class UserUploadedRecipe(models.Model):
 
 
 class UploadedRecipeBookmark(models.Model):
-    uploader = models.ForeignKey('auth.user')
+    user = models.ForeignKey('auth.user')
     title = models.CharField(max_length=100)
     bookmark_notes = models.CharField(max_length=150)
     recipe = models.ForeignKey(UserUploadedRecipe)

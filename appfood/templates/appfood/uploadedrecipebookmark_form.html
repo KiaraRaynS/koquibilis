@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+  <div class='panel panel-default'>
+    <div class='panel-heading'>
+      <h2>Bookmark Recipe: {{recipe.title}}</h2>
+    </div>
+    <div class='panel-body'>
+      <form type='' method='post'>
+        <p><strong>Bookmark Notes:</strong></p>
+        <p>{{form.bookmark_notes}}</p>
+        {% csrf_token %}
+        <input type='submit' value='Bookmark Recipe' class='btn btn-default'>
+      </form>
+    </div>
+  </div>
+{% endblock %}

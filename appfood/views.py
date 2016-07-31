@@ -45,6 +45,7 @@ class IndexView(TemplateView):
             userinventory = FoodItem.objects.filter(user=user.id).order_by('-date_added')
             shoppinglist = ShoppingList.objects.get(user=user)
             uploaded_recipes = UserUploadedRecipe.objects.filter(user=user)
+            bookmarked_uploads = UploadedRecipeBookmark.objects.filter(user=user)
             # Get user food list
             userinventory_list = []
             for item in userinventory:
@@ -67,6 +68,7 @@ class IndexView(TemplateView):
                     'possible_recipes': possible_recipes,
                     'shoppinglist': shoppinglist,
                     'uploaded_recipes': uploaded_recipes,
+                    'bookmarked_uploads': bookmarked_uploads,
                     }
             return context
 
@@ -518,3 +520,22 @@ class ViewUploadedRecipeView(TemplateView):
 
 class BookmarkUploadedRecipeView(CreateView):
     model = UploadedRecipeBookmark
+    fields = ['bookmark_notes']
+    success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        recipe_id = self.kwargs['recipe_id']
+        recipe = UserUploadedRecipe.objects.get(id=recipe_id)
+        context['recipe'] = recipe
+        return context
+
+    def form_valid(self, form):
+        recipe_id = self.kwargs['recipe_id']
+        user = self.request.user
+        recipe = UserUploadedRecipe.objects.get(id=recipe_id)
+        form.instance.uploader = recipe.user
+        form.instance.user = user
+        form.instance.recipe = recipe
+        form.instance.title = recipe.title
+        return super(BookmarkUploadedRecipeView, self).form_valid(form)
