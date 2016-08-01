@@ -133,32 +133,34 @@ class RecipeView(ListView):
         api_auth = os.environ['API_AUTH']
         base_url = 'http://api.yummly.com/v1/api/recipes?'
         recipes_list_url = base_url + api_auth
+        pagination = '&maxResult=10&start=10'
         # All Recipes
-        allrecipe_results = requests.get(recipes_list_url).json()
+        all_recipes_url = recipes_list_url + pagination
+        allrecipe_results = requests.get(all_recipes_url).json()
         allrecipe = allrecipe_results['matches']
         # By allergens
         # Glutten
-        gluttenfree_url = recipes_list_url + '&allowedAllergy[]=393^Gluten-Free'
+        gluttenfree_url = recipes_list_url + '&allowedAllergy[]=393^Gluten-Free' + pagination
         gluttenfree_results = requests.get(gluttenfree_url).json()
         gluttenfree = gluttenfree_results['matches']
         # Lactose
-        dairyfree_url = recipes_list_url + "&allowedAllergy[]=393^Dairy-Free"
+        dairyfree_url = recipes_list_url + "&allowedAllergy[]=393^Dairy-Free" + pagination
         dairyfree_results = requests.get(dairyfree_url).json()
         dairyfree = dairyfree_results['matches']
         # Egg
-        eggfree_url = recipes_list_url + "&allowedAllergy[]=393^Egg-Free"
+        eggfree_url = recipes_list_url + "&allowedAllergy[]=393^Egg-Free" + pagination
         eggfree_results = requests.get(eggfree_url).json()
         eggfree = eggfree_results['matches']
         # Peanut
-        peanutfree_url = recipes_list_url + "&allowedAllergy[]=393^Peanut-Free"
+        peanutfree_url = recipes_list_url + "&allowedAllergy[]=393^Peanut-Free" + pagination
         peanutfree_results = requests.get(peanutfree_url).json()
         peanutfree = peanutfree_results['matches']
         # Seafood
-        seafoodfree_url = recipes_list_url + "&allowedAllergy[]&=393^Seafood-Free"
+        seafoodfree_url = recipes_list_url + "&allowedAllergy[]&=393^Seafood-Free" + pagination
         seafoodfree_results = requests.get(seafoodfree_url).json()
         seafoodfree = seafoodfree_results['matches']
         # Soy
-        soyfree_url = recipes_list_url + "&allowedAllergy[]&=393^Soy-Free"
+        soyfree_url = recipes_list_url + "&allowedAllergy[]&=393^Soy-Free" + pagination
         soyfree_results = requests.get(soyfree_url).json()
         soyfree = soyfree_results['matches']
         # context
