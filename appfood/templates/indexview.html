@@ -111,19 +111,26 @@
 
     <!-- Bookmarked Uploads -->
     <div role='tabpanel' class='tab-pane' id='bookmarkeduploads'>
+    {% for bookmark in bookmarked_uploads %}
       <div class='panel panel-default'>
-        {% for bookmark in bookmarked_uploads %}
         <div class='panel-heading'>
-          <h3>{{bookmark.title}}
-          <a href="{% url 'viewuploadededrecipeview' bookmark.recipe.id %}" class='btn btn-default'>View Recipe</a>
-          <a href="{% url 'deletebookmarkeduploadview' bookmark.id %}" class='btn btn-danger'>Remove Bookmark</a>
-          </h3>
+          {{bookmark.title}}
+          <p><i>Added: {{bookmark.bookmark_date}}</i></p>
         </div>
         <div class='panel-body'>
-          <p>{{bookmark.bookmark_notes}}</p>
+          <p><img class='smallrecipeimage' height='90px' width='90px' src="{{bookmark.recipe.recipephoto.url}}"></p>
+          <p><strong>Notes: </strong>
+          {% if bookmark.bookmark_notes == '' %}
+          <i>None</i>
+          {% else %}
+          {{bookmark.bookmark_notes}}
+          {% endif %}
+          </p>
+          <a href="{% url 'viewuploadededrecipeview' bookmark.recipe.id %}" class='btn btn-default'>View Recipe</a>
+          <a href="{% url 'deletebookmarkeduploadview' bookmark.id %}" class='btn btn-danger'>Remove Bookmark</a>
         </div>
-        {% endfor %}
       </div>
+    {% endfor %}
     </div>
 
 <!-- End tabs -->
