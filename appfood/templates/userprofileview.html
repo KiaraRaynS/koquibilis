@@ -2,6 +2,9 @@
 
 {% block containerbodycontent %}
 <h2>
+  {% if userpage.photo.url != null %}
+  <img class='smallrecipeimage' height='90px' width='90px' src="{{userpage.photo.url}}">
+  {% endif %}
   {% if userpage.userhandle == '' %}
     {{user.username}}
   {% else %}
@@ -13,21 +16,21 @@
   <div class='panel panel-default'>
     <div class='panel-heading'>
       <p>
-      {% if userpage.photo.url != null %}
-      <img src="{{userpage.photo.url}}">
+      <!-- If current user = userpage user -->
+      {% if user == current_user %}
+      <a class='btn btn-default' href="{% url 'profileview' %}">Edit User Information</a>
       {% endif %}
     </div>
     <div class='panel-body'>
       <h4>Bookmarked Recipes</h4>
-      <hr>
       {% for bookmark in bookmarked_recipes %}
       <p><strong>{{ bookmark.title }}</strong>
       <i>{{bookmark.bookmark_date}}</i></p>
       <p><a class='btn btn-default' href="{% url 'specificrecipeview' bookmark.recipe_key %}">View Recipe</a></p>
       {% endfor %}
 
-      <h4>Uploaded Recipes</h4>
       <hr>
+      <h4>Uploaded Recipes</h4>
       {% for recipe in uploads %}
       <p><strong>{{recipe.title}}</strong>
       <i>{{recipe.upload_date}}</i></p>

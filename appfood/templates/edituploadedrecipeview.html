@@ -5,11 +5,28 @@
   <div class='panel panel-default'>
     <div class='panel-heading'>
       <h2>Edit {{recipe_data.title}}</h2>
+      <i>* optional</i>
+      <p><i>Detailed ingredients and instructions can be left blank if contained in recipe photo.</i></p>
     </div>
     <div class='panel-body'>
-      <form type='' method='post'>
+      <form type='' method='post' enctype='multipart/form-data'>
         {% csrf_token %}
-        {{form.as_p}}
+        {{form.errors}}
+        <p><strong>Title</strong></p>
+        <p>{{form.title}}</p>
+        <p><strong>Basic Ingredients</strong></p>
+        <i>Example: apples, oranges, flour, sugar</i>
+        <p>{{form.basic_ingredients}}</p>
+        <p><strong>Recipe Photo*</strong></p>
+        <i>Can be either picture of recipe outcome or photo of recipe.</i>
+        <p>{{form.recipephoto}}</p>
+        <p><strong>Detailed Ingredients*</strong></p>
+        <i>Example: 2 cups flour, 3 eggs</i>
+        <p>{{form.detailed_ingredients}}</p>
+        <p><strong>Instructions*</strong></p>
+        <p>{{form.instructions}}</p>
+        <p><strong>Additional Notes*</strong></p>
+        <p>{{form.uploader_notes}}</p>
         <input type='submit' value="Confirm Update" class='btn btn-default'>
       </form>
     </div>
