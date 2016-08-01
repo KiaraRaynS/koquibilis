@@ -457,11 +457,7 @@ class AddItemsToShoppingListView(UpdateView):
             new_list = current_list + ', '
         for item in ingredients_list:
             new_list = new_list + item + ','
-        print(form.instance.user)
-        print(form.instance.id)
         form.instance.ingredients = new_list
-        print("JOEL", form.instance)
-        print(form.instance.ingredients)
         return super().form_valid(form)
         # is not updating it seems
 
