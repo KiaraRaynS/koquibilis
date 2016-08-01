@@ -133,7 +133,7 @@ class RecipeView(ListView):
         api_auth = os.environ['API_AUTH']
         base_url = 'http://api.yummly.com/v1/api/recipes?'
         recipes_list_url = base_url + api_auth
-        pagination = '&maxResult=10&start=10'
+        pagination = '&maxResult=10&start=0'
         # All Recipes
         all_recipes_url = recipes_list_url + pagination
         allrecipe_results = requests.get(all_recipes_url).json()
@@ -465,7 +465,7 @@ class AddItemsToShoppingListView(UpdateView):
 class UploadRecipeView(CreateView):
     model = UserUploadedRecipe
     success_url = '/'
-    fields = ['title', 'basic_ingredients', 'detailed_ingredients', 'uploader_notes', 'instructions']
+    fields = ['title', 'basic_ingredients', 'detailed_ingredients', 'uploader_notes', 'instructions', 'photo']
 
     def form_valid(self, form):
         user = self.request.user
