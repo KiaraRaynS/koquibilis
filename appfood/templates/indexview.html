@@ -95,6 +95,11 @@
             <a class='label label-default' href="{% url 'viewuploadededrecipeview' item.id  %}">View Recipe</a>
           </div>
           <div class='panel-body'>
+            {% if item.recipephoto == '' %}
+            <p>No photo given for recipe</p>
+            {% else %}
+            <p><img class='smallrecipeimage' height='90px' width='90px' src="{{item.recipephoto.url}}"></p>
+            {% endif %}
             Notes: <i>{{item.uploader_notes}}</i>
             <p><i>Date added will go here</i></p>
             <a href="{% url 'edituseruploadedrecipe' item.id %}" class='btn btn-default'>Edit Recipe</a>
