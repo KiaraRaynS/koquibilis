@@ -72,3 +72,9 @@
   height: 90px;
   border: 1px solid #595959;
 }
+
+.recipeimagepreview {
+  width: 120px;
+  height: 160px;
+  border: 2px solid #595959;
+}

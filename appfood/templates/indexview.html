@@ -92,12 +92,13 @@
         <div class='panel panel-default'>
           <div class='panel-heading'>
             <strong>{{item.title}}</strong>
-            <a href="{% url 'edituseruploadedrecipe' item.id %}" class='btn btn-default'>Edit Recipe</a>
-            <a href="{% url 'deletuploadedrecipeview' item.id %}" class='btn btn-danger'>Delete Recipe</a>
+            <a class='label label-default' href="{% url 'viewuploadededrecipeview' item.id  %}">View Recipe</a>
           </div>
           <div class='panel-body'>
             Notes: <i>{{item.uploader_notes}}</i>
             <p><i>Date added will go here</i></p>
+            <a href="{% url 'edituseruploadedrecipe' item.id %}" class='btn btn-default'>Edit Recipe</a>
+            <a href="{% url 'deletuploadedrecipeview' item.id %}" class='btn btn-danger'>Delete Recipe</a>
           </div>
         </div>
         {% endfor %}

@@ -3,10 +3,20 @@
 {% block containerbodycontent %}
   <div class='panel panel-default'>
     <div class='panel-heading'>
-      <h2>{{recipe.title}}  <a href="{% url 'bookmarkuploadedrecipeview' recipe.id %}" class='btn btn-default'>Bookmark recipe</a></h2>
+      <h2>{{recipe.title}}  <a href="{% url 'bookmarkuploadedrecipeview' recipe.id %}" class='btn btn-default'>Bookmark recipe</a>
+        {% if recipe.user == user %}
+        <a href="{% url 'edituseruploadedrecipe' recipe.id %}" class='btn btn-default'>Edit Recipe</a>
+        {% endif %}
+      </h2>
       <i>Uploaded {{recipe.upload_date}}</i>
     </div>
     <div class='panel-body'>
+      {% if recipe.recipephoto == '' %}
+      <p>No photo given for recipe</p>
+      {% else %}
+      <p><i>Image Preview</i></p>
+      <div class='recipeimagepreview'><a href="{{recipe.recipephoto.url}}"><img class='recipeimagepreview' height='160px' width='120px' src="{{recipe.recipephoto.url}}"></a></div>
+      {% endif %}
       <p><strong>Ingredients</strong></p>
         {% if recipe.detailed_ingredients == '' %}
           <p>{{recipe.basic_ingredients}}</p>
@@ -21,7 +31,7 @@
         {% if recipe.uploader_notes != '' %}
           <p>{{recipe.uploader_notes}}</p>
         {% else %}
-          <p>Uploaded included no notes</p>
+          <p>Uploader included no notes</p>
         {% endif %}
     </div>
   </div>

@@ -414,8 +414,9 @@ class AddItemsToShoppingListView(UpdateView):
     success_url = '/'
 
     def get_object(self, queryset=None):
-        recipe = self.kwargs['recipe_id']
-        return SavedRecipe.objects.get(id=recipe)
+        user = self.request.user
+        shopping_list = ShoppingList.objects.get(user=user)
+        return shopping_list
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -456,8 +457,9 @@ class AddItemsToShoppingListView(UpdateView):
         print(form.instance.user)
         print(form.instance.id)
         form.instance.ingredients = new_list
+        print("JOEL", form.instance)
         print(form.instance.ingredients)
-        return super(AddItemsToShoppingListView, self).form_valid(form)
+        return super().form_valid(form)
         # is not updating it seems
 
 
@@ -465,14 +467,11 @@ class AddItemsToShoppingListView(UpdateView):
 class UploadRecipeView(CreateView):
     model = UserUploadedRecipe
     success_url = '/'
-    fields = ['title', 'basic_ingredients', 'detailed_ingredients', 'uploader_notes', 'instructions', 'photo']
+    fields = ['title', 'basic_ingredients', 'detailed_ingredients', 'uploader_notes', 'instructions', 'recipephoto']
 
     def form_valid(self, form):
         user = self.request.user
         form.instance.user = user
-        if form.instance.title == '':
-            form.add_error('form.instance.title', "Cannot be blank")
-            return self.form_invalid(form)
         return super(UploadRecipeView, self).form_valid(form)
 
 
@@ -480,7 +479,7 @@ class EditUploadedRecipeView(UpdateView):
     model = UserUploadedRecipe
     success_url = '/'
     template_name = 'edituploadedrecipeview.html'
-    fields = ['title', 'basic_ingredients', 'detailed_ingredients', 'uploader_notes', 'instructions']
+    fields = ['title', 'basic_ingredients', 'detailed_ingredients', 'uploader_notes', 'instructions', 'recipephoto']
 
     def get_object(self, queryset=None):
         recipe_id = self.kwargs['recipe_id']
@@ -519,8 +518,10 @@ class ViewUploadedRecipeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         recipe_id = self.kwargs['recipe_id']
+        user = self.request.user
         recipe = UserUploadedRecipe.objects.get(id=recipe_id)
         context['recipe'] = recipe
+        context['currentuser'] = user
         return context
 
 
