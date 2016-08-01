@@ -445,7 +445,10 @@ class AddItemsToShoppingListView(UpdateView):
         ingredients = ingredients.replace('[', '')
         ingredients = ingredients.replace(']', '')
         ingredients_list = ingredients.split(',')
-        new_list = current_list + ', '
+        if current_list is None:
+            new_list = ''
+        else:
+            new_list = current_list + ', '
         for item in ingredients_list:
             new_list = new_list + item + ','
         print(form.instance.user)
