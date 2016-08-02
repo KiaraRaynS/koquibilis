@@ -24,7 +24,9 @@
     <div class='panel-body'>
       <!-- Bookmarks are private and user = user OR bookmarks not private -->
       {% if user.bookmarks_private != False and current_user == user or user.bookmarks_private == True %}
-          <h4>Recently Bookmarked Recipes <a class='btn btn-default' href="{% url 'userssavedrecipesview' user.username %}">View User Bookmarks</a></h4>
+          <h4>Recently Bookmarked Recipes
+            <a class='btn btn-default' href="{% url 'userssavedrecipesview' user.username %}">View User Bookmarks</a>
+          </h4>
           {% for bookmark in bookmarked_recipes %}
             <p><strong>{{ bookmark.title }}</strong>
             <i>{{bookmark.bookmark_date}}</i></p>
@@ -38,7 +40,9 @@
       <hr>
       <!-- Uploads are private and user is profile user or uploads not private-->
       {% if user.uploads_private != False and current_user == user or user.uploads_private == True %}
-        <h4>Uploaded Recipes</h4>
+        <h4>Uploaded Recipes
+          <a class='btn btn-default' href="{% url 'usersuploadedrecipesview' user.username %}">View Uploaded Recipes</a>
+        </h4>
         {% for recipe in uploads %}
         <p><strong>{{recipe.title}}</strong>
         <i>{{recipe.upload_date}}</i></p>

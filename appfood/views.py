@@ -152,6 +152,10 @@ class UsersSavedRecipesView(ListView):
         return context
 
 
+class UsersUploadedRecipesView(TemplateView):
+    template_name = 'usersuploadedrecipesview.html'
+
+
 # Recipe related views
 class AllRecipeView(ListView):
     model = Recipe

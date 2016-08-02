@@ -14,7 +14,7 @@ from appfood.views import SoyFreeRecipeView
 # User Recipe Interaction related views
 from appfood.views import SaveRecipeView, DeleteBookmarkView, AddFoodView, EditFoodView, SearchRecipesView, CookFoodView, UpdateShoppingListView, AddItemsToShoppingListView
 from appfood.views import ViewUserProfileView, UploadRecipeView, EditUploadedRecipeView, DeleteUploadedRecipeView, ViewUploadedRecipeView
-from appfood.views import BookmarkUploadedRecipeView, DeleteBookmarkedUploadView
+from appfood.views import BookmarkUploadedRecipeView, DeleteBookmarkedUploadView, UsersUploadedRecipesView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,17 +27,18 @@ urlpatterns = [
     url('', include('django.contrib.auth.urls', namespace='auth')),
     url(r'^accounts/login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
+    # User profile and uploaded recipe related views
     url(r'^accounts/profile/$', ProfileView.as_view(), name='profileview'),
-    url(r'^savedrecipes/(?P<username>[A-Za-z0-9_\-]+)', UsersSavedRecipesView.as_view(), name='userssavedrecipesview'),
-    # User profile and recipe information
-    url(r'^userprofiles/(?P<username>[A-Za-z0-9_\-]+)', ViewUserProfileView.as_view(), name='viewuserprofileview'),
+    url(r'^savedrecipes/(?P<username>[A-Za-z0-9_\-]+)/$', UsersSavedRecipesView.as_view(), name='userssavedrecipesview'),
+    url(r'^userprofiles/(?P<username>[A-Za-z0-9_\-]+)/$', ViewUserProfileView.as_view(), name='viewuserprofileview'),
+    url(r'^userrecipes/(?P<username>[A-Za-z0-9_\-]+)/$', UsersUploadedRecipesView.as_view(), name='usersuploadedrecipesview'),
     url(r'^uploadrecipe/$', UploadRecipeView.as_view(), name='uploadrecipeview'),
     url(r'^edituploadrecipe/(?P<recipe_id>\d+)/$', EditUploadedRecipeView.as_view(), name='edituseruploadedrecipe'),
     url(r'^deleteuploadrecipe/(?P<recipe_id>\d+)/$', DeleteUploadedRecipeView.as_view(), name='deletuploadedrecipeview'),
     url(r'^viewuploadedrecipe/(?P<recipe_id>\d+)/$', ViewUploadedRecipeView.as_view(), name='viewuploadededrecipeview'),
     url(r'^bookmarkuploadedrecipe/(?P<recipe_id>\d+)/$', BookmarkUploadedRecipeView.as_view(), name='bookmarkuploadedrecipeview'),
     url(r'^deletebookmarkedupload/(?P<recipe_id>\d+)/$', DeleteBookmarkedUploadView.as_view(), name='deletebookmarkeduploadview'),
-    # Recipe related Views
+    # Recipe query related Views
     url(r'^recipes/allrecipes/(?P<page_count>[0-9_\-]+)/$', AllRecipeView.as_view(), name='allrecipeview'),
     url(r'^recipes/glutenfreerecipes/(?P<page_count>[0-9_\-]+)/$', GlutenFreeRecipeView.as_view(), name='glutenfreerecipeview'),
     url(r'^recipes/dairyfreerecipes/(?P<page_count>[0-9_\-]+)/$', DairyFreeRecipeView.as_view(), name='dairyfreerecipeview'),
@@ -50,6 +51,7 @@ urlpatterns = [
     url(r'^recipes/saverecipe/(?P<recipe_id>[A-Za-z0-9_\-]+)/$', SaveRecipeView.as_view(), name='saverecipeview'),
     url(r'^recipes/deleterecipe/(?P<recipe_id>[0-9_\-]+)/$', DeleteBookmarkView.as_view(), name='deletebookmarkview'),
     url(r'^recipes/searchrecipe/(?P<page_count>[0-9_\-]+)$', SearchRecipesView.as_view(), name='searchrecipesview'),
+    # User Inventory and shopping list related views
     url(r'^addfood/$', AddFoodView.as_view(), name='addfoodview'),
     url(r'^editfood/(?P<food_id>\d+)/$', EditFoodView.as_view(), name='editfoodview'),
     url(r'^cookfood/(?P<recipe_id>\d+)/$', CookFoodView.as_view(), name='cookfoodview'),
