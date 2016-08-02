@@ -88,7 +88,7 @@ class RegisterView(CreateView):
 class ProfileView(UpdateView):
     template_name = 'profileview.html'
     model = UserPage
-    fields = ['userhandle', 'photo', 'description']
+    fields = ['userhandle', 'photo', 'description', 'bookmarks_private']
     success_url = reverse_lazy('profileview')
     authentication_classes = (authentication.TokenAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated,)
@@ -118,8 +118,10 @@ class ViewUserProfileView(TemplateView):
         user = User.objects.get(username=username)
         current_user = self.request.user
         userpage = UserPage.objects.get(user=user)
-        uploads = UserUploadedRecipe.objects.filter(user=user)
-        bookmarked_recipes = SavedRecipe.objects.filter(user=user)
+        uploads = UserUploadedRecipe.objects.filter(user=user).order_by('-upload_date')
+        uploads = uploads[:5]
+        bookmarked_recipes = SavedRecipe.objects.filter(user=user).order_by('-bookmark_date')
+        bookmarked_recipes = bookmarked_recipes[:5]
         context['user'] = user
         context['current_user'] = current_user
         context['userpage'] = userpage
@@ -137,7 +139,7 @@ class UsersSavedRecipesView(ListView):
     def get_queryset(self):
         username = self.kwargs['username']
         user = User.objects.get(username=username)
-        saved_recipes = SavedRecipe.objects.filter(user=user)
+        saved_recipes = SavedRecipe.objects.filter(user=user).order_by('-bookmark_date')
         return saved_recipes
 
     def get_context_data(self, **kwargs):

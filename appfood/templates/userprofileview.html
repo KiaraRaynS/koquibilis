@@ -22,7 +22,7 @@
       {% endif %}
     </div>
     <div class='panel-body'>
-      <h4>Bookmarked Recipes</h4>
+      <h4>Recently Bookmarked Recipes <a class='btn btn-default' href="{% url 'userssavedrecipesview' user.username %}">View User Bookmarks</a></h4>
       {% for bookmark in bookmarked_recipes %}
       <p><strong>{{ bookmark.title }}</strong>
       <i>{{bookmark.bookmark_date}}</i></p>
