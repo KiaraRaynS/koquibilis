@@ -136,17 +136,15 @@ class AllRecipeView(ListView):
         api_auth = os.environ['API_AUTH']
         base_url = 'http://api.yummly.com/v1/api/recipes?'
         recipes_list_url = base_url + api_auth
-        recipe_count = 0
+        recipe_count = self.kwargs['page_count']
+        previous_page = int(recipe_count) - 10
+        next_page = int(recipe_count) + 10
         pagination = '&maxResult=10&start=' + str(recipe_count)
         # All Recipes
         all_recipes_url = recipes_list_url + pagination
         allrecipe_results = requests.get(all_recipes_url).json()
         allrecipe = allrecipe_results['matches']
         # By allergens
-        # Glutten
-        gluttenfree_url = recipes_list_url + '&allowedAllergy[]=393^Gluten-Free' + pagination
-        gluttenfree_results = requests.get(gluttenfree_url).json()
-        gluttenfree = gluttenfree_results['matches']
         # Lactose
         dairyfree_url = recipes_list_url + "&allowedAllergy[]=393^Dairy-Free" + pagination
         dairyfree_results = requests.get(dairyfree_url).json()
@@ -170,12 +168,38 @@ class AllRecipeView(ListView):
         # context
         context = {
                 'allrecipes': allrecipe,
-                'gluttenfree': gluttenfree,
+                'previous_page': previous_page,
+                'next_page': next_page,
+                'current_page': recipe_count,
                 'dairyfree': dairyfree,
                 'eggfree': eggfree,
                 'peanutfree': peanutfree,
                 'seafoodfree': seafoodfree,
                 'soyfree': soyfree,
+                }
+        return context
+
+
+class GlutenFreeRecipeView(ListView):
+    model = Recipe
+    template_name = 'glutenfreerecipeview.html'
+
+    def get_context_data(self, **kwargs):
+        api_auth = os.environ['API_AUTH']
+        base_url = 'http://api.yummly.com/v1/api/recipes?'
+        recipes_list_url = base_url + api_auth
+        recipe_count = self.kwargs['page_count']
+        previous_page = int(recipe_count) - 10
+        next_page = int(recipe_count) + 10
+        pagination = '&maxResult=10&start=' + str(recipe_count)
+        glutenfree_url = recipes_list_url + '&allowedAllergy[]=393^Gluten-Free' + pagination
+        glutenfree_results = requests.get(glutenfree_url).json()
+        glutenfree = glutenfree_results['matches']
+        context = {
+                'previous_page': previous_page,
+                'next_page': next_page,
+                'current_page': recipe_count,
+                'recipes': glutenfree
                 }
         return context
 

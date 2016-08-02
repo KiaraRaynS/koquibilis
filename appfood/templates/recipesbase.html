@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+  <a class='btn btn-default' href="{% url 'allrecipeview' 0 %}">All Recipes</a>
+  <a class='btn btn-default' href="{% url 'glutenfreerecipeview' 0 %}">Gluten Free</a>
+  <hr>
+  {% block recipecontent %}
+  {% endblock%}
+{% endblock %}
