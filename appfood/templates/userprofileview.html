@@ -22,12 +22,26 @@
       {% endif %}
     </div>
     <div class='panel-body'>
-      <h4>Recently Bookmarked Recipes <a class='btn btn-default' href="{% url 'userssavedrecipesview' user.username %}">View User Bookmarks</a></h4>
-      {% for bookmark in bookmarked_recipes %}
-      <p><strong>{{ bookmark.title }}</strong>
-      <i>{{bookmark.bookmark_date}}</i></p>
-      <p><a class='btn btn-default' href="{% url 'specificrecipeview' bookmark.recipe_key %}">View Recipe</a></p>
-      {% endfor %}
+      <!-- Bookmarks are private -->
+      {% if user.bookmarks_private != False %}
+        {% if current_user == user %}
+          <h4>Recently Bookmarked Recipes <a class='btn btn-default' href="{% url 'userssavedrecipesview' user.username %}">View User Bookmarks</a></h4>
+          {% for bookmark in bookmarked_recipes %}
+            <p><strong>{{ bookmark.title }}</strong>
+            <i>{{bookmark.bookmark_date}}</i></p>
+            <p><a class='btn btn-default' href="{% url 'specificrecipeview' bookmark.recipe_key %}">View Recipe</a></p>
+          {% endfor %}
+        {% endif %}
+
+        <!-- If bookmarks are not private -->
+      {% else %}
+          <h4>Recently Bookmarked Recipes <a class='btn btn-default' href="{% url 'userssavedrecipesview' user.username %}">View User Bookmarks</a></h4>
+          {% for bookmark in bookmarked_recipes %}
+            <p><strong>{{ bookmark.title }}</strong>
+            <i>{{bookmark.bookmark_date}}</i></p>
+            <p><a class='btn btn-default' href="{% url 'specificrecipeview' bookmark.recipe_key %}">View Recipe</a></p>
+          {% endfor %}
+      {% endif %}
 
       <hr>
       <h4>Uploaded Recipes</h4>
