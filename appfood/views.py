@@ -128,8 +128,9 @@ class ViewUserProfileView(TemplateView):
 
 
 # Recipe related views
-class RecipeView(ListView):
+class AllRecipeView(ListView):
     model = Recipe
+    template_name = 'allrecipesview.html'
 
     def get_context_data(self, **kwargs):
         api_auth = os.environ['API_AUTH']
