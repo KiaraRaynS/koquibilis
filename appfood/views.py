@@ -204,6 +204,29 @@ class GlutenFreeRecipeView(ListView):
         return context
 
 
+class DairyFreeRecipeView(TemplateView):
+    template_name = 'dairyfreerecipeview.html'
+
+    def get_context_data(self, **kwargs):
+        api_auth = os.environ['API_AUTH']
+        base_url = 'http://api.yummly.com/v1/api/recipes?'
+        recipes_list_url = base_url + api_auth
+        recipe_count = self.kwargs['page_count']
+        previous_page = int(recipe_count) - 10
+        next_page = int(recipe_count) + 10
+        pagination = '&maxResult=10&start=' + str(recipe_count)
+        dairyfree_url = recipes_list_url + '&allowedAllergy[]=393^Dairy-Free' + pagination
+        dairyfree_results = requests.get(dairyfree_url).json()
+        dairyfree = dairyfree_results['matches']
+        context = {
+                'previous_page': previous_page,
+                'next_page': next_page,
+                'current_page': recipe_count,
+                'recipes': dairyfree,
+                }
+        return context
+
+
 class SpecificRecipeView(TemplateView):
     template_name = 'specificrecipeview.html'
 

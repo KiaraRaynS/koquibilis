@@ -27,13 +27,7 @@
 
     <!-- Glutten -->
     <div role="tabpanel" class="tab-pane" id="gluttenfree">
-      {% for item in gluttenfree %}
-        <div class="panel panel-default">
-          <img src="{{item.imageUrlsBySize.90}}">
-          <strong>{{item.recipeName}}</strong>
-          <a class='label label-success' href="{% url 'specificrecipeview' item.id %}">View Recipe</a>
-        </div>
-      {% endfor %}
+
     </div>
 
     <!-- Dairy -->
