@@ -12,10 +12,18 @@
     <p>{{form.userhandle}}</p>
     <p><strong>User Description</strong></p>
     <i>Max length: 300</i>
+    {{form.description}}</p>
+
+    <!-- Privacy settings -->
     <p><strong>Make Bookmarks Private: </strong>
     {{form.bookmarks_private}}</p>
-    <p><i>Disable to allow others to see bookmarks on user page.</i></p>
-    {{form.description}}</p>
+    <p><i>Disable to allow others to see your recipe bookmarks.</i></p>
+
+    <p><strong>Make Uploads Private: </strong>
+    {{form.uploads_private}}</p>
+    <p><i>Disable to allow others to see your uploaded or linked recipes.</i></p>
+
+    <!-- Profile Photo -->
     <p><strong>Profile Photo</strong></p>
     {% if user.userpage.photo %}
     <div class='userphoto'><img height='150px' width='150px' id='preview' src="{{user.userpage.photo.url}}"></div>

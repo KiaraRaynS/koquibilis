@@ -18,7 +18,7 @@
       <p>
       <!-- If current user = userpage user -->
       {% if user == current_user %}
-      <a class='btn btn-default' href="{% url 'profileview' %}">Edit User Information</a>
+      <a class='btn btn-default' href="{% url 'profileview' %}">Edit user information and settings</a>
       {% endif %}
     </div>
     <div class='panel-body'>
@@ -36,13 +36,19 @@
       {% endif %}
 
       <hr>
-      <h4>Uploaded Recipes</h4>
-      {% for recipe in uploads %}
-      <p><strong>{{recipe.title}}</strong>
-      <i>{{recipe.upload_date}}</i></p>
-      <p><a class='btn btn-default' href="{% url 'viewuploadededrecipeview' recipe.id %}">View Recipe</a></p>
-      <!-- Needs a view -->
-      {% endfor %}
+      <!-- Uploads are private and user is profile user or uploads not private-->
+      {% if user.uploads_private != False and current_user == user or user.uploads_private == True %}
+        <h4>Uploaded Recipes</h4>
+        {% for recipe in uploads %}
+        <p><strong>{{recipe.title}}</strong>
+        <i>{{recipe.upload_date}}</i></p>
+        <p><a class='btn btn-default' href="{% url 'viewuploadededrecipeview' recipe.id %}">View Recipe</a></p>
+        {% endfor %}
+      <!-- Uploads are private and user not profile user-->
+      {% else %}
+      <i>User has set uploads to private</i>
+      {% endif %}
+
     </div>
   </div>
 {% endblock %}

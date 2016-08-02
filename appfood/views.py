@@ -88,7 +88,7 @@ class RegisterView(CreateView):
 class ProfileView(UpdateView):
     template_name = 'profileview.html'
     model = UserPage
-    fields = ['userhandle', 'photo', 'description', 'bookmarks_private']
+    fields = ['userhandle', 'photo', 'description', 'bookmarks_private', 'uploads_private']
     success_url = reverse_lazy('profileview')
     authentication_classes = (authentication.TokenAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated,)
