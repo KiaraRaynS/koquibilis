@@ -150,7 +150,6 @@ class AllRecipeView(ListView):
                 'previous_page': previous_page,
                 'next_page': next_page,
                 'current_page': recipe_count,
-                'soyfree': soyfree,
                 }
         return context
 
