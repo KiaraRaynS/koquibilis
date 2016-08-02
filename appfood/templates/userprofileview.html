@@ -22,25 +22,17 @@
       {% endif %}
     </div>
     <div class='panel-body'>
-      <!-- Bookmarks are private -->
-      {% if user.bookmarks_private != False %}
-        {% if current_user == user %}
+      <!-- Bookmarks are private and user = user OR bookmarks not private -->
+      {% if user.bookmarks_private != False and current_user == user or user.bookmarks_private == True %}
           <h4>Recently Bookmarked Recipes <a class='btn btn-default' href="{% url 'userssavedrecipesview' user.username %}">View User Bookmarks</a></h4>
           {% for bookmark in bookmarked_recipes %}
             <p><strong>{{ bookmark.title }}</strong>
             <i>{{bookmark.bookmark_date}}</i></p>
             <p><a class='btn btn-default' href="{% url 'specificrecipeview' bookmark.recipe_key %}">View Recipe</a></p>
           {% endfor %}
-        {% endif %}
-
-        <!-- If bookmarks are not private -->
-      {% else %}
-          <h4>Recently Bookmarked Recipes <a class='btn btn-default' href="{% url 'userssavedrecipesview' user.username %}">View User Bookmarks</a></h4>
-          {% for bookmark in bookmarked_recipes %}
-            <p><strong>{{ bookmark.title }}</strong>
-            <i>{{bookmark.bookmark_date}}</i></p>
-            <p><a class='btn btn-default' href="{% url 'specificrecipeview' bookmark.recipe_key %}">View Recipe</a></p>
-          {% endfor %}
+      <!-- Bookmarks are private and user != profile page user -->
+       {% else%}
+        <i>User set bookmarks to private</i>
       {% endif %}
 
       <hr>
