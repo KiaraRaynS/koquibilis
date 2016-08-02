@@ -46,7 +46,7 @@
         {% for recipe in uploads %}
         <p><strong>{{recipe.title}}</strong>
         <i>{{recipe.upload_date}}</i></p>
-        <p><a class='btn btn-default' href="{% url 'viewuploadededrecipeview' recipe.id %}">View Recipe</a></p>
+        <p><a class='btn btn-default' href="{% url 'viewuploadedrecipeview' recipe.id %}">View Recipe</a></p>
         {% endfor %}
       <!-- Uploads are private and user not profile user-->
       {% else %}

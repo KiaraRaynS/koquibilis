@@ -34,8 +34,8 @@ urlpatterns = [
     url(r'^userrecipes/(?P<username>[A-Za-z0-9_\-]+)/$', UsersUploadedRecipesView.as_view(), name='usersuploadedrecipesview'),
     url(r'^uploadrecipe/$', UploadRecipeView.as_view(), name='uploadrecipeview'),
     url(r'^edituploadrecipe/(?P<recipe_id>\d+)/$', EditUploadedRecipeView.as_view(), name='edituseruploadedrecipe'),
-    url(r'^deleteuploadrecipe/(?P<recipe_id>\d+)/$', DeleteUploadedRecipeView.as_view(), name='deletuploadedrecipeview'),
-    url(r'^viewuploadedrecipe/(?P<recipe_id>\d+)/$', ViewUploadedRecipeView.as_view(), name='viewuploadededrecipeview'),
+    url(r'^deleteuploadrecipe/(?P<recipe_id>\d+)/$', DeleteUploadedRecipeView.as_view(), name='deleteuploadedrecipeview'),
+    url(r'^viewuploadedrecipe/(?P<recipe_id>\d+)/$', ViewUploadedRecipeView.as_view(), name='viewuploadedrecipeview'),
     url(r'^bookmarkuploadedrecipe/(?P<recipe_id>\d+)/$', BookmarkUploadedRecipeView.as_view(), name='bookmarkuploadedrecipeview'),
     url(r'^deletebookmarkedupload/(?P<recipe_id>\d+)/$', DeleteBookmarkedUploadView.as_view(), name='deletebookmarkeduploadview'),
     # Recipe query related Views

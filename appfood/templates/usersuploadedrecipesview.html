@@ -2,4 +2,60 @@
 
 {% block containerbodycontent %}
 
+<!-- If user has bookmarks private -->
+  {% if user.userpage.uploads_private != False and user == current_user or user.userpage.uploads_private == False %}
+      <h2>Your Uploaded Recipes</h2>
+      <!-- Pagination -->
+          {% if is_paginated %}
+            <div class='pagination'>
+              <span class='page-links'>
+                <!-- Previous Page -->
+                {% if page_obj.has_previous %}
+                <a class='btn btn-default' href="?page={{ page_obj.previous_page_number }}">Previous Page</a>
+                {% endif %}
+                <span class='page-current'>
+                  <span class='label label-default label-lg'>Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
+                </span>
+                <!-- Next Page -->
+                {% if page_obj.has_next %}
+                <a class='btn btn-default' href="?page={{page_obj.next_page_number}}">Next Page</a>
+                {% endif %}
+              </span>
+            </div>
+        {% endif %}
+  <hr>
+
+  <!-- Recipes -->
+  {% for recipe in recipes %}
+    <div class='panel panel-default'>
+      <div class='panel-heading'>
+        {{recipe.title}}
+      </div>
+      <div class='panel-body'>
+        <p><strong>Notes: </strong>
+        {% if recipe.uploader_notes != '' %}
+          <i>{{recipe.uploader_notes}}</i>
+        {% else %}
+          <i>None</i>
+        {% endif %}
+        </p>
+        <i>Saved {{recipe.upload_date}}</i>
+        <!-- Buttons -->
+        <br>
+        <a class='btn btn-default' href="{% url 'viewuploadedrecipeview' recipe.id %}">View Recipe</a>
+        {% if current_user == user %}
+        <a class='btn btn-danger' href="{% url 'deleteuploadedrecipeview' recipe.id %}">Delete Recipe</a>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+
+  <!-- If users bookmarks are private -->
+  {% else %}
+  <div class='registerbox'>
+    <p>You do not have permission to view this page.</p>
+  </div>
+
+  {% endif %}
+
 {% endblock %}

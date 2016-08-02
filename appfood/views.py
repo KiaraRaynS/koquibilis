@@ -152,8 +152,26 @@ class UsersSavedRecipesView(ListView):
         return context
 
 
-class UsersUploadedRecipesView(TemplateView):
+class UsersUploadedRecipesView(ListView):
     template_name = 'usersuploadedrecipesview.html'
+    model = UserUploadedRecipe
+    paginate_by = 10
+    context_object_name = 'recipes'
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        user = User.objects.get(username=username)
+        user_uploads = UserUploadedRecipe.objects.filter(user=user).order_by('-upload_date')
+        return user_uploads
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        username = self.kwargs['username']
+        user = User.objects.get(username=username)
+        current_user = self.request.user
+        context['user'] = user
+        context['current_user'] = current_user
+        return context
 
 
 # Recipe related views
