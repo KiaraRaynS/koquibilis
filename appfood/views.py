@@ -130,12 +130,24 @@ class ViewUserProfileView(TemplateView):
 
 class UsersSavedRecipesView(ListView):
     model = SavedRecipe
+    template_name = 'userssavedrecipesview.html'
+    paginate_by = 10
+    context_object_name = 'recipes'
 
     def get_queryset(self):
         username = self.kwargs['username']
         user = User.objects.get(username=username)
         saved_recipes = SavedRecipe.objects.filter(user=user)
         return saved_recipes
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user
+        username = self.kwargs['username']
+        user = User.objects.get(username=username)
+        context['current_user'] = current_user
+        context['user'] = user
+        return context
 
 
 # Recipe related views
@@ -435,6 +447,12 @@ class DeleteBookmarkView(DeleteView):
     def get_object(self, queryset=None):
         object_key = self.kwargs['recipe_id']
         return SavedRecipe.objects.get(id=object_key)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user
+        context['current_user'] = current_user
+        return context
 
 # Inventory handling
 

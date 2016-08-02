@@ -30,6 +30,7 @@
              {% if request.user.is_authenticated %}
              <li><a href="{% url 'profileview' %}">Profile Page</a></li>
              <li><a href="{% url 'viewuserprofileview' user.username %}">Your Page</a></li>
+             <li><a href="{% url 'userssavedrecipesview' user.username %}">Your Bookmarks</a></li>
              <li><a class='label labe-default' href="{% url 'logout' %}?next=/">Logout</a></li>
              <!-- If user IS NOT logged in -->
              {% else %}

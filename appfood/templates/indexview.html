@@ -95,7 +95,7 @@
             <a class='label label-default' href="{% url 'viewuploadededrecipeview' item.id  %}">View Recipe</a>
           </div>
           <div class='panel-body'>
-            {% if item.recipephoto == '' %}
+            {% if item.recipephoto == None %}
             <p>No photo given for recipe</p>
             {% else %}
             <p><img class='smallrecipeimage' height='90px' width='90px' src="{{item.recipephoto.url}}"></p>

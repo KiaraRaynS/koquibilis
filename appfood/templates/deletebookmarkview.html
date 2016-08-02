@@ -1,13 +1,27 @@
 {% extends 'base.html' %}
 
 {% block containerbodycontent %}
-  <div class='panel panel-default'>
-    <h3>{{ savedrecipe.title }}</h3>
-    <p><strong>Notes: </strong><i>{{savedrecipe.note}}</i></p>
-    <hr>
-    <form type='' method='post'>
-      {% csrf_token %}
-      <p><input class='btn btn-danger' type='submit' value='Confirm Deletion'></p>
-    </form>
-  </div>
+  <!-- If user is bookmark owner -->
+
+  {% if savedrecipe.user == current_user %}
+    <div class='panel panel-default'>
+      <h3>{{ savedrecipe.title }}</h3>
+      <p><strong>Notes: </strong>
+      {% if savedrecipe.note != '' %}
+      <i>{{savedrecipe.note}}</i>
+      {% else %}
+      <i>None</i>
+      {% endif %}
+      </p>
+      <hr>
+      <form type='' method='post'>
+        {% csrf_token %}
+        <p><input class='btn btn-danger' type='submit' value='Confirm Deletion'></p>
+      </form>
+    </div>
+
+  {% else %}
+  <div class='registerbox'>
+    <p>You do not have permission to perform this action.</p>
+  {% endif %}
 {% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+
+  <h2>Your Bookmarked Recipes</h2>
+  <hr>
+
+  {% for recipe in recipes %}
+    <div class='panel panel-default'>
+      <div class='panel-heading'>
+        <img class='smallrecipeimage' src="{{recipe.small_image}}">
+        {{recipe.title}}
+      </div>
+      <div class='panel-body'>
+        <p><strong>Notes: </strong>
+        {% if recipe.note != '' %}
+        <i>{{recipe.note}}</i>
+        {% else %}
+        <i>None</i>
+        {% endif %}
+        </p>
+        <i>Saved {{recipe.bookmark_date}}</i>
+        <!-- Buttons -->
+        <p><a class='btn btn-default' href="{% url 'specificrecipeview' recipe.recipe_key %}">View Recipe</a>
+        {% if current_user == user %}
+        <a class='btn btn-danger' href="{% url 'deletebookmarkview' recipe.id %}">Remove Bookmark</a></p>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+
+
+{% endblock %}
