@@ -42,6 +42,7 @@ class IndexView(TemplateView):
         if user.is_authenticated():
             userpage = UserPage.objects.get(user=user)
             bookmarks = SavedRecipe.objects.filter(user=user.id).order_by('-bookmark_date')
+            bookmarks = bookmarks[:10]
             userinventory = FoodItem.objects.filter(user=user.id).order_by('-date_added')
             shoppinglist = ShoppingList.objects.get(user=user)
             uploaded_recipes = UserUploadedRecipe.objects.filter(user=user)
@@ -125,6 +126,16 @@ class ViewUserProfileView(TemplateView):
         context['uploads'] = uploads
         context['bookmarked_recipes'] = bookmarked_recipes
         return context
+
+
+class UsersSavedRecipesView(ListView):
+    model = SavedRecipe
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        user = User.objects.get(username=username)
+        saved_recipes = SavedRecipe.objects.filter(user=user)
+        return saved_recipes
 
 
 # Recipe related views

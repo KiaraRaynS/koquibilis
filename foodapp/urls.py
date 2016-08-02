@@ -6,7 +6,7 @@ from appfood.views import IndexView
 # User related views
 from appfood.views import RegisterView, RegisterTypeView
 from django.contrib.auth.views import login, logout
-from appfood.views import ProfileView
+from appfood.views import ProfileView, UsersSavedRecipesView
 # Recipe related views
 from appfood.views import AllRecipeView, GlutenFreeRecipeView, DairyFreeRecipeView, EggFreeRecipeView
 from appfood.views import PeanutFreeRecipeView, SeafoodFreeRecipeView, SpecificRecipeView
@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^accounts/login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
     url(r'^accounts/profile/$', ProfileView.as_view(), name='profileview'),
+    url(r'^savedrecipes/(?P<username>[A-Za-z0-9_\-]+)', UsersSavedRecipesView.as_view(), name='userssavedrecipesview'),
     # User profile and recipe information
     url(r'^userprofiles/(?P<username>[A-Za-z0-9_\-]+)', ViewUserProfileView.as_view(), name='viewuserprofileview'),
     url(r'^uploadrecipe/$', UploadRecipeView.as_view(), name='uploadrecipeview'),
