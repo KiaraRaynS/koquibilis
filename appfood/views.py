@@ -145,14 +145,6 @@ class AllRecipeView(ListView):
         allrecipe_results = requests.get(all_recipes_url).json()
         allrecipe = allrecipe_results['matches']
         # By allergens
-        # Lactose
-        dairyfree_url = recipes_list_url + "&allowedAllergy[]=393^Dairy-Free" + pagination
-        dairyfree_results = requests.get(dairyfree_url).json()
-        dairyfree = dairyfree_results['matches']
-        # Egg
-        eggfree_url = recipes_list_url + "&allowedAllergy[]=393^Egg-Free" + pagination
-        eggfree_results = requests.get(eggfree_url).json()
-        eggfree = eggfree_results['matches']
         # Peanut
         peanutfree_url = recipes_list_url + "&allowedAllergy[]=393^Peanut-Free" + pagination
         peanutfree_results = requests.get(peanutfree_url).json()
@@ -171,7 +163,6 @@ class AllRecipeView(ListView):
                 'previous_page': previous_page,
                 'next_page': next_page,
                 'current_page': recipe_count,
-                'eggfree': eggfree,
                 'peanutfree': peanutfree,
                 'seafoodfree': seafoodfree,
                 'soyfree': soyfree,
@@ -245,6 +236,29 @@ class EggFreeRecipeView(TemplateView):
                 'next_page': next_page,
                 'current_page': recipe_count,
                 'recipes': eggfree,
+                }
+        return context
+
+
+class PeanutFreeRecipeView(TemplateView):
+    template_name = 'peanutfreerecipeview.html'
+
+    def get_context_data(self, **kwargs):
+        api_auth = os.environ['API_AUTH']
+        base_url = 'http://api.yummly.com/v1/api/recipes?'
+        recipes_list_url = base_url + api_auth
+        recipe_count = self.kwargs['page_count']
+        previous_page = int(recipe_count) - 10
+        next_page = int(recipe_count) + 10
+        pagination = '&maxResult=10&start=' + str(recipe_count)
+        peanutfree_url = recipes_list_url + '&allowedAllergy[]=393^Peanut-Free' + pagination
+        peanutfree_results = requests.get(peanutfree_url).json()
+        peanutfree = peanutfree_results['matches']
+        context = {
+                'previous_page': previous_page,
+                'next_page': next_page,
+                'current_page': recipe_count,
+                'recipes': peanutfree,
                 }
         return context
 
