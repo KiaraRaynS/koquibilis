@@ -7,21 +7,22 @@
     <div class='panel-heading'>
       <h3>Upload New Recipe</h3>
       <hr>
-      <!-- <i>* optional</i>
+       <i>* optional</i>
       <p><i>Can leave blank if uploading photo with details.</i></p>
-      -->
-      <i>Detailed Ingredients, Instructions, and Notes may be left blank</i>
     </div>
     <div class='panel-body'>
-      <form type='' method='post'>
+      <form type='' method='post' enctype='multipart/form-data'>
         {% csrf_token %}
-        {{form.as_p}}
-        <!--
+        {{form.errors}}
         <p><strong>Recipe Title</strong></p>
         <p>{{form.title}}</p>
         <p><strong>Basic Ingredients</strong></p>
         <i>Example: apples, oranges, flour</i>
         <p>{{form.basic_ingredients}}</p>
+        <p><strong>Link to Recipe*</strong></p>
+        <i>Max length: 200
+        <p>If linking a recipe from another site. </i></p>
+        <p>{{form.recipe_link}}</p>
         <p><strong>Detailed Ingredients*</strong></p>
         <i>Example: 2 cups flour, 3 tbsp sugar</i>
         <p>{{form.detailed_ingredients}}</p>
@@ -29,7 +30,8 @@
         <p>{{form.instructions}}</p>
         <p><strong>Uploader Notes*</strong></p>
         <p>{{form.uploader_notes}}</p>
-        -->
+        <p><strong>Recipe Photo*</strong></p>
+        <p>{{form.recipephoto}}</p>
         <hr>
         <input type='submit' value='Upload Recipe' class='btn btn-default'>
       </form>
@@ -41,4 +43,4 @@
     <p>This page is only available to logged in users. Please register or login to view this page.</p>
   </div>
   {% endif %}
-{% endblock%}
+  {% endblock %}

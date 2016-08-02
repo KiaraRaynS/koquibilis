@@ -624,7 +624,7 @@ class AddItemsToShoppingListView(UpdateView):
 class UploadRecipeView(CreateView):
     model = UserUploadedRecipe
     success_url = '/'
-    fields = ['title', 'basic_ingredients', 'detailed_ingredients', 'uploader_notes', 'instructions', 'recipephoto']
+    fields = ['title', 'basic_ingredients', 'detailed_ingredients', 'uploader_notes', 'instructions', 'recipephoto', 'recipe_link']
 
     def form_valid(self, form):
         user = self.request.user
