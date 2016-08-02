@@ -8,7 +8,8 @@ from appfood.views import RegisterView, RegisterTypeView
 from django.contrib.auth.views import login, logout
 from appfood.views import ProfileView
 # Recipe related views
-from appfood.views import AllRecipeView, GlutenFreeRecipeView, DairyFreeRecipeView, SpecificRecipeView
+from appfood.views import AllRecipeView, GlutenFreeRecipeView, DairyFreeRecipeView, EggFreeRecipeView
+from appfood.views import SpecificRecipeView
 # User Recipe Interaction related views
 from appfood.views import SaveRecipeView, DeleteBookmarkView, AddFoodView, EditFoodView, SearchRecipesView, CookFoodView, UpdateShoppingListView, AddItemsToShoppingListView
 from appfood.views import ViewUserProfileView, UploadRecipeView, EditUploadedRecipeView, DeleteUploadedRecipeView, ViewUploadedRecipeView
@@ -38,6 +39,7 @@ urlpatterns = [
     url(r'^recipes/allrecipes/(?P<page_count>[0-9_\-]+)/$', AllRecipeView.as_view(), name='allrecipeview'),
     url(r'^recipes/glutenfreerecipes/(?P<page_count>[0-9_\-]+)/$', GlutenFreeRecipeView.as_view(), name='glutenfreerecipeview'),
     url(r'^recipes/dairyfreerecipes/(?P<page_count>[0-9_\-]+)/$', DairyFreeRecipeView.as_view(), name='dairyfreerecipeview'),
+    url(r'^recipes/eggfreerecipes/(?P<page_count>[0-9_\-]+)/$', EggFreeRecipeView.as_view(), name='eggfreerecipeview'),
     url(r'^recipes/specificrecipe/(?P<recipe_id>[A-Za-z0-9_\-]+)/$', SpecificRecipeView.as_view(), name='specificrecipeview'),
     # User Recipe Interactions
     url(r'^recipes/saverecipe/(?P<recipe_id>[A-Za-z0-9_\-]+)/$', SaveRecipeView.as_view(), name='saverecipeview'),

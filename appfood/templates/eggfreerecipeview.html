@@ -1,0 +1,16 @@
+{% extends 'recipesbase.html' %}
+
+{% block recipecontent %}
+  {% if current_page != '0' %}
+    <a class='btn btn-default' href="{% url 'eggfreerecipeview' previous_page %}">Previous Page</a>
+  {% endif %}
+  <a class='btn btn-default' href="{% url 'eggfreerecipeview' next_page %}">Next Page</a>
+
+  {% for item in recipes %}
+    <div class="panel panel-default">
+      <img src="{{item.imageUrlsBySize.90}}">
+      <strong>{{item.recipeName}}</strong>
+      <a class='label label-success' href="{% url 'specificrecipeview' item.id %}">View Recipe</a>
+    </div>
+  {% endfor %}
+{% endblock %}
