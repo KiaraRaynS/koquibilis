@@ -3,25 +3,51 @@
 {% block containerbodycontent %}
 
 <!-- If user has bookmarks private -->
-  <h2>Your Bookmarked Recipes</h2>
-  <!-- Pagination -->
-  {% if is_paginated %}
-    <div class='pagination'>
-      <span class='page-links'>
-        <!-- Previous Page -->
-        {% if page_obj.has_previous %}
-        <a class='btn btn-default' href="?page={{ page_obj.previous_page_number }}">Previous Page</a>
-        {% endif %}
-        <span class='page-current'>
-          <span class='label label-default label-lg'>Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
-        </span>
-        <!-- Next Page -->
-        {% if page_obj.has_next %}
-        <a class='btn btn-default' href="?page={{page_obj.next_page_number}}">Next Page</a>
-        {% endif %}
-      </span>
-    </div>
+  {% if user.userpage == True %}
+    {% if user == current_user %}
+      <h2>Your Bookmarked Recipes</h2>
+      <!-- Pagination -->
+      {% if is_paginated %}
+        <div class='pagination'>
+          <span class='page-links'>
+            <!-- Previous Page -->
+            {% if page_obj.has_previous %}
+            <a class='btn btn-default' href="?page={{ page_obj.previous_page_number }}">Previous Page</a>
+            {% endif %}
+            <span class='page-current'>
+              <span class='label label-default label-lg'>Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
+            </span>
+            <!-- Next Page -->
+            {% if page_obj.has_next %}
+            <a class='btn btn-default' href="?page={{page_obj.next_page_number}}">Next Page</a>
+            {% endif %}
+          </span>
+        </div>
+    {% endif %}
+  <!-- If bookmarks aren't private -->
+  {% else %}
+      <h2>Your Bookmarked Recipes</h2>
+      <!-- Pagination -->
+      {% if is_paginated %}
+        <div class='pagination'>
+          <span class='page-links'>
+            <!-- Previous Page -->
+            {% if page_obj.has_previous %}
+            <a class='btn btn-default' href="?page={{ page_obj.previous_page_number }}">Previous Page</a>
+            {% endif %}
+            <span class='page-current'>
+              <span class='label label-default label-lg'>Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
+            </span>
+            <!-- Next Page -->
+            {% if page_obj.has_next %}
+            <a class='btn btn-default' href="?page={{page_obj.next_page_number}}">Next Page</a>
+            {% endif %}
+          </span>
+        </div>
+    {% endif %}
+
   {% endif %}
+
   <hr>
 
   <!-- Recipes -->

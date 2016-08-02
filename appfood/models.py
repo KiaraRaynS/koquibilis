@@ -60,6 +60,7 @@ class UserUploadedRecipe(models.Model):
     uploader_notes = models.TextField(null=True, blank=True)
     instructions = models.TextField(null=True, blank=True)
     upload_date = models.DateTimeField(auto_now_add=True)
+    recipe_link = models.CharField(max_length=200, null=True, blank=True)
     photo = models.ImageField(upload_to='profile_photos', name='recipephoto', blank=True, null=True)
 
 

@@ -84,8 +84,7 @@
 
     <!-- User Uploaded Recipes -->
     <div role='tabpanel' class='tab-pane' id='useruploadedrecipes'>
-      <a href="{% url 'uploadrecipeview' %}" class='btn btn-default'>Upload a Recipe</a>
-      <a href="" class='btn btn-default'>Link a Recipe</a>
+      <a href="{% url 'uploadrecipeview' %}" class='btn btn-default'>Upload or link a Recipe</a>
       <hr>
       <h3>Your Uploads</h3>
       {% for item in uploaded_recipes %}
