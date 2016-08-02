@@ -144,27 +144,12 @@ class AllRecipeView(ListView):
         all_recipes_url = recipes_list_url + pagination
         allrecipe_results = requests.get(all_recipes_url).json()
         allrecipe = allrecipe_results['matches']
-        # By allergens
-        # Peanut
-        peanutfree_url = recipes_list_url + "&allowedAllergy[]=393^Peanut-Free" + pagination
-        peanutfree_results = requests.get(peanutfree_url).json()
-        peanutfree = peanutfree_results['matches']
-        # Seafood
-        seafoodfree_url = recipes_list_url + "&allowedAllergy[]&=393^Seafood-Free" + pagination
-        seafoodfree_results = requests.get(seafoodfree_url).json()
-        seafoodfree = seafoodfree_results['matches']
-        # Soy
-        soyfree_url = recipes_list_url + "&allowedAllergy[]&=393^Soy-Free" + pagination
-        soyfree_results = requests.get(soyfree_url).json()
-        soyfree = soyfree_results['matches']
         # context
         context = {
                 'allrecipes': allrecipe,
                 'previous_page': previous_page,
                 'next_page': next_page,
                 'current_page': recipe_count,
-                'peanutfree': peanutfree,
-                'seafoodfree': seafoodfree,
                 'soyfree': soyfree,
                 }
         return context
@@ -205,7 +190,7 @@ class DairyFreeRecipeView(TemplateView):
         previous_page = int(recipe_count) - 10
         next_page = int(recipe_count) + 10
         pagination = '&maxResult=10&start=' + str(recipe_count)
-        dairyfree_url = recipes_list_url + '&allowedAllergy[]=393^Dairy-Free' + pagination
+        dairyfree_url = recipes_list_url + '&allowedAllergy[]=396^Dairy-Free' + pagination
         dairyfree_results = requests.get(dairyfree_url).json()
         dairyfree = dairyfree_results['matches']
         context = {
@@ -228,7 +213,7 @@ class EggFreeRecipeView(TemplateView):
         previous_page = int(recipe_count) - 10
         next_page = int(recipe_count) + 10
         pagination = '&maxResult=10&start=' + str(recipe_count)
-        eggfree_url = recipes_list_url + '&allowedAllergy[]=393^Egg-Free' + pagination
+        eggfree_url = recipes_list_url + '&allowedAllergy[]=397^Egg-Free' + pagination
         eggfree_results = requests.get(eggfree_url).json()
         eggfree = eggfree_results['matches']
         context = {
@@ -251,7 +236,7 @@ class PeanutFreeRecipeView(TemplateView):
         previous_page = int(recipe_count) - 10
         next_page = int(recipe_count) + 10
         pagination = '&maxResult=10&start=' + str(recipe_count)
-        peanutfree_url = recipes_list_url + '&allowedAllergy[]=393^Peanut-Free' + pagination
+        peanutfree_url = recipes_list_url + '&allowedAllergy[]=394^Peanut-Free' + pagination
         peanutfree_results = requests.get(peanutfree_url).json()
         peanutfree = peanutfree_results['matches']
         context = {
@@ -259,6 +244,52 @@ class PeanutFreeRecipeView(TemplateView):
                 'next_page': next_page,
                 'current_page': recipe_count,
                 'recipes': peanutfree,
+                }
+        return context
+
+
+class SeafoodFreeRecipeView(TemplateView):
+    template_name = 'seafoodfreerecipeview.html'
+
+    def get_context_data(self, **kwargs):
+        api_auth = os.environ['API_AUTH']
+        base_url = 'http://api.yummly.com/v1/api/recipes?'
+        recipes_list_url = base_url + api_auth
+        recipe_count = self.kwargs['page_count']
+        previous_page = int(recipe_count) - 10
+        next_page = int(recipe_count) + 10
+        pagination = '&maxResult=10&start=' + str(recipe_count)
+        seafoodfree_url = recipes_list_url + '&allowedAllergy[]=398^Seafood-Free' + pagination
+        seafoodfree_results = requests.get(seafoodfree_url).json()
+        seafoodfree = seafoodfree_results['matches']
+        context = {
+                'previous_page': previous_page,
+                'next_page': next_page,
+                'current_page': recipe_count,
+                'recipes': seafoodfree,
+                }
+        return context
+
+
+class SoyFreeRecipeView(TemplateView):
+    template_name = 'soyfreerecipeview.html'
+
+    def get_context_data(self, **kwargs):
+        api_auth = os.environ['API_AUTH']
+        base_url = 'http://api.yummly.com/v1/api/recipes?'
+        recipes_list_url = base_url + api_auth
+        recipe_count = self.kwargs['page_count']
+        previous_page = int(recipe_count) - 10
+        next_page = int(recipe_count) + 10
+        pagination = '&maxResult=10&start=' + str(recipe_count)
+        soyfoodfree_url = recipes_list_url + '&allowedAllergy[]=399^Seafood-Free' + pagination
+        soyfoodfree_results = requests.get(soyfoodfree_url).json()
+        soyfoodfree = soyfoodfree_results['matches']
+        context = {
+                'previous_page': previous_page,
+                'next_page': next_page,
+                'current_page': recipe_count,
+                'recipes': soyfoodfree,
                 }
         return context
 
