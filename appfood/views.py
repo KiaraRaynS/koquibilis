@@ -395,13 +395,26 @@ class SearchRecipesView(TemplateView):
             search_query = self.request.GET.get('search_box', None)
             search_list = search_query.split(' ')
         new_url = base_url
+        search_string = ''
+        for item in search_list:
+            search_string += item + '+'
+        search_box = '?search_box=' + search_string[:-1]
         for item in search_list:
             if item != ' ':
                 new_url += item + '+'
+        recipe_count = self.kwargs['page_count']
+        previous_page = str(int(recipe_count) - 10)
+        next_page = int(recipe_count) + 10
+        pagination = '&maxResult=10&start=' + str(recipe_count)
+        final_url = new_url + pagination
         # Make api call for search
-        search_requests = requests.get(new_url).json()
+        search_requests = requests.get(final_url).json()
         search_results = search_requests['matches']
         context['results'] = search_results
+        context['search_box'] = search_box
+        context['previous'] = previous_page
+        context['next'] = next_page
+        context['current_page'] = str(recipe_count)
         return context
 
 

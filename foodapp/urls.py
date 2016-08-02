@@ -48,7 +48,7 @@ urlpatterns = [
     # User Recipe Interactions
     url(r'^recipes/saverecipe/(?P<recipe_id>[A-Za-z0-9_\-]+)/$', SaveRecipeView.as_view(), name='saverecipeview'),
     url(r'^recipes/deleterecipe/(?P<recipe_id>[0-9_\-]+)/$', DeleteBookmarkView.as_view(), name='deletebookmarkview'),
-    url(r'^recipes/searchrecipe/$', SearchRecipesView.as_view(), name='searchrecipesview'),
+    url(r'^recipes/searchrecipe/(?P<page_count>[0-9_\-]+)$', SearchRecipesView.as_view(), name='searchrecipesview'),
     url(r'^addfood/$', AddFoodView.as_view(), name='addfoodview'),
     url(r'^editfood/(?P<food_id>\d+)/$', EditFoodView.as_view(), name='editfoodview'),
     url(r'^cookfood/(?P<recipe_id>\d+)/$', CookFoodView.as_view(), name='cookfoodview'),
