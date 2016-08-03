@@ -9,7 +9,7 @@
   <a class='btn btn-default' href="{% url 'allrecipeview' next_page %}">Next Page</a>
   {% for item in allrecipes %}
     <div class="panel panel-default">
-      <img src="{{item.imageUrlsBySize.90}}">
+      <a href="{% url 'specificrecipeview' item.id %}"><img src="{{item.imageUrlsBySize.90}}"></a>
         <strong>{{item.recipeName}}</strong>
         <a class='label label-success' href="{% url 'specificrecipeview' item.id %}">View Recipe</a>
       </div>

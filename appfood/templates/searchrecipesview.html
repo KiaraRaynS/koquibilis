@@ -11,7 +11,7 @@
   {% for result in results %}
     <div class='panel panel-default'>
       <div class='panel-heading'>
-        <img  class='smallrecipeimage' src="{{result.imageUrlsBySize.90}}">
+        <a href="{% url 'specificrecipeview' result.id %}"><img  class='smallrecipeimage' src="{{result.imageUrlsBySize.90}}"></a>
         <strong>{{result.recipeName}}</strong> <a class='btn btn-success' href="{% url 'specificrecipeview' result.id %}">View Recipe</a>
       </div>
       <div class='panel-body'>
