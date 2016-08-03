@@ -2,6 +2,7 @@
 
 {% block containerbodycontent %}
 <div class='panel panel-default'>
+<div class='panel-body'>
   <h2>{{ recipedata.name}} <span class='label label-warning'>Rating: {{recipedata.rating}}</span> {% if user.is_authenticated %}<a href="{% url 'saverecipeview' recipedata.id %}" class='btn btn-default '>Bookmark Recipe</a>{% endif %}</h2>
   <div class=recipeimage'><img src="{{image_url}}"></div>
   <p></p>
@@ -22,5 +23,6 @@
       <li><i>{{item}}</i></li>
     </ul>
     {% endfor %}
+</div>
 </div>
 {% endblock %}

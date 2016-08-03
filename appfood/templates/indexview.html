@@ -29,12 +29,14 @@
       {% for item in useritems %}
         {% if item.quantity > 0 %}
         <div class='panel panel-default'>
-          <h4>{{item.name}} x {{item.quantity}}
-          {% if item.measurementunit != None %}
-          <i>{{item.measurementunit}}</i>
-          {% endif %}
-          <span class='btn btn-info btn-sm'><a href="{% url 'editfoodview' item.id %}">Edit Item</a></span></h4>
-        <i>Last Edit: {{item.last_edit}}</i>
+          <div class='panel-body'>
+            <h4>{{item.name}} x {{item.quantity}}
+            {% if item.measurementunit != None %}
+            <i>{{item.measurementunit}}</i>
+            {% endif %}
+            <span class='btn btn-info btn-sm'><a href="{% url 'editfoodview' item.id %}">Edit Item</a></span></h4>
+            <i>Last Edit: {{item.last_edit}}</i>
+          </div>
         </div>
         {% endif %}
       {% endfor %}
@@ -45,9 +47,11 @@
       {% if possible_recipes_count > 0 %}
         {% for possiblerecipe in possible_recipes %}
           <div class='panel panel-default'>
-            <img class='smallrecipeimage' src="{{possiblerecipe.small_image}}">
-            <strong>{{possiblerecipe.title}}</strong>
-            <a href="{% url 'cookfoodview' possiblerecipe.id %}" class='btn btn-info'>Cook Recipe</a>
+            <div class='panel-body'>
+              <img class='smallrecipeimage' src="{{possiblerecipe.small_image}}">
+              <strong>{{possiblerecipe.title}}</strong>
+              <a href="{% url 'cookfoodview' possiblerecipe.id %}" class='btn btn-info'>Cook Recipe</a>
+            </div>
           </div>
         {% endfor %}
       {% else %}
@@ -85,7 +89,9 @@
       <a href="" class='btn btn-default'>  Clear List</a> -->
         <p><strong>Current list:</strong></p>
         <div class='panel panel-default'>
+          <div class='panel-body'>
             {{shoppinglist.ingredients}}
+          </div>
         </div>
     </div>
 

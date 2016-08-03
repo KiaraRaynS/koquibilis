@@ -5,14 +5,16 @@
   {% if request.user.is_authenticated %}
     <div class='pagecontent'>
       <div class='panel panel-default'>
-        <h2><span><img class='smallrecipeimage' src="{{recipeimage}}"></span>{{recipe.name}}</h2>
-        <hr>
-        <form type='' method='post'>
-          {% csrf_token %}
-          <p><strong> Extra notes</strong><i> optional</i>:</p>
-          <p class='notesform'>   {{ form.note }}</p>
-          <p><input class='btn btn-default' type='submit' value='Bookmark Recipe'></p>
-        </form>
+        <div class='panel-body'>
+          <h2><span><img class='smallrecipeimage' src="{{recipeimage}}"></span>{{recipe.name}}</h2>
+          <hr>
+          <form type='' method='post'>
+            {% csrf_token %}
+            <p><strong> Extra notes</strong><i> optional</i>:</p>
+            <p class='notesform'>   {{ form.note }}</p>
+            <p><input class='btn btn-default' type='submit' value='Bookmark Recipe'></p>
+          </form>
+        </div>
       </div>
     </div>
   <!-- If user not logged in -->

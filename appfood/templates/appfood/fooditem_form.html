@@ -3,19 +3,21 @@
 {% block containerbodycontent %}
   {% if user.is_authenticated %}
   <div class='panel panel-default'>
-    <h4>Add Items to inventory</h4>
-    <hr>
-    <!-- Add items form -->
-    <form type='' method='post'>
-      {% csrf_token %}
-      {{form.errors}}
-      <p><strong>Item name : </strong>{{ form.name }}</p>
-      <p><strong>Unit of measurement: </strong>{{form.measurementunit}}
-      <i>Example: Cups, tsp, grams</i></p>
-      <p><i>Leave blank if whole item is one unit (For items like apples)</i></p>
-      <p><strong>Quantity : </strong>{{form.quantity}}</p>
-      <i>Must be value greater than 0</i>
-      <p><input type='submit' class='btn btn-default' value='Add item'></p>
+    <div class='panel-body'>
+      <h4>Add Items to inventory</h4>
+      <hr>
+      <!-- Add items form -->
+      <form type='' method='post'>
+        {% csrf_token %}
+        {{form.errors}}
+        <p><strong>Item name : </strong>{{ form.name }}</p>
+        <p><strong>Unit of measurement: </strong>{{form.measurementunit}}
+        <i>Example: Cups, tsp, grams</i></p>
+        <p><i>Leave blank if whole item is one unit (For items like apples)</i></p>
+        <p><strong>Quantity : </strong>{{form.quantity}}</p>
+        <i>Must be value greater than 0</i>
+        <p><input type='submit' class='btn btn-default' value='Add item'></p>
+    </div>
   </div>
   {% else %}
     <div class='registerbox'>
