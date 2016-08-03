@@ -500,6 +500,15 @@ class EditFoodView(UpdateView):
     fields = ['quantity']
     success_url = '/'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user
+        food_id = self.kwargs['food_id']
+        food_item = FoodItem.objects.get(id=food_id)
+        context['current_user'] = current_user
+        context['food_item'] = food_item
+        return context
+
     def get_object(self, queryset=None):
         food_item = self.kwargs['food_id']
         return FoodItem.objects.get(id=food_item)

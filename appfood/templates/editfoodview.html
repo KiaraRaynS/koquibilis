@@ -2,19 +2,18 @@
 
 {% block containerbodycontent %}
 <!-- User Logged In -->
-  {% if user.is_authenticated %}
-    <div class='panel pane-default'>
-      <form type='' method='post'>
-        {% csrf_token %}
-        <strong>Quantity: </strong>{{ form.quantity }} {% if fooditem.measurementunit != None %}{{fooditem.measurementunit}}{% endif %}
-        <p><i>Set value to 0 to remove item.</i></p>
-      <p><input type='submit' value='Confirm Edit' class='btn btn-default'></p>
-      </form>
+  {% if user.is_authenticated and current_user == food_item.user %}
+      <div class='panel pane-default'>
+        <form type='' method='post'>
+          {% csrf_token %}
+          <strong>Quantity: </strong>{{ form.quantity }} {% if fooditem.measurementunit != None %}{{fooditem.measurementunit}}{% endif %}
+          <p><i>Set value to 0 to remove item.</i></p>
+        <p><input type='submit' value='Confirm Edit' class='btn btn-default'></p>
+        </form>
+      </div>
+    {% else %}
+     <div class='registerbox'>
+       <p><strong>You do not have permission to view this page.</strong></p>
     </div>
- {% else %}
- <div class='registerbox'>
-   <h2>Access Denied</h2>
-  <strong>Please log in to access this page.</strong>
-  </div>
- {% endif %}
+  {% endif %}
 {% endblock %}
