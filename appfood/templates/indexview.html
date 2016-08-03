@@ -15,7 +15,7 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#inventory" aria-controls="home" role="tab" data-toggle="tab">Inventory</a></li>
     <li role="presentation"><a href="#possiblerecipes" aria-controls="profile" role="tab" data-toggle="tab">Possible Recipes</a></li>
-    <li role="presentation"><a href="#savedrecipes" aria-controls="messages" role="tab" data-toggle="tab">Recent Saved Recipes</a></li>
+    <li role="presentation"><a href="#savedrecipes" aria-controls="messages" role="tab" data-toggle="tab">Recent Bookmarked Recipes</a></li>
     <li role="presentation"><a href="#shoppinglist" aria-controls="shoppinglist" role="tab" data-toggle="tab">Shopping List</a></li>
   </ul>
 
@@ -75,7 +75,7 @@
           <strong>Notes:</strong> <i>{{recipe.note}}</i>
           <br>
           <a class='btn btn-success' href="{% url 'specificrecipeview' recipe.recipe_key %}">View Recipe</a>
-          <a class='btn btn-default' href="{% url 'additemstoshoppinglistview' recipe.id %}">Add missing ingredients to shopping list</a>
+          <a class='btn btn-default' href="{% url 'additemstoshoppinglistview' recipe.id %}">Add ingredients to shopping list</a>
         </div>
       </div>
         {% endfor %}
