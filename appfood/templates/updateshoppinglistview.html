@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
 
 {% block containerbodycontent %}
-  <div class='panel panel-default'>
-    <h2>Edit List</h2>
-    <hr>
-    <i>Formatted best when items separated by comma</i>
-    <form type='' method='post'>
-      {% csrf_token %}
-      {{form.ingredients}}
-      <p><input class='btn btn-default' type='submit' value='Update List'></p>
-    </form>
+<!-- If user is logged in -->
+  {% if request.user.is_authenticated %}
+    <div class='panel panel-default'>
+      <h2>Edit List</h2>
+      <hr>
+      <i>Formatted best when items separated by comma</i>
+      <form type='' method='post'>
+        {% csrf_token %}
+        {{form.ingredients}}
+        <p><input class='btn btn-default' type='submit' value='Update List'></p>
+      </form>
+    </div>
+<!-- If not logged in -->
+  {% else %}
+  <div class='registerbox'>
+    <strong>You do not have permission to view this page.</strong>
   </div>
+  {% endif%}
 {% endblock %}

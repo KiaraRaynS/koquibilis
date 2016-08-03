@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
 
 {% block containerbodycontent %}
-  <h2>Add Items to Shopping List</h2>
-  <hr>
-  <div class='panel panel-default'>
-    <div class='panel-heading'>
-      <strong>Recipe requests: </strong>
-      <ul>
-      {% for item in ingredients %}
-        <li>{{ item }}</li>
-      {% endfor %}
-    </ul>
-    </div>
-  </div>
 
-    <form type='' method='post'>
-      <input type='submit'class='btn btn-default' value='Add items to shopping list'>
-      {% csrf_token %}
-    </form>
+<!-- If User is logged in -->
+  {% if request.user.is_authenticated %}
+    <h2>Add Items to Shopping List</h2>
+    <hr>
+    <div class='panel panel-default'>
+      <div class='panel-heading'>
+        <strong>Recipe requests: </strong>
+        <ul>
+        {% for item in ingredients %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+      </div>
+    </div>
+
+      <form type='' method='post'>
+        <input type='submit'class='btn btn-default' value='Add items to shopping list'>
+        {% csrf_token %}
+      </form>
+<!-- If user is not logged in-->
+  {% else %}
+  <div class='registerbox'>
+    <p><strong>You do not have permission to view this page.</strong></p>
+  </div>
+  {% endif %}
 {% endblock %}

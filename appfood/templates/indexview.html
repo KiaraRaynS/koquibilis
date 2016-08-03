@@ -23,6 +23,7 @@
   <!-- Inventory -->
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="inventory">
+        <p></p>
         <p><a class='btn btn-success' href="{% url 'addfoodview' %}">Add items to inventory</a></h3></p>
       <hr>
       {% for item in useritems %}
@@ -41,13 +42,19 @@
 
   <!-- Possible Recipes -->
     <div role='tabpanel' class='tab-pane' id='possiblerecipes'>
-      {% for possiblerecipe in possible_recipes %}
-        <div class='panel panel-default'>
-          <img class='smallrecipeimage' src="{{possiblerecipe.small_image}}">
-          <strong>{{possiblerecipe.title}}</strong>
-          <a href="{% url 'cookfoodview' possiblerecipe.id %}" class='btn btn-info'>Cook Recipe</a>
-        </div>
-      {% endfor %}
+      {% if possible_recipes_count > 0 %}
+        {% for possiblerecipe in possible_recipes %}
+          <div class='panel panel-default'>
+            <img class='smallrecipeimage' src="{{possiblerecipe.small_image}}">
+            <strong>{{possiblerecipe.title}}</strong>
+            <a href="{% url 'cookfoodview' possiblerecipe.id %}" class='btn btn-info'>Cook Recipe</a>
+          </div>
+        {% endfor %}
+      {% else %}
+      <p></p>
+      <p>Insufficient ingredients to prepare any of saved recipes.</p>
+      <p><i>To up possible recipes either save more recipes or add more food to inventory.</i></p>
+      {% endif %}
     </div>
 
   <!-- Saved Recipes -->

@@ -63,11 +63,13 @@ class IndexView(TemplateView):
                 recipe_ingredients_list = recipe_ingredients.split(',')
                 if set(recipe_ingredients_list) <= set(userinventory_list):
                     possible_recipes.append(recipe)
+            possible_recipes_count = len(possible_recipes)
             context = {
                     'userpage': userpage,
                     'bookmarks': bookmarks,
                     'useritems': userinventory,
                     'possible_recipes': possible_recipes,
+                    'possible_recipes_count': possible_recipes_count,
                     'shoppinglist': shoppinglist,
                     'uploaded_recipes': uploaded_recipes,
                     'bookmarked_uploads': bookmarked_uploads,
@@ -538,25 +540,28 @@ class CookFoodView(View):
     def get(self, request, recipe_id):
         context = {}
         user = self.request.user
-        recipe = self.kwargs['recipe_id']
-        recipe_to_cook = SavedRecipe.objects.get(id=recipe)
-        useringredients = FoodItem.objects.filter(user=user, quantity__gt=0)
-        # Get Ingredients to edit
-        ingredients_in_recipe = []
-        for item in useringredients:
-            if item.name in recipe_to_cook.ingredients:
-                ingredients_in_recipe.append(item)
-        # Make clean list of recipe detailed ingredients
-        detailedingredients_text = recipe_to_cook.detailed_ingredients
-        cleaned_text = detailedingredients_text.replace('[', '')
-        cleaned_text = cleaned_text.replace(']', '')
-        cleaned_text = cleaned_text.replace("'", '')
-        recipe_detailed_ingredients = cleaned_text.split(',')
-        # Return context
-        context['ingredientsbeingused'] = ingredients_in_recipe
-        context['recipe'] = recipe_to_cook
-        context['detailedingredients'] = recipe_detailed_ingredients
-        return render(request, "cookfoodview.html", context)
+        if user.is_authenticated():
+            recipe = self.kwargs['recipe_id']
+            recipe_to_cook = SavedRecipe.objects.get(id=recipe)
+            useringredients = FoodItem.objects.filter(user=user, quantity__gt=0)
+            # Get Ingredients to edit
+            ingredients_in_recipe = []
+            for item in useringredients:
+                if item.name in recipe_to_cook.ingredients:
+                    ingredients_in_recipe.append(item)
+            # Make clean list of recipe detailed ingredients
+            detailedingredients_text = recipe_to_cook.detailed_ingredients
+            cleaned_text = detailedingredients_text.replace('[', '')
+            cleaned_text = cleaned_text.replace(']', '')
+            cleaned_text = cleaned_text.replace("'", '')
+            recipe_detailed_ingredients = cleaned_text.split(',')
+            # Return context
+            context['ingredientsbeingused'] = ingredients_in_recipe
+            context['recipe'] = recipe_to_cook
+            context['detailedingredients'] = recipe_detailed_ingredients
+            return render(request, "cookfoodview.html", context)
+        else:
+            return render(request, "cookfoodview.html", context)
 
 
 class CookFoodViewx(UpdateView):
@@ -603,7 +608,8 @@ class UpdateShoppingListView(UpdateView):
 
     def get_object(self, queryset=None):
         user = self.request.user
-        return ShoppingList.objects.get(user=user)
+        if user.is_authenticated():
+            return ShoppingList.objects.get(user=user)
 
 
 class AddItemsToShoppingListView(UpdateView):

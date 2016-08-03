@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block containerbodycontent %}
+<!-- If User is logged in -->
+{% if request.user.is_authenticated %}
   <h2><img class='smallrecipeimage' src="{{recipe.small_image}}"> Cook {{recipe.title}}</h2>
   <div class='panel panel-default'>
     <div class='panel-heading'>
@@ -32,4 +34,10 @@
   <input type='submit' class='btn btn-success' value='Confirm Inventory Update'>
   </form>
   <hr>
+<!-- If user is not logged in -->
+{% else %}
+  <div class='registerbox'>
+    <p><strong>You do not have permission to view this page.</strong></p>
+  </div>
+{% endif %}
 {% endblock %}
