@@ -5,11 +5,7 @@
   {% if userpage.photo.url != null %}
   <img class='smallrecipeimage' height='90px' width='90px' src="{{userpage.photo.url}}">
   {% endif %}
-  {% if userpage.userhandle == '' %}
     {{user.username}}
-  {% else %}
-    {{userpage.userhandle}}
-  {% endif %}
 
 </h2>
   <hr>

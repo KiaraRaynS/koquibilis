@@ -1,6 +1,8 @@
 {% extends 'recipesbase.html' %}
 
 {% block recipecontent %}
+  <h3>Dairy Free Recipes</h3>
+  <hr>
   {% if current_page != '0' %}
     <a class='btn btn-default' href="{% url 'dairyfreerecipeview' previous_page %}">Previous Page</a>
   {% endif %}

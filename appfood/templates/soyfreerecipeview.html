@@ -2,6 +2,8 @@
 
 {% block recipecontent %}
 
+  <h3>Soy Free Recipes</h3>
+  <hr>
   {% if current_page != '0' %}
     <a class='btn btn-default' href="{% url 'soyfreerecipeview' previous_page %}">Previous Page</a>
   {% endif %}

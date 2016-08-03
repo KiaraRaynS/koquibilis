@@ -1,6 +1,8 @@
 {% extends 'recipesbase.html' %}
 
 {% block recipecontent %}
+  <h3>All Recipes</h3>
+  <hr>
   {% if current_page != '0' %}
   <a class='btn btn-default' href="{% url 'allrecipeview' previous_page %}">Previous Page</a>
   {% endif %}
