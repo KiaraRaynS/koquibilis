@@ -8,6 +8,7 @@
     <a class='btn btn-default' href="{% url 'soyfreerecipeview' previous_page %}">Previous Page</a>
   {% endif %}
   <a class='btn btn-default' href="{% url 'soyfreerecipeview' next_page %}">Next Page</a>
+  <p></p>
 
   {% for item in recipes %}
     <div class="panel panel-default">

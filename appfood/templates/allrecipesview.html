@@ -7,6 +7,7 @@
   <a class='btn btn-default' href="{% url 'allrecipeview' previous_page %}">Previous Page</a>
   {% endif %}
   <a class='btn btn-default' href="{% url 'allrecipeview' next_page %}">Next Page</a>
+  <p></p>
   {% for item in allrecipes %}
     <div class="panel panel-default">
       <a href="{% url 'specificrecipeview' item.id %}"><img src="{{item.imageUrlsBySize.90}}"></a>
