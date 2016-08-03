@@ -92,7 +92,11 @@
         <p><strong>Current list:</strong></p>
         <div class='panel panel-default'>
           <div class='panel-body'>
+            {% if shoppinglist_length > 0 %}
             {{shoppinglist.ingredients}}
+            {% else %}
+            <i>Your shopping list is currently empty.</i>
+            {% endif %}
           </div>
         </div>
     </div>
