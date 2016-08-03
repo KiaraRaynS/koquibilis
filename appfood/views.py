@@ -46,6 +46,7 @@ class IndexView(TemplateView):
             bookmarks = bookmarks[:10]
             userinventory = FoodItem.objects.filter(user=user.id).order_by('-last_edit')
             shoppinglist = ShoppingList.objects.get(user=user)
+            shoppinglist_length = len(shoppinglist.ingredients)
             uploaded_recipes = UserUploadedRecipe.objects.filter(user=user)
             bookmarked_uploads = UploadedRecipeBookmark.objects.filter(user=user).order_by('-bookmark_date')
             # Get user food list
@@ -71,6 +72,7 @@ class IndexView(TemplateView):
                     'possible_recipes': possible_recipes,
                     'possible_recipes_count': possible_recipes_count,
                     'shoppinglist': shoppinglist,
+                    'shoppinglist_length': shoppinglist_length,
                     'uploaded_recipes': uploaded_recipes,
                     'bookmarked_uploads': bookmarked_uploads,
                     }
@@ -661,7 +663,24 @@ class AddItemsToShoppingListView(UpdateView):
             new_list = new_list + item + ','
         form.instance.ingredients = new_list
         return super().form_valid(form)
-        # is not updating it seems
+
+
+class ClearShoppingListView(UpdateView):
+    model = ShoppingList
+    template_name = 'clearshoppinglistview.html'
+    fields = []
+    context_object_name = 'shopping_list'
+    success_url = '/'
+
+    def get_object(self, queryset=None):
+        user = self.request.user
+        if user.is_authenticated():
+            shoppinglist = ShoppingList.objects.get(user=user)
+            return shoppinglist
+
+    def form_valid(self, form):
+        form.instance.ingredients = ''
+        return super().form_valid(form)
 
 
 # User Created Recipe Views

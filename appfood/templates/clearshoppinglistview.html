@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+  {% if request.user.is_authenticated %}
+  <!-- If user is logged in -->
+    <div class="panel panel-default">
+      <div class='panel-heading'>
+        <h3>Clear Shopping List</h3>
+      </div>
+      <div class='panel-body'>
+        <strong>Current List</strong>
+        <p><i>{{shopping_list.ingredients}}</i></p>
+        <hr>
+        <form type='' method='post'>
+          {% csrf_token %}
+          <input class='btn btn-danger' type='submit' value="Confirm Clear">
+        </form>
+      </div>
+    </div>
+  <!-- User not logged in -->
+  {% else %}
+  <div class='registerbox'>
+    <p><strong>You do not have permission to view this page.</strong></p>
+  </div>
+  {% endif %}
+
+{% endblock %}

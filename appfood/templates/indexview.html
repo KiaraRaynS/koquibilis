@@ -85,8 +85,10 @@
     <div role='tabpanel' class='tab-pane' id='shoppinglist'>
       <p></p>
       <a href="{% url 'updateshoppinglistview' %}" class='btn btn-success'>Edit Shopping List</a>
-      <!-- Needs to be wired up
-      <a href="" class='btn btn-default'>  Clear List</a> -->
+      <!-- If shopping list is empty hide button -->
+      {% if shoppinglist_length > 0 %}
+        <a href="{% url 'clearshoppinglistview' %}" class='btn btn-default'>  Clear List</a>
+      {% endif %}
         <p><strong>Current list:</strong></p>
         <div class='panel panel-default'>
           <div class='panel-body'>
