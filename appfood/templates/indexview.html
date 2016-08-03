@@ -79,8 +79,10 @@
 
     <!-- Shopping List -->
     <div role='tabpanel' class='tab-pane' id='shoppinglist'>
+      <p></p>
       <a href="{% url 'updateshoppinglistview' %}" class='btn btn-success'>Edit Shopping List</a>
-      <a href="" class='btn btn-default'>Clear List</a>
+      <!-- Needs to be wired up
+      <a href="" class='btn btn-default'>  Clear List</a> -->
         <p><strong>Current list:</strong></p>
         <div class='panel panel-default'>
             {{shoppinglist.ingredients}}

@@ -5,7 +5,7 @@
 
   {% if savedrecipe.user == current_user %}
     <div class='panel panel-default'>
-      <h3>{{ savedrecipe.title }}</h3>
+      <h3>Delete Bookmark for {{ savedrecipe.title }}</h3>
       <p><strong>Notes: </strong>
       {% if savedrecipe.note != '' %}
       <i>{{savedrecipe.note}}</i>
