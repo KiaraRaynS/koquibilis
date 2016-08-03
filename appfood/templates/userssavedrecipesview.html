@@ -43,8 +43,8 @@
         </p>
         <!-- Buttons -->
         <p><a class='btn btn-default' href="{% url 'specificrecipeview' recipe.recipe_key %}">View Recipe</a>
-        <a class='btn btn-default' href="{% url 'additemstoshoppinglistview' recipe.id %}">Add ingredients to shopping list</a>
         {% if current_user == user %}
+        <a class='btn btn-default' href="{% url 'additemstoshoppinglistview' recipe.id %}">Add ingredients to shopping list</a>
         <a class='btn btn-danger' href="{% url 'deletebookmarkview' recipe.id %}">Remove Bookmark</a></p>
         {% endif %}
       </div>
