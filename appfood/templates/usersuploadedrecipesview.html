@@ -5,6 +5,10 @@
 <!-- If user has bookmarks private -->
   {% if user.userpage.uploads_private != False and user == current_user or user.userpage.uploads_private == False %}
       <h2>Your Uploaded Recipes</h2>
+      <!-- User upload or link new recipe button -->
+      {% if user == current_user %}
+      <a class='btn btn-default' href="{% url 'uploadrecipeview' %}">Upload or Link Recipe</a>
+      {% endif %}
       <!-- Pagination -->
           {% if is_paginated %}
             <div class='pagination'>
