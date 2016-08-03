@@ -1,4 +1,5 @@
 from django.shortcuts import render, render_to_response
+from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
 from django.core.urlresolvers import reverse_lazy
@@ -43,7 +44,7 @@ class IndexView(TemplateView):
             userpage = UserPage.objects.get(user=user)
             bookmarks = SavedRecipe.objects.filter(user=user.id).order_by('-bookmark_date')
             bookmarks = bookmarks[:10]
-            userinventory = FoodItem.objects.filter(user=user.id).order_by('-date_added')
+            userinventory = FoodItem.objects.filter(user=user.id).order_by('-last_edit')
             shoppinglist = ShoppingList.objects.get(user=user)
             uploaded_recipes = UserUploadedRecipe.objects.filter(user=user)
             bookmarked_uploads = UploadedRecipeBookmark.objects.filter(user=user).order_by('-bookmark_date')
@@ -109,6 +110,7 @@ class ProfileView(UpdateView):
         return context
 
 
+# User Profile
 class ViewUserProfileView(TemplateView):
     template_name = 'userprofileview.html'
 
@@ -130,6 +132,7 @@ class ViewUserProfileView(TemplateView):
         return context
 
 
+# User Uploaded Recipes Interactions
 class UsersSavedRecipesView(ListView):
     model = SavedRecipe
     template_name = 'userssavedrecipesview.html'
@@ -362,7 +365,6 @@ class SpecificRecipeView(TemplateView):
 
 
 # User and Recipe Interaction Views
-
 class SaveRecipeView(CreateView):
     template_name = 'saverecipeview.html'
     model = SavedRecipe
@@ -464,6 +466,7 @@ class SearchRecipesView(TemplateView):
         return context
 
 
+# User Bookmark Actions
 class DeleteBookmarkView(DeleteView):
     template_name = 'deletebookmarkview.html'
     success_url = '/'
@@ -500,6 +503,10 @@ class EditFoodView(UpdateView):
     def get_object(self, queryset=None):
         food_item = self.kwargs['food_id']
         return FoodItem.objects.get(id=food_item)
+
+    def form_valid(self, form):
+        form.instance.last_edit = timezone.now()
+        return super(EditFoodView, self).form_valid(form)
 
 
 class CookFoodView(View):

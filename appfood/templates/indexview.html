@@ -33,7 +33,7 @@
           <i>{{item.measurementunit}}</i>
           {% endif %}
           <span class='btn btn-info btn-sm'><a href="{% url 'editfoodview' item.id %}">Edit Item</a></span></h4>
-          <i>Last Edit: {{item.date_added}}</i>
+        <i>Last Edit: {{item.last_edit}}</i>
         </div>
         {% endif %}
       {% endfor %}
