@@ -4,11 +4,19 @@
 
 <!-- If user has bookmarks private -->
   {% if user.userpage.uploads_private != False and user == current_user or user.userpage.uploads_private == False %}
-      <h2>Your Uploaded Recipes</h2>
+      <h2>Your Uploaded Recipes
       <!-- User upload or link new recipe button -->
       {% if user == current_user %}
       <a class='btn btn-default' href="{% url 'uploadrecipeview' %}">Upload or Link Recipe</a>
       {% endif %}
+      </h2>
+
+      <!-- Search user recipes -->
+       <form action='{% url 'searchuploadedrecipesview' user.id %}' role="search"> <div class="form-group">
+         <input type="text" class="form-control" id='search_uploads' name='search_box' type='text' placeholder="Search Uploaded Recipes">
+         </div>
+         <button type="submit" id='search_uploads' class="btn btn-default">Search</button>
+       </form>
       <!-- Pagination -->
           {% if is_paginated %}
             <div class='pagination'>

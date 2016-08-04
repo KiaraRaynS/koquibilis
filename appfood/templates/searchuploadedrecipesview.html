@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+  <h2>Search results for {{search}}</h2>
+  <hr>
+  {% for item in matches %}
+  <div class='panel panel-default'>
+    <div class='panel-heading'>
+      <p>{{item.title}}  <a class='btn btn-default' href="{% url 'viewuploadedrecipeview' item.id %}">View Recipe</a></p>
+    </div>
+    <div class='panel-body'>
+      <p><strong>Ingredients: </strong><i>{{item.basic_ingredients}}</i></p>
+      {% if item.uploader_notes != '' %}
+      <strong>Notes: </strong><i>{{item.uploader_notes}}</i>
+      {% else %}
+      <i>No notes given for recipe.</i>
+      {% endif %}
+      <p></p>
+      <i>Uploaded {{item.upload_date}}</i>
+    </div>
+  </div>
+  {% endfor %}
+
+{% endblock %}

@@ -192,6 +192,31 @@ class UsersUploadedRecipesView(ListView):
         return context
 
 
+class SearchUploadedRecipesView(TemplateView):
+    template_name = 'searchuploadedrecipesview.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.method == "GET":
+            search_query = self.request.GET.get('search_box', None)
+            search_list = search_query.split(' ')
+            user_id = self.kwargs['user_id']
+            user = User.objects.get(id=user_id)
+            user_uploads = UserUploadedRecipe.objects.filter(user=user)
+            matches = []
+            for upload in user_uploads:
+                title_words = upload.title.split(' ')
+                notes_words = upload.uploader_notes.split(' ')
+                if set(search_list) <= set(title_words):
+                    matches.append(upload)
+                if set(search_list) <= set(notes_words):
+                    matches.append(upload)
+            print(matches)
+            context['search'] = search_query
+            context['matches'] = matches
+        return context
+
+
 # Recipe related views
 class AllRecipeView(ListView):
     model = Recipe
