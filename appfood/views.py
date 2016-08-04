@@ -577,6 +577,51 @@ class CookFoodView(View):
             return render(request, "cookfoodview.html", context)
 
 
+class CookUploadedFoodView(View):
+
+    def post(self, request, *args, **kwargs):
+        context = {}
+        data = self.request.POST
+        for value in data.items():
+            if value[0] != "csrfmiddlewaretoken":
+                recipeitem_id = value[0]
+                update_item = FoodItem.objects.get(id=recipeitem_id)
+                recipe_quantity = int(value[1])
+                if recipe_quantity < 0:
+                    recipe_quantity = 0
+                update_item.quantity = recipe_quantity
+                update_item.save()
+        return HttpResponseRedirect('/')
+        return render(request, "cookuploadedfoodview.html", context)
+
+    def get(self, request, recipe_id):
+        context = {}
+        user = self.request.user
+        if user.is_authenticated():
+            recipe = self.kwargs['recipe_id']
+            recipe_to_cook = UserUploadedRecipe.objects.get(id=recipe)
+            useringredients = FoodItem.objects.filter(user=user, quantity__gt=0)
+            # Get Ingredients to edit
+            ingredients_in_recipe = []
+            for item in useringredients:
+                if item.name in recipe_to_cook.basic_ingredients:
+                    ingredients_in_recipe.append(item)
+            # Make clean list of recipe detailed ingredients
+            detailedingredients_text = recipe_to_cook.detailed_ingredients
+            cleaned_text = detailedingredients_text.replace('[', '')
+            cleaned_text = cleaned_text.replace(']', '')
+            cleaned_text = cleaned_text.replace("'", '')
+            recipe_detailed_ingredients = cleaned_text.split(',')
+            # Return context
+            context['ingredientsbeingused'] = ingredients_in_recipe
+            context['ingredientslength'] = len(detailedingredients_text)
+            context['recipe'] = recipe_to_cook
+            context['detailedingredients'] = recipe_detailed_ingredients
+            return render(request, "cookuploadedfoodview.html", context)
+        else:
+            return render(request, "cookuploadedfoodview.html", context)
+
+
 class CookFoodViewx(UpdateView):
     model = FoodItem
     template_name = 'cookfoodview.html'

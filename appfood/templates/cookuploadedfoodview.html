@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block containerbodycontent %}
+
+  <!-- If User is logged in -->
+  {% if request.user.is_authenticated %}
+    <h2><img class='smallrecipeimage' src="{{recipe.small_image}}"> Cook {{recipe.title}}</h2>
+    <div class='panel panel-default'>
+      <div class='panel-heading'>
+        <!-- If user added detailedingredients -->
+        {% if ingredientslength > 0 %}
+        <strong>Recipe Ingredients by Instructions</strong>
+          <ul>
+            {% for item in detailedingredients %}
+            <li>{{item}}</li>
+            {% endfor %}
+          </ul>
+        <!-- If no detailed ingredients -->
+        {% else %}
+          <strong>No ingredient quantities specified.</strong>
+        {% endif %}
+      </div>
+    </div>
+    <hr>
+    <p>Alter ingredients to the remaining quantity</p>
+    <p><i>Setting quantity to 0 will remove item.</i></p>
+    <p><i>Anything set to a negative number will be removed.</i></p>
+
+    <form type='' method='post'>
+    {% csrf_token %}
+    {% for ingredient in ingredientsbeingused %}
+
+      <div class='panel panel-default'>
+        <strong>{{ingredient.name}}: </strong>{{form.quantity}}
+        <input type="number" placeholder="Current: {{ingredient.quantity}}{% if ingredient.measurementunit != None %}x {{ingredient.measurementunit}}{% endif %}" name="{{ingredient.id}}">
+        {% if ingredient.measurementunit != None %}
+          <i>{{ingredient.measurementunit}}</i>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <input type='submit' class='form-control' value='Confirm Inventory Update'>
+    </form>
+    <hr>
+  <!-- If user is not logged in -->
+  {% else %}
+    <div class='registerbox'>
+      <p><strong>You do not have permission to view this page.</strong></p>
+    </div>
+  {% endif %}
+
+{% endblock %}

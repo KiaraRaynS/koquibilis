@@ -15,7 +15,7 @@ from appfood.views import SoyFreeRecipeView
 from appfood.views import SaveRecipeView, DeleteBookmarkView, AddFoodView, EditFoodView, SearchRecipesView, CookFoodView, UpdateShoppingListView, AddItemsToShoppingListView
 from appfood.views import ViewUserProfileView, UploadRecipeView, EditUploadedRecipeView, DeleteUploadedRecipeView, ViewUploadedRecipeView
 from appfood.views import BookmarkUploadedRecipeView, DeleteBookmarkedUploadView, UsersUploadedRecipesView
-from appfood.views import ClearShoppingListView
+from appfood.views import ClearShoppingListView, CookUploadedFoodView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -56,6 +56,7 @@ urlpatterns = [
     url(r'^addfood/$', AddFoodView.as_view(), name='addfoodview'),
     url(r'^editfood/(?P<food_id>\d+)/$', EditFoodView.as_view(), name='editfoodview'),
     url(r'^cookfood/(?P<recipe_id>\d+)/$', CookFoodView.as_view(), name='cookfoodview'),
+    url(r'^cookfood/uploads/(?P<recipe_id>\d+)/$', CookUploadedFoodView.as_view(), name='cookuploadedfoodview'),
     url(r'^shoppinglist/$', UpdateShoppingListView.as_view(), name='updateshoppinglistview'),
     url(r'^shoppinglist/additems/(?P<recipe_id>\d+)/$', AddItemsToShoppingListView.as_view(), name='additemstoshoppinglistview'),
     url(r'^shoppinglist/clear/$', ClearShoppingListView.as_view(), name='clearshoppinglistview'),

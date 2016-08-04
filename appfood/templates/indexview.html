@@ -63,7 +63,7 @@
                 <img class='smallrecipeimage' src="{{possiblerecipe.small_image}}">
                 {% endif %}
                 <strong>{{possiblerecipe.title}}</strong>
-                <a class='btn btn-info'>Cook Recipe</a>
+                <a href="{% url 'cookuploadedfoodview' possiblerecipe.id %}"class='btn btn-info'>Cook Recipe</a>
               </div>
             </div>
           {% endfor %}
