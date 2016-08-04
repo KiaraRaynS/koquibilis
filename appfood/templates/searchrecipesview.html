@@ -8,6 +8,7 @@
     <a class='btn btn-default' href="{% url 'searchrecipesview' previous %}{{search_box}}">Previous Page</a>
   {% endif %}
   <a class='btn btn-default' href="{% url 'searchrecipesview' next %}{{search_box}}">Next Page</a>
+  <p></p>
   {% for result in results %}
     <div class='panel panel-default'>
       <div class='panel-heading'>
