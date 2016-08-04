@@ -66,12 +66,15 @@ class IndexView(TemplateView):
                     possible_recipes_frombookmarks.append(recipe)
             possible_recipes_fromuploads = []
             for recipe in uploaded_recipes:
-                print(recipe)
                 recipe_ingredients = recipe.basic_ingredients.replace('[', '')
                 recipe_ingredients = recipe_ingredients.replace(']', '')
                 recipe_ingredients = recipe_ingredients.replace(' ', '')
                 recipe_ingredients = recipe_ingredients.replace("'", '')
-                recipe_ingredients_list = recipe_ingredients.split(',')
+                recipe_ingredients_l = recipe_ingredients.split(',')
+                recipe_ingredients_list = []
+                for item in recipe_ingredients_l:
+                    if item != '':
+                        recipe_ingredients_list.append(item)
                 if set(recipe_ingredients_list) <= set(userinventory_list):
                     possible_recipes_fromuploads.append(recipe)
             possible_recipes_count = len(possible_recipes_frombookmarks) + len(possible_recipes_fromuploads)
