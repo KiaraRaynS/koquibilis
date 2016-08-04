@@ -4,7 +4,11 @@
 
   <!-- If User is logged in -->
   {% if request.user.is_authenticated %}
-    <h2><img class='smallrecipeimage' src="{{recipe.small_image}}"> Cook {{recipe.title}}</h2>
+    <h2>
+      {% if recipe.recipephoto %}
+      <img class='smallrecipeimage' src="{{recipe.recipephoto.url}}">
+      {% endif %}
+      Cook {{recipe.title}}</h2>
     <div class='panel panel-default'>
       <div class='panel-heading'>
         <!-- If user added detailedingredients -->
