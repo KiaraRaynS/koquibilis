@@ -53,7 +53,7 @@ class IndexView(TemplateView):
             userinventory_list = []
             for item in userinventory:
                 if item.quantity > 0:
-                    userinventory_list.append(item.name)
+                    userinventory_list.append(item.name.replace(' ', ''))
             # Bookmarked food list
             possible_recipes = []
             for recipe in bookmarks:
