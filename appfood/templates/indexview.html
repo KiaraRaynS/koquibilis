@@ -45,15 +45,28 @@
   <!-- Possible Recipes -->
     <div role='tabpanel' class='tab-pane' id='possiblerecipes'>
       {% if possible_recipes_count > 0 %}
+        <h4>From Bookmarked Recipes </h4>
         {% for possiblerecipe in possible_recipes %}
           <div class='panel panel-default'>
             <div class='panel-body'>
               <img class='smallrecipeimage' src="{{possiblerecipe.small_image}}">
               <strong>{{possiblerecipe.title}}</strong>
-              <a href="{% url 'cookfoodview' possiblerecipe.id %}" class='btn btn-info'>Cook Recipe</a>
+              <a href="{% url 'cookfoodview' possiblerecipe.id %}" class='btn btn-info'>cook recipe</a>
             </div>
           </div>
         {% endfor %}
+        <h4>From Uploaded Recipes</h4>
+          {% for possiblerecipe in possible_uploadedrecipes %}
+            <div class='panel panel-default'>
+              <div class='panel-body'>
+                {% if possiblerecipe.photo %}
+                <img class='smallrecipeimage' src="{{possiblerecipe.small_image}}">
+                {% endif %}
+                <strong>{{possiblerecipe.title}}</strong>
+                <a class='btn btn-info'>Cook Recipe</a>
+              </div>
+            </div>
+          {% endfor %}
       {% else %}
       <p></p>
       <p>Insufficient ingredients to prepare any of saved recipes.</p>

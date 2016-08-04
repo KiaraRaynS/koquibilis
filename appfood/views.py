@@ -53,9 +53,9 @@ class IndexView(TemplateView):
             userinventory_list = []
             for item in userinventory:
                 if item.quantity > 0:
-                    userinventory_list.append(item.name.replace(' ', ''))
+                    userinventory_list.append(item.name.replace(' ', '').lower())
             # Bookmarked food list
-            possible_recipes = []
+            possible_recipes_frombookmarks = []
             for recipe in bookmarks:
                 recipe_ingredients = recipe.ingredients.replace('[', '')
                 recipe_ingredients = recipe_ingredients.replace(']', '')
@@ -63,13 +63,24 @@ class IndexView(TemplateView):
                 recipe_ingredients = recipe_ingredients.replace("'", '')
                 recipe_ingredients_list = recipe_ingredients.split(',')
                 if set(recipe_ingredients_list) <= set(userinventory_list):
-                    possible_recipes.append(recipe)
-            possible_recipes_count = len(possible_recipes)
+                    possible_recipes_frombookmarks.append(recipe)
+            possible_recipes_fromuploads = []
+            for recipe in uploaded_recipes:
+                print(recipe)
+                recipe_ingredients = recipe.basic_ingredients.replace('[', '')
+                recipe_ingredients = recipe_ingredients.replace(']', '')
+                recipe_ingredients = recipe_ingredients.replace(' ', '')
+                recipe_ingredients = recipe_ingredients.replace("'", '')
+                recipe_ingredients_list = recipe_ingredients.split(',')
+                if set(recipe_ingredients_list) <= set(userinventory_list):
+                    possible_recipes_fromuploads.append(recipe)
+            possible_recipes_count = len(possible_recipes_frombookmarks) + len(possible_recipes_fromuploads)
             context = {
                     'userpage': userpage,
                     'bookmarks': bookmarks,
                     'useritems': userinventory,
-                    'possible_recipes': possible_recipes,
+                    'possible_recipes': possible_recipes_frombookmarks,
+                    'possible_uploadedrecipes': possible_recipes_fromuploads,
                     'possible_recipes_count': possible_recipes_count,
                     'shoppinglist': shoppinglist,
                     'shoppinglist_length': shoppinglist_length,
