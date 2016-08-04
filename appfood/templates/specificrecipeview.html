@@ -3,26 +3,33 @@
 {% block containerbodycontent %}
 <div class='panel panel-default'>
 <div class='panel-body'>
-  <h2>{{ recipedata.name}} <span class='label label-warning'>Rating: {{recipedata.rating}}</span> {% if user.is_authenticated %}<a href="{% url 'saverecipeview' recipedata.id %}" class='btn btn-default '>Bookmark Recipe</a>{% endif %}</h2>
-  <div class=recipeimage'><img src="{{image_url}}"></div>
+  <h2>{{ recipedata.name}} <span class='label label-warning'>Rating: {{recipedata.rating}}</span> </h2>
   <p></p>
-  <span class='label label-info'>Piquant: {{recipedata.flavors.Piquant}}</span>
-  <span class='label label-info'>Sour: {{recipedata.flavors.Sour}}</span>
-  <span class='label label-info'>Salty: {{recipedata.flavors.Salty}}</span>
-  <span class='label label-info'>Bitter: {{recipedata.flavors.Bitter}}</span>
-  <span class='label label-info'>Sweet: {{recipedata.flavors.Sweet}}</span>
-  <span class='label label-info'>Meaty: {{recipedata.flavors.Meaty}}</span>
-  <i></i>
-  <p>-</p>
-  <h4><span class='label label-default'>Total Time: {{ recipedata.totalTime }}</span><span class='label label-default'>Cook Time: {{ recipedata.cookTime }}</span></h4>
-  <a class='btn btn-success' href="{{recipedata.source.sourceRecipeUrl}}">Full Recipe</a>
+  <div class=recipeimageanddata' style='float:left; padding-top: 10px;'><img class='recipeimage' height='360px' width='360px' src="{{image_url}}">
+    <p></p>
+    <span class='label label-info'>Piquant: {{recipedata.flavors.Piquant}}</span>
+    <span class='label label-info'>Sour: {{recipedata.flavors.Sour}}</span>
+    <span class='label label-info'>Salty: {{recipedata.flavors.Salty}}</span>
+    <span class='label label-info'>Bitter: {{recipedata.flavors.Bitter}}</span>
+    <span class='label label-info'>Sweet: {{recipedata.flavors.Sweet}}</span>
+    <span class='label label-info'>Meaty: {{recipedata.flavors.Meaty}}</span>
+    <i></i>
+    <p>-</p>
+    <h4><span class='label label-default'>Total Time: {{ recipedata.totalTime }}</span><span class='label label-default'>Cook Time: {{ recipedata.cookTime }}</span></h4>
+    <a class='btn btn-success' href="{{recipedata.source.sourceRecipeUrl}}">Full Recipe</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'saverecipeview' recipedata.id %}" class='btn btn-default '>Bookmark Recipe</a>
+    {% endif %}
+  </div>
   <hr>
-  <p><strong>Ingredients: </strong></p>
-  {% for item in recipedata.ingredientLines %}
-    <ul>
-      <li><i>{{item}}</i></li>
-    </ul>
-    {% endfor %}
+  <div class='recipeingredients' style='float:right; padding-right:150px;'>
+    <p><strong>Ingredients: </strong></p>
+    {% for item in recipedata.ingredientLines %}
+      <ul>
+        <li><i>{{item}}</i></li>
+      </ul>
+      {% endfor %}
+  </div>
 </div>
 </div>
 {% endblock %}

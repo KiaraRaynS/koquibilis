@@ -7,8 +7,10 @@
   <form type='' method='post'>
     {% csrf_token %}
     {{form.errors}}
-    <p><strong>Username {{form.username}}</strong></p>
-    <p><strong>Password {{form.password}}</strong></p>
+    <strong>Username</strong>
+    <p>{{form.username}}</p>
+    <strong>Password </strong>
+    <p>{{form.password}}</p>
     <p><input class='btn btn-default' type='submit' value='Login'></p>
     <div text-style='align:center'><input type='hidden' name='next' value='{{ next }}'></div>
     <div class='loginbutton'><p><strong>-Or-</strong></p></div>
