@@ -46,7 +46,10 @@ class IndexView(TemplateView):
             bookmarks = bookmarks[:10]
             userinventory = FoodItem.objects.filter(user=user.id).order_by('-last_edit')
             shoppinglist = ShoppingList.objects.get(user=user)
-            shoppinglist_length = len(shoppinglist.ingredients)
+            if shoppinglist.ingredients:
+                shoppinglist_length = len(shoppinglist.ingredients)
+            else:
+                shoppinglist_length = 0
             uploaded_recipes = UserUploadedRecipe.objects.filter(user=user)
             bookmarked_uploads = UploadedRecipeBookmark.objects.filter(user=user).order_by('-bookmark_date')
             # Get user food list
